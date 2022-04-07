@@ -91,7 +91,6 @@ repositories {
 dependencies {
 
     // These 7 will always be in game
-    "deobfCompile"("gregtechce:gregtech:$mcVersion:${config["gregtech.version"]}")
     "deobfCompile"("codechicken-lib-1-8:CodeChickenLib-$mcVersion:${config["ccl.version"]}:universal")
     "deobfCompile"("codechicken:ChickenASM:$shortVersion-${config["chickenasm.version"]}")
     "deobfCompile"("mezz.jei:jei_$mcVersion:${config["jei.version"]}")
@@ -112,6 +111,7 @@ dependencies {
     }
 
     // Change to "compile" to add one of these to game
+    "compile"(files("extdeps/GregTech_TJ_Fork-1.12.2-1.17.2.780.jar"))
     "provided"(files("extdeps/appliedenergistics2-rv6-stable-7.jar"))
     "compileOnly"(files("extdeps/refinedstorage-1.6.15.jar"))
     "compileOnly"(files("extdeps/Cucumber-1.12.2-1.1.3.jar"))
@@ -148,7 +148,7 @@ val jar: Jar by tasks
 jar.apply {
     manifest {
         attributes(mapOf("FMLAT" to "gregicality_at.cfg",
-            "FMLCorePluginContainsFMLMod" to "true",
-            "FMLCorePlugin" to "gregicadditions.coremod.GACoreMod"))
+                "FMLCorePluginContainsFMLMod" to "true",
+                "FMLCorePlugin" to "gregicadditions.coremod.GACoreMod"))
     }
 }
