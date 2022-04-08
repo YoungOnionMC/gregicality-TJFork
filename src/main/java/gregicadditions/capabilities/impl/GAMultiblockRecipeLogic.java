@@ -59,23 +59,16 @@ public class GAMultiblockRecipeLogic extends MultiblockRecipeLogic {
             return new int[]{EUt, durationModified};
         if (negativeEU)
             EUt = -EUt;
-        if (EUt <= 16) {
-            int multiplier = EUt <= 8 ? tier : tier - 1;
-            int resultEUt = EUt * (1 << multiplier) * (1 << multiplier);
-            int resultDuration = durationModified / (1 << multiplier);
-            previousRecipeDuration = resultDuration;
-            return new int[]{negativeEU ? -resultEUt : resultEUt, resultDuration};
-        } else {
             int resultEUt = EUt;
             double resultDuration = durationModified;
             //do not overclock further if duration is already too small
-            while (resultDuration >= 3 && resultEUt <= GAValues.V[tier - 1]) {
+            while (resultDuration >= 1 && resultEUt <= GAValues.V[tier - 1]) {
                 resultEUt *= 4;
                 resultDuration /= 2.8;
             }
             previousRecipeDuration = (int) resultDuration;
             return new int[]{negativeEU ? -resultEUt : resultEUt, (int) Math.ceil(resultDuration)};
-        }
+
     }
 
     @Override
