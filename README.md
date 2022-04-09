@@ -1,17 +1,13 @@
-# Gregicality
+# Gregicality TJ fork
 
-[![Downloads](http://cf.way2muchnoise.eu/full_gregicality_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/gregicality) [![MCVersion](http://cf.way2muchnoise.eu/versions/gregicality.svg)](https://www.curseforge.com/minecraft/mc-mods/gregicality)
-
-[![GitHub issues](https://img.shields.io/github/issues/GregTechCEu/gregicality.svg)](https://github.com/GregTechCEu/gregicality/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/GregTechCEu/gregicality.svg)](https://github.com/GregTechCEu/gregicality/pulls) [![license](https://img.shields.io/github/license/GregTechCEu/gregicality.svg)](../master/LICENSE)
 
 ----
 
-**Gregicality for GTCE is no longer being updated.**
-Only crashes and critical vulnerabilities will be addressed.
+**Gregicality TJ fork for GTCE **
 
-Join us on [Discord](https://discord.gg/bWSWuYvURP)
 
-A work in progress wiki can be found [here](https://gregicality.miraheze.org/wiki/Gregicality_Wiki)
+Join us on [Discord](https://discord.gg/sKbWskxXdG)
+
 
 thanks to magcicada and ChromaPIE  for Chinese translation.
 
