@@ -260,7 +260,7 @@ public class NuclearHandler {
                         .buildAndRegister();
             });
         } else if (isotopeMaterial != null && isotopeMaterial.fissile) {
-            IntStream.range(1, 10).forEach(operand -> {
+            IntStream.range(1, 6).forEach(operand -> {
                 /*
                 NUCLEAR_REACTOR_RECIPES.recipeBuilder().duration(20000).EUt(((isotopeMaterial.baseHeat + operand) * operand * 2) * 80 / 100) //20000 => 80% eff
                         .baseHeatProduction((isotopeMaterial.baseHeat + operand) * operand * 2)
@@ -295,7 +295,7 @@ public class NuclearHandler {
  */
             });
 
-            IntStream.range(1, 10).forEach(operand ->
+            IntStream.range(1, 6).forEach(operand ->
                     IsotopeMaterial.REGISTRY.entrySet().stream()
                             .filter(isotopeMaterialEntry -> isotopeMaterialEntry.getValue().fertile)
                             .forEach(isotopeMaterialEntry -> {

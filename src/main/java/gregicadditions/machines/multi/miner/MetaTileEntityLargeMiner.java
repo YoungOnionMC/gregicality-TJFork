@@ -29,7 +29,6 @@ import gregtech.api.render.Textures;
 import gregtech.api.unification.material.type.Material;
 import gregtech.api.unification.material.type.SolidMaterial;
 import gregtech.common.blocks.MetaBlocks;
-import gregtech.common.tools.ToolUtility;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -125,7 +124,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
 
     @Override
     public long getNbBlock() {
-        int tierDifference = GAUtility.getTierByVoltage(energyContainer.getInputVoltage()) - GAValues.EV;
+        int tierDifference = GAUtility.getTierByVoltage(energyContainer.getInputVoltage()) - GAValues.MV;
         return (long) Math.floor(Math.pow(2, tierDifference));
     }
 
@@ -176,7 +175,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
                 NonNullList<ItemStack> itemStacks = NonNullList.create();
                 IBlockState blockState = this.getWorld().getBlockState(blockPos1);
                 if (!silktouch) {
-                    ToolUtility.applyHammerDrops(world.rand, blockState, itemStacks, type.fortune, null);
+                    GAUtility.applyHammerDrops(world.rand, blockState, itemStacks, type.fortune, null);
                 } else {
                     itemStacks.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
                 }

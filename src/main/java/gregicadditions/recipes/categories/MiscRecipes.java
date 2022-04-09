@@ -1,12 +1,13 @@
 package gregicadditions.recipes.categories;
 
+
+import gregicadditions.machines.GATileEntities;
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.UnificationEntry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
 import static gregicadditions.GAMaterials.*;
 import static gregicadditions.item.GAMetaItems.DEGENERATE_RHENIUM_DUST;
 import static gregicadditions.recipes.GARecipeMaps.BLAST_ALLOY_RECIPES;
@@ -186,5 +187,10 @@ public class MiscRecipes {
             .input(dust, UraniumRadioactive.getMaterial())
             .output(dust, EVSuperconductorBase, 4)
             .buildAndRegister();
+
+        ModHandler.addShapelessRecipe("drum_nbt_wood", GATileEntities.WOODEN_DRUM.getStackForm(), GATileEntities.WOODEN_DRUM.getStackForm());
+        ModHandler.addShapelessRecipe("drum_nbt_bronze", GATileEntities.BRONZE_DRUM.getStackForm(), GATileEntities.BRONZE_DRUM.getStackForm());
+        ModHandler.addShapelessRecipe("drum_nbt_steel", GATileEntities.STEEL_DRUM.getStackForm(), GATileEntities.STEEL_DRUM.getStackForm());
+        ModHandler.addShapelessRecipe("drum_nbt_stainless_steel", GATileEntities.STAINLESS_STEEL_DRUM.getStackForm(), GATileEntities.STAINLESS_STEEL_DRUM.getStackForm());
     }
 }

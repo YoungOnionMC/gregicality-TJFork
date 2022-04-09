@@ -49,7 +49,7 @@ public interface Miner {
     long getTimer();
 
     default long getNbBlock() {
-        return 1L;
+        return 3L;
     }
 
     List orePrefixes = Arrays.asList(OrePrefix.ore, OrePrefix.valueOf("oreRich"), OrePrefix.valueOf("orePoor"), OrePrefix.valueOf("orePure"));

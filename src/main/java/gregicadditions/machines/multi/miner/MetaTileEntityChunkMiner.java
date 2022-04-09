@@ -21,8 +21,10 @@ import gregtech.api.render.Textures;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.util.GTUtility;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagLong;
@@ -190,7 +192,7 @@ public class MetaTileEntityChunkMiner extends TieredMetaTileEntity implements Mi
                     blockState.getBlock().getDrops(itemStacks, world, blockPos1, blockState, 0);
                     if (addItemsToItemHandler(exportItems, true, itemStacks)) {
                         addItemsToItemHandler(exportItems, false, itemStacks);
-                        world.destroyBlock(blockPos1, false);
+                        world.setBlockState(blockPos1, Blocks.COBBLESTONE.getDefaultState());
                     }
                 });
             }
