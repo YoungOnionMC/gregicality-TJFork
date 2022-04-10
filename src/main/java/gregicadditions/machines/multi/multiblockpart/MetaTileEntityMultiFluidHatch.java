@@ -92,6 +92,7 @@ public class MetaTileEntityMultiFluidHatch extends GAMetaTileEntityMultiblockPar
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format("gtadditions.machine.multi_fluid_hatch_universal.tooltip.1"));
         tooltip.add(I18n.format("gtadditions.machine.multi_fluid_hatch_universal.tooltip.2", (int) Math.pow(this.getTier(), 2)));
+        tooltip.add(I18n.format("gregtech.universal.enabled"));
     }
 
     @Override

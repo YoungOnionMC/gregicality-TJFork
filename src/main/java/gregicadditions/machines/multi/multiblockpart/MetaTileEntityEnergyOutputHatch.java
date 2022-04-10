@@ -5,10 +5,15 @@ import gregtech.api.capability.impl.EnergyContainerHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntityHolder;
 import gregtech.common.metatileentities.electric.multiblockpart.MetaTileEntityEnergyHatch;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
+import java.util.List;
 
 public class MetaTileEntityEnergyOutputHatch extends MetaTileEntityEnergyHatch {
 
@@ -30,5 +35,10 @@ public class MetaTileEntityEnergyOutputHatch extends MetaTileEntityEnergyHatch {
     @Override
     public MetaTileEntity createMetaTileEntity(MetaTileEntityHolder holder) {
         return new MetaTileEntityEnergyOutputHatch(metaTileEntityId, getTier(), amps);
+    }
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        tooltip.add(I18n.format("gregtech.universal.enabled"));
     }
 }

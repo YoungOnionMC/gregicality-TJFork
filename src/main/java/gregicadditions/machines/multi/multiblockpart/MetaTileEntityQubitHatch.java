@@ -97,5 +97,6 @@ public class MetaTileEntityQubitHatch extends MetaTileEntityMultiblockPart imple
             tooltip.add(I18n.format("gregtech.universal.tooltip.amperage_in_till", qubitContainer.getInputParallel()));
         }
         tooltip.add(I18n.format("gregtech.universal.tooltip.energy_storage_capacity", qubitContainer.getQubitCapacity()));
+        tooltip.add(I18n.format("gregtech.universal.enabled"));
     }
 }

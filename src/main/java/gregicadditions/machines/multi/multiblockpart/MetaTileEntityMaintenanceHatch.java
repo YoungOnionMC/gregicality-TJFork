@@ -24,14 +24,17 @@ import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.SimpleOverlayRenderer;
 import gregtech.api.render.Textures;
 import gregtech.common.metatileentities.electric.multiblockpart.MetaTileEntityMultiblockPart;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.*;
+import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static gregicadditions.capabilities.MultiblockDataCodes.IS_TAPED;
@@ -380,8 +383,25 @@ public class MetaTileEntityMaintenanceHatch extends MetaTileEntityMultiblockPart
     }
 
     @Override
+    public boolean canPartShare() {
+        return this.getTier() == 9;
+    }
+
+    @Override
     public void registerAbilities(List<MetaTileEntityMaintenanceHatch> list) {
         list.add(this);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        if (this.getTier() != 9) {
+            tooltip.add(I18n.format("gregtech.universal.disabled"));
+        }
+        else {
+            tooltip.add(I18n.format("gregtech.universal.enabled"));
+        }
+            super.addInformation(stack, player, tooltip, advanced);
+
     }
 
     public boolean isTaped() {
