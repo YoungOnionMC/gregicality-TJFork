@@ -288,10 +288,10 @@ public class MetaTileEntityVoidMiner extends GAMultiblockWithDisplayBase { //tod
             case 8:
                 return METAL_CASING_1.getState(MetalCasing1.CasingType.HASTELLOY_N);
             case 9:
-                return METAL_CASING_2.getState(MetalCasing2.CasingType.ENRICHED_NAQUADAH_ALLOY);
+                return METAL_CASING_2.getState(MetalCasing2.CasingType.TRITANIUM);
             case 10:
             default:
-                return METAL_CASING_1.getState(MetalCasing1.CasingType.HASTELLOY_K243);
+                return METAL_CASING_2.getState(MetalCasing2.CasingType.QUANTUM);
         }
     }
 
@@ -323,16 +323,16 @@ public class MetaTileEntityVoidMiner extends GAMultiblockWithDisplayBase { //tod
     public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
         switch (tier) {
             case 9:
-                return ENRICHED_NAQUADAH_ALLOY_CASING;
+                return TRITANIUM_CASING;
             case 10:
-                return HASTELLOY_K243_CASING;
+                return QUANTUM_CASING;
             case 8:
             default:
                 return HASTELLOY_N_CASING;
         }
     }
 
-    @Override
+        @Override
     public MetaTileEntity createMetaTileEntity(MetaTileEntityHolder holder) {
         return new MetaTileEntityVoidMiner(metaTileEntityId, this.tier, this.maxTemperature);
     }
