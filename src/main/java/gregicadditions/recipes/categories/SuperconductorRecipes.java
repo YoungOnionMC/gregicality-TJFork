@@ -172,7 +172,7 @@ public class SuperconductorRecipes {
         MIXER_RECIPES.recipeBuilder().duration(2781).EUt(30)
                 .inputs(TBCCODust.getItemStack(4))
                 .inputs(StrontiumSuperconductorDust.getItemStack(4))
-                .input(dust, Taranium)
+                .input(dust, Amethyst)
                 .output(dust, UHVSuperconductorBase, 9)
                 .buildAndRegister();
 
@@ -180,7 +180,7 @@ public class SuperconductorRecipes {
                 .input(dust, UHVSuperconductorBase, 9)
                 .outputs(TBCCODust.getItemStack(4))
                 .outputs(StrontiumSuperconductorDust.getItemStack(4))
-                .output(dust, Taranium)
+                .output(dust, Amethyst)
                 .buildAndRegister();
 
         // UEV Superconductor Base Dust
