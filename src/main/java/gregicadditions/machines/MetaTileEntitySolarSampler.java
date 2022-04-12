@@ -26,6 +26,7 @@ import gregtech.api.render.SimpleSidedCubeRenderer;
 import gregtech.api.render.Textures;
 import gregtech.api.util.GTUtility;
 import gregtech.common.covers.CoverSolarPanel;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -41,6 +42,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,12 +61,8 @@ public class MetaTileEntitySolarSampler extends MetaTileEntity implements IWorka
 
     public MetaTileEntitySolarSampler(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.energyContainer = new EnergyContainerHandler(this, 32, 0, 0, 0L, 0L) {
-            @Override
-            public long acceptEnergyFromNetwork(EnumFacing side, long voltage, long amperage) {
-                return 0;
-            }
-        };
+        this.energyContainer = new EnergyContainerHandler(this, 32, 32, 1, 0L, 0L);
+        ((EnergyContainerHandler) this.energyContainer).setSideInputCondition(s -> s == EnumFacing.UP);
 
     }
 
@@ -128,6 +126,11 @@ public class MetaTileEntitySolarSampler extends MetaTileEntity implements IWorka
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Pair<TextureAtlasSprite, Integer> getParticleTexture() {
+        return  Pair.of(ClientHandler.VOLTAGE_CASINGS[GAValues.HV].getParticleSprite(), this.getPaintingColor());
     }
 
     @Override
