@@ -61,7 +61,6 @@ public class MetaTileEntitySteamItemBus extends MetaTileEntityItemBus implements
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
         tooltip.add(I18n.format("gtadditions.machine.steam_bus.tooltip"));
-        tooltip.add(I18n.format("gregtech.universal.enabled"));
     }
 
     @Override

@@ -46,6 +46,8 @@ public class MetaTileEntityMaintenanceHatch extends MetaTileEntityMultiblockPart
     private ItemStackHandler inventory;
     private final byte type; // Type 0 is regular, 1 is auto taping, 2 is full auto
     private boolean isTaped;
+    private ICubeRenderer hatchTexture = null;
+
 
     // Used to store state temporarily if the Controller is broken
     private byte problems = -1;
@@ -347,7 +349,18 @@ public class MetaTileEntityMaintenanceHatch extends MetaTileEntityMultiblockPart
     @Override
     public ICubeRenderer getBaseTexture() {
         MultiblockControllerBase controller = getController();
-        return controller == null ? getTier() == 9 ? ClientHandler.VOLTAGE_CASINGS[getTier()] : Textures.VOLTAGE_CASINGS[getTier()] : controller.getBaseTexture(this);
+        if (controller != null) {
+            this.hatchTexture = controller.getBaseTexture(this);
+        }
+        if (controller == null && this.hatchTexture != null) {
+            return this.hatchTexture;
+        }
+        if (controller == null) {
+            this.setPaintingColor(DEFAULT_PAINTING_COLOR);
+            return ClientHandler.VOLTAGE_CASINGS[getTier()];
+        }
+        this.setPaintingColor(0xFFFFFF);
+        return controller.getBaseTexture(this);
     }
 
     /**
