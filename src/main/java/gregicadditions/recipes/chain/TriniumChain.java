@@ -1,5 +1,6 @@
 package gregicadditions.recipes.chain;
 
+import gregicadditions.materials.SimpleDustMaterial;
 import gregtech.api.GTValues;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
@@ -193,7 +194,7 @@ public class TriniumChain {
         ASSEMBLER_RECIPES.recipeBuilder().duration(350).EUt(32750)
                 .input(wireFine, CarbonNanotubes,6)
                 .inputs(Fullerene.getItemStack())
-                .inputs(Fluorocarborane.getItemStack(125))
+                .inputs(Fluorocarborane.getItemStack(50))
                 .fluidInputs(Perfluorobenzene.getFluid(2000))
                 .outputs(PROTONATED_FULLERENE_SIEVING_MATRIX.getStackForm())
                 .buildAndRegister();
@@ -211,23 +212,21 @@ public class TriniumChain {
         //Ke6C65H70B55F55 + 13 H2SbF7 + 59 KrF2 -> 59 Kr + 13 SbF3 + 6 KeF4 + 32 C2H2 + CF4 + 55 BF3 + 32 HF
         CHEMICAL_RECIPES.recipeBuilder().duration(180).EUt(131000)
                 .inputs(SATURATED_FULLERENE_SIEVING_MATRIX.getStackForm())
-                .fluidInputs(FluoroantimonicAcid.getFluid(13000))
-                .fluidInputs(KryptonDifluoride.getFluid(59000))
-                .outputs(AntimonyTrifluoride.getItemStack(52))
-                .chancedOutput(OreDictUnifier.get(wireFine, CarbonNanotubes, 6), 9500, 0)
-                .fluidOutputs(Krypton.getFluid(59000))
-                .fluidOutputs(HeavilyFluorinatedTriniumSolution.getFluid(2000))
+                .fluidInputs(FluoroantimonicAcid.getFluid(8000))
+                .fluidInputs(KryptonDifluoride.getFluid(16000))
+                .outputs(AntimonyTrifluoride.getItemStack(32))
+                .outputs( Fluorocarborane.getItemStack(50))
+                .fluidOutputs(Krypton.getFluid(16000))
+                .fluidOutputs(HeavilyFluorinatedTriniumSolution.getFluid(8000))
                 .buildAndRegister();
 
-        DISTILLATION_RECIPES.recipeBuilder().duration(350).EUt(32760)
-                .fluidInputs(HeavilyFluorinatedTriniumSolution.getFluid(2000))
-                .outputs(TriniumTetrafluoride.getItemStack(30))
+        CENTRIFUGE_RECIPES.recipeBuilder().duration(350).EUt(32760)
+                .fluidInputs(HeavilyFluorinatedTriniumSolution.getFluid(8000))
+                .outputs(TriniumTetrafluoride.getItemStack(60))
+                .fluidOutputs(Fluorine.getFluid(16000))
                 .fluidOutputs(Perfluorobenzene.getFluid(2000))
-                .fluidOutputs(Acetylene.getFluid(32000))
-                .fluidOutputs(BoronFluoride.getFluid(55000))
-                .fluidOutputs(CarbonFluoride.getFluid(1000))
-                .fluidOutputs(HydrofluoricAcid.getFluid(32000))
                 .buildAndRegister();
+
 
         CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30)
                 .input(dust, Calcium)
