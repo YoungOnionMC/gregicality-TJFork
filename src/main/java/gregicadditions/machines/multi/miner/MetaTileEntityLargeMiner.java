@@ -32,6 +32,7 @@ import gregtech.common.blocks.MetaBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
@@ -181,7 +182,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
                 }
                 if (addItemsToItemHandler(outputInventory, true, itemStacks)) {
                     addItemsToItemHandler(outputInventory, false, itemStacks);
-                    world.destroyBlock(blockPos1, false);
+                    world.setBlockState(blockPos1, Blocks.COBBLESTONE.getDefaultState());
                 }
             });
 
