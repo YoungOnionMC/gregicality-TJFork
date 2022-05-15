@@ -203,7 +203,7 @@ public class WaferRecipes {
         CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(210).EUt(30000)
                 .notConsumable(stick, Sapphire)
                 .inputs(LuTmYVONanoparticles.getItemStack())
-                .fluidInputs(LuTmYVO.getFluid(L / 2))
+                .fluidInputs(LuTmYVO.getFluid(L / 9))
                 .outputs(LUTMYVO_BOULE.getStackForm())
                 .buildAndRegister();
 

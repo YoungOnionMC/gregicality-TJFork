@@ -207,24 +207,24 @@ public class SupracausalComponents {
 
         PLASMA_CONDENSER_RECIPES.recipeBuilder().duration(100).EUt(134217728)
                 .fluidInputs(HighEnergyQGP.getFluid(L))
-                .fluidInputs(LiquidHelium.getFluid(10000))
-                .fluidOutputs(Helium.getFluid(10000))
+                .fluidInputs(LiquidHelium.getFluid(1000))
+                .fluidOutputs(Helium.getFluid(1000))
                 .notConsumable(PLATE_FIELD_SHAPE.getStackForm())
                 .outputs(QCD_PROTECTIVE_PLATING.getStackForm())
                 .buildAndRegister();
 
         PLASMA_CONDENSER_RECIPES.recipeBuilder().duration(40).EUt(134217728)
                 .fluidInputs(QCDMatter.getFluid(L))
-                .fluidInputs(LiquidHelium.getFluid(20000))
-                .fluidOutputs(Helium.getFluid(20000))
+                .fluidInputs(LiquidHelium.getFluid(2000))
+                .fluidOutputs(Helium.getFluid(2000))
                 .notConsumable(PLATE_FIELD_SHAPE.getStackForm())
                 .output(plate, QCDMatter)
                 .buildAndRegister();
 
         PLASMA_CONDENSER_RECIPES.recipeBuilder().duration(20).EUt(134217728)
                 .fluidInputs(QCDMatter.getFluid(L / 2))
-                .fluidInputs(LiquidHelium.getFluid(10000))
-                .fluidOutputs(Helium.getFluid(10000))
+                .fluidInputs(LiquidHelium.getFluid(1000))
+                .fluidOutputs(Helium.getFluid(1000))
                 .notConsumable(ROD_FIELD_SHAPE.getStackForm())
                 .output(stick, QCDMatter)
                 .buildAndRegister();

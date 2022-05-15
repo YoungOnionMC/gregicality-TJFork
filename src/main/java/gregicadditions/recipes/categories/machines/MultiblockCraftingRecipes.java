@@ -307,7 +307,7 @@ public class MultiblockCraftingRecipes {
                 .input(gear, TungstenTitaniumCarbide, 16)
                 .input(screw, Incoloy813, 32)
                 .input(bolt, EnrichedNaquadahAlloy, 64)
-                .input(circuit, Superconductor, 4)
+                .input(circuit, UIV, 2)
                 .inputs(SENSOR_UHV.getStackForm(4))
                 .inputs(EMITTER_UHV.getStackForm(4))
                 .inputs(FIELD_GENERATOR_UHV.getStackForm(2))

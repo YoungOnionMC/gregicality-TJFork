@@ -89,7 +89,9 @@ public class MetaTileEntitySteamHatch extends MetaTileEntityMultiblockPart imple
         if(!getWorld().isRemote) {
             fillContainerFromInternalTank(containerInventory, containerInventory, 0, 1);
             fillInternalTankFromFluidContainer(containerInventory, containerInventory, 0, 1);
-            pullFluidsFromNearbyHandlers(getFrontFacing());
+            if(steamFluidTank.getFluidAmount() < steamFluidTank.getCapacity()) {
+                pullFluidsFromNearbyHandlers(getFrontFacing());
+            }
         }
     }
 

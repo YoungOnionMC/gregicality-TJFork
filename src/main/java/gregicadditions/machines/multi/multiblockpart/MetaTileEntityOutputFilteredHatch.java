@@ -137,7 +137,9 @@ public class MetaTileEntityOutputFilteredHatch extends GAMetaTileEntityMultibloc
         super.update();
         if (!getWorld().isRemote) {
             fillContainerFromInternalTank(containerInventory, containerInventory, 0, 1);
-            pushFluidsIntoNearbyHandlers(getFrontFacing());
+            if (this.exportFluids.getTankAt(0).getCapacity() > 0) {
+                pushFluidsIntoNearbyHandlers(getFrontFacing());
+            }
         }
     }
 

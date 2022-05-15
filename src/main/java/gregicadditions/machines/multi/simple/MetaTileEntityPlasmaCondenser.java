@@ -1,8 +1,7 @@
-package gregicadditions.machines.multi;
+package gregicadditions.machines.multi.simple;
 
 import gregicadditions.capabilities.GregicAdditionsCapabilities;
 import gregicadditions.capabilities.impl.GAMultiblockRecipeLogic;
-import gregicadditions.capabilities.impl.GARecipeMapMultiblockController;
 import gregicadditions.item.components.PumpCasing;
 import gregicadditions.item.metal.MetalCasing1;
 import gregicadditions.recipes.GARecipeMaps;
@@ -11,7 +10,6 @@ import gregtech.api.metatileentity.MetaTileEntityHolder;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.multiblock.BlockPattern;
-import gregtech.api.multiblock.BlockWorldState;
 import gregtech.api.multiblock.FactoryBlockPattern;
 import gregtech.api.multiblock.PatternMatchContext;
 import gregtech.api.recipes.Recipe;
@@ -28,18 +26,18 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static gregicadditions.client.ClientHandler.HASTELLOY_N_CASING;
 import static gregicadditions.item.GAMetaBlocks.METAL_CASING_1;
 
-public class MetaTileEntityPlasmaCondenser extends GARecipeMapMultiblockController {
+public class MetaTileEntityPlasmaCondenser extends LargeSimpleRecipeMapMultiblockController {
 
-    public long maxVoltage;
 
     public MetaTileEntityPlasmaCondenser(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, GARecipeMaps.PLASMA_CONDENSER_RECIPES, false, true, true);
-        this.recipeMapWorkable = new GAMultiblockRecipeLogic(this) {
+        super(metaTileEntityId, GARecipeMaps.PLASMA_CONDENSER_RECIPES,80,80,80,8,false,true,true);
+
+
+        this.recipeMapWorkable = new LargeSimpleMultiblockRecipeLogic(this,80,80,80,8){
             @Override
             protected long getMaxVoltage() {
                 return maxVoltage;
@@ -73,21 +71,6 @@ public class MetaTileEntityPlasmaCondenser extends GARecipeMapMultiblockControll
                 .build();
     }
 
-    @Nonnull
-    private static Predicate<BlockWorldState> pumpPredicate() {
-        return (blockWorldState) -> {
-            IBlockState blockState = blockWorldState.getBlockState();
-            if (!(blockState.getBlock() instanceof PumpCasing)) {
-                return false;
-            } else {
-                PumpCasing motorCasing = (PumpCasing) blockState.getBlock();
-                PumpCasing.CasingType tieredCasingType = motorCasing.getState(blockState);
-                PumpCasing.CasingType currentCasing = blockWorldState.getMatchContext().getOrPut("Pump", tieredCasingType);
-                return currentCasing.getName().equals(tieredCasingType.getName());
-            }
-        };
-    }
-
     @Override
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
@@ -99,18 +82,6 @@ public class MetaTileEntityPlasmaCondenser extends GARecipeMapMultiblockControll
     public void invalidateStructure() {
         super.invalidateStructure();
         this.maxVoltage = 0;
-    }
-
-    @Override
-    protected void addDisplayText(List<ITextComponent> textList) {
-        super.addDisplayText(textList);
-        if (isStructureFormed() && !hasProblems())
-            textList.add(new TextComponentTranslation("gregtech.multiblock.universal.framework", this.maxVoltage));
-    }
-
-    @Override
-    public boolean checkRecipe(Recipe recipe, boolean consumeIfSuccess) {
-        return recipe.getEUt() <= maxVoltage;
     }
 
     private IBlockState getCasingState() {

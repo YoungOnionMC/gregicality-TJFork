@@ -5,6 +5,7 @@ import gregicadditions.capabilities.GregicAdditionsCapabilities;
 import gregicadditions.item.GAMetaBlocks;
 import gregicadditions.item.GAMultiblockCasing;
 import gregicadditions.item.metal.MetalCasing2;
+import gregicadditions.machines.GATileEntities;
 import gregicadditions.machines.multi.GAFuelRecipeLogic;
 import gregicadditions.machines.multi.GAFueledMultiblockController;
 import gregicadditions.recipes.GARecipeMaps;
@@ -22,6 +23,7 @@ import gregtech.api.recipes.recipes.FuelRecipe;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.unification.material.Materials;
 import gregtech.common.blocks.*;
+import gregtech.common.metatileentities.MetaTileEntities;
 import gregtech.common.metatileentities.multi.electric.generator.FueledMultiblockController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -43,12 +45,12 @@ import static gregtech.api.unification.material.Materials.Naquadria;
 public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockController {
 
     private static final MultiblockAbility<?>[] ALLOWED_ABILITIES = {
-            MultiblockAbility.IMPORT_FLUIDS, MultiblockAbility.OUTPUT_ENERGY, GregicAdditionsCapabilities.MAINTENANCE_HATCH
+            MultiblockAbility.IMPORT_FLUIDS, MultiblockAbility.OUTPUT_ENERGY
     };
 
 
     public MetaTileEntityLargeNaquadahReactor(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, GARecipeMaps.NAQUADAH_REACTOR_FUELS, GAValues.V[GAValues.UV]);
+        super(metaTileEntityId, GARecipeMaps.NAQUADAH_REACTOR_FUELS, GAValues.V[GAValues.UV] * 2L);
     }
 
     @Override
@@ -99,12 +101,12 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
                 .setAmountAtLeast('L', 45)
                 .where('S', selfPredicate())
                 .where('L', statePredicate(getCasingState()))
-                .where('C', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
+                .where('C', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)).or(tilePredicate((state, tile) -> tile.metaTileEntityId.equals(GATileEntities.MAINTENANCE_HATCH[2].metaTileEntityId))))
                 .where('G', statePredicate(MetaBlocks.MUTLIBLOCK_CASING.getState(BlockMultiblockCasing.MultiblockCasingType.GRATE_CASING)))
                 .where('g', statePredicate(GAMetaBlocks.MUTLIBLOCK_CASING.getState(GAMultiblockCasing.CasingType.TUNGSTENSTEEL_GEARBOX_CASING)))
                 .where('F', statePredicate(MetaBlocks.FRAMES.get(Naquadria).getDefaultState()))
                 .where('P', statePredicate(MetaBlocks.BOILER_CASING.getState(BlockBoilerCasing.BoilerCasingType.TUNGSTENSTEEL_PIPE)))
-                .where('m', abilityPartPredicate(GregicAdditionsCapabilities.MAINTENANCE_HATCH).or(statePredicate(getCasingState())))
+                .where('m', tilePredicate((state, tile) -> tile.metaTileEntityId.equals(GATileEntities.MAINTENANCE_HATCH[2].metaTileEntityId)).or(statePredicate(getCasingState())))
                 .where('A', isAirPredicate())
                 .where('#', (tile) -> true)
                 .build();
@@ -163,7 +165,7 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
                 FluidStack oxygenStack = Materials.Oxygen.getPlasma(50);
                 fluidTank.get().drain(oxygenStack, true);
             }
-            return maxVoltage * (isUsingOxygen ? 4 : 1);
+            return maxVoltage * (isUsingOxygen ? 3 : 1);
         }
 
         @Override

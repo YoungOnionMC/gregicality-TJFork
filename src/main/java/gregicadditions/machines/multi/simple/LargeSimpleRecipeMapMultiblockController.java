@@ -77,8 +77,8 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
      * @param hasMuffler
      * @param hasMaintenance
      */
-    public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean canDistinct, boolean hasMuffler, boolean hasMaintenance) {
-        super(metaTileEntityId, recipeMap, canDistinct, hasMuffler, hasMaintenance);
+    public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean hasMuffler , boolean hasMaintenance, boolean canDistinct ) {
+        super(metaTileEntityId, recipeMap, hasMuffler, hasMaintenance, canDistinct);
         this.recipeMapWorkable = new LargeSimpleMultiblockRecipeLogic(this, EUtPercentage, durationPercentage, chancePercentage, stack);
 
         this.EUtPercentage = EUtPercentage;
@@ -91,8 +91,8 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
      * @deprecated
      * use {@link LargeSimpleRecipeMapMultiblockController#LargeSimpleRecipeMapMultiblockController(ResourceLocation, RecipeMap, int, int, int, int, boolean, boolean, boolean)
      */
-    public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean canDistinct) {
-        this(metaTileEntityId, recipeMap, EUtPercentage, durationPercentage, chancePercentage, stack, canDistinct, false, true);
+    public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean hasMuffler) {
+        this(metaTileEntityId, recipeMap, EUtPercentage, durationPercentage, chancePercentage, stack, hasMuffler, true, false);
     }
 
     @Override
@@ -243,6 +243,7 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
         super.addDisplayText(textList);
         if (isStructureFormed() && !hasProblems())
             textList.add(new TextComponentTranslation("gregtech.multiblock.universal.framework", this.maxVoltage));
+            textList.add(new TextComponentTranslation("gregtech.multiblock.universal.parallel", this.stack * GAUtility.getTierByVoltage(this.maxVoltage)));
     }
 
     public static class LargeSimpleMultiblockRecipeLogic extends GAMultiblockRecipeLogic {

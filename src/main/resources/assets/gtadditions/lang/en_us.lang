@@ -3011,7 +3011,7 @@ gtadditions.multiblock.large_rocket_engine.tooltip.7=Above ZPM is 20%%
 gtadditions.multiblock.large_rocket_engine.tooltip.8=Above UV is 10%%
 gtadditions.multiblock.alloy_blast_furnace.tooltip.1=Quicker than the Blast Furnace
 gtadditions.multiblock.large_naquadah_reactor.tooltip.1=Consumes 1000mb of Tritium every 20 fuel consumes.
-gtadditions.multiblock.large_naquadah_reactor.tooltip.2=Increase output by 4X with 50mb Oxygen Plasma every fuel consume (also consumes 2X fuel).
+gtadditions.multiblock.large_naquadah_reactor.tooltip.2=Increase output by 3X with 50mb Oxygen Plasma every fuel consume (also consumes 2X fuel).
 gtadditions.multiblock.large_naquadah_reactor.tooltip.3=Overclocks to UV tier.
 gregtech.multiblock.large_naquadah_reactor.tritium_amount=Tritium: %dmb
 gregtech.multiblock.large_naquadah_reactor.oxygen_amount=Oxygen Plasma: %sL
@@ -3050,6 +3050,7 @@ gregtech.machine.world_accelerator.mode.tile=Tile Entity Mode
 gregtech.machine.world_accelerator.mode.entity=Entity Mode
 
 gregtech.multiblock.universal.framework=Current Max Tiered Voltage: %d EU/t
+gregtech.multiblock.universal.parallel=Current Max Parallel: %d
 gregtech.multiblock.universal.framework.tooltip=The framework casings define the maximum voltage tier the multiblock is able to run at.
 
 gregtech.multiblock.universal.component_casing.tooltip=The tier of this casing determines the maximum voltage the multiblock is able to run at. Any tier casing can be used.
