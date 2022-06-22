@@ -6,6 +6,7 @@
 **Gregicality TJ fork for GTCE **
 
 
+
 Join us on [Discord](https://discord.gg/sKbWskxXdG)
 
 
@@ -26,3 +27,7 @@ SMD texture are from hjae78,
 powercell are from hjae78
 
 Gregicality is under the LGPL3.0 License.
+
+Credited Works
+
+Infinity Coil Textures are from the [GregTech: New Horizons Modpack.](https://www.curseforge.com/minecraft/modpacks/gt-new-horizons)
