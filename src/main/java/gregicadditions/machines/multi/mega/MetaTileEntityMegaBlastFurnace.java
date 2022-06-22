@@ -1,8 +1,10 @@
 package gregicadditions.machines.multi.mega;
 
+import gregicadditions.GAConfig;
 import gregicadditions.GAUtility;
 import gregicadditions.GAValues;
 import gregicadditions.capabilities.GregicAdditionsCapabilities;
+import gregicadditions.item.GAHeatingCoil;
 import gregicadditions.item.GAMetaBlocks;
 import gregicadditions.item.GATransparentCasing;
 import gregicadditions.machines.multi.override.MetaTileEntityElectricBlastFurnace;
@@ -14,6 +16,7 @@ import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.multiblock.BlockPattern;
+import gregtech.api.multiblock.BlockWorldState;
 import gregtech.api.multiblock.FactoryBlockPattern;
 import gregtech.api.multiblock.PatternMatchContext;
 import gregtech.api.recipes.CountableIngredient;
@@ -40,6 +43,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static gregtech.api.multiblock.BlockPattern.RelativeDirection.*;
@@ -93,7 +97,7 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
                 .where('F', statePredicate(getSecondaryFrameState()))
                 .where('X', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
                 .where('T', statePredicate(getSecondaryCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
-                .where('C', MetaTileEntityElectricBlastFurnace.heatingCoilPredicate().or(MetaTileEntityElectricBlastFurnace.heatingCoilPredicate2()))
+                .where('C', (heatingCoilPredicate().or(heatingCoilPredicate2())))
                 .where('P', frameworkPredicate().or(frameworkPredicate2()))
                 .where('p', statePredicate(MetaBlocks.BOILER_CASING.getState(BlockBoilerCasing.BoilerCasingType.TUNGSTENSTEEL_PIPE)))
                 .where('G', statePredicate(GAMetaBlocks.TRANSPARENT_CASING.getState(GATransparentCasing.CasingType.OSMIRIDIUM_GLASS)))
@@ -130,6 +134,42 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
         this.bonusTemperature = 0;
     }
 
+    public static Predicate<BlockWorldState> heatingCoilPredicate() {
+        return blockWorldState -> {
+            IBlockState blockState = blockWorldState.getBlockState();
+            if (!(blockState.getBlock() instanceof BlockWireCoil))
+                return false;
+            BlockWireCoil blockWireCoil = (BlockWireCoil) blockState.getBlock();
+            BlockWireCoil.CoilType coilType = blockWireCoil.getState(blockState);
+            if (Arrays.asList(GAConfig.multis.heatingCoils.gtceHeatingCoilsBlacklist).contains(coilType.getName()))
+                return false;
+
+            int blastFurnaceTemperature = coilType.getCoilTemperature();
+            int currentTemperature = blockWorldState.getMatchContext().getOrPut("blastFurnaceTemperature", blastFurnaceTemperature);
+
+            BlockWireCoil.CoilType currentCoilType = blockWorldState.getMatchContext().getOrPut("coilType", coilType);
+
+            return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
+        };
+    }
+    public static Predicate<BlockWorldState> heatingCoilPredicate2() {
+        return blockWorldState -> {
+            IBlockState blockState = blockWorldState.getBlockState();
+            if (!(blockState.getBlock() instanceof GAHeatingCoil))
+                return false;
+            GAHeatingCoil blockWireCoil = (GAHeatingCoil) blockState.getBlock();
+            GAHeatingCoil.CoilType coilType = blockWireCoil.getState(blockState);
+            if (Arrays.asList(GAConfig.multis.heatingCoils.gregicalityheatingCoilsBlacklist).contains(coilType.getName()))
+                return false;
+
+            int blastFurnaceTemperature = coilType.getCoilTemperature();
+            int currentTemperature = blockWorldState.getMatchContext().getOrPut("blastFurnaceTemperature", blastFurnaceTemperature);
+
+            GAHeatingCoil.CoilType currentCoilType = blockWorldState.getMatchContext().getOrPut("gaCoilType", coilType);
+
+            return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
+        };
+    }
     @Override
     public boolean checkRecipe(Recipe recipe, boolean consumeIfSuccess) {
         int recipeRequiredTemp = recipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0); //todo why is this 0

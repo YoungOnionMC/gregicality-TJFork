@@ -2,6 +2,7 @@ package gregicadditions.machines.multi.simple;
 
 import gregicadditions.GAConfig;
 import gregicadditions.capabilities.GregicAdditionsCapabilities;
+import gregicadditions.item.GAHeatingCoil;
 import gregicadditions.item.components.MotorCasing;
 import gregicadditions.item.metal.MetalCasing2;
 import gregicadditions.machines.multi.CasingUtils;
@@ -25,13 +26,17 @@ import gregtech.common.blocks.BlockMultiblockCasing;
 import gregtech.common.blocks.BlockWireCoil;
 import gregtech.common.blocks.MetaBlocks;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -71,7 +76,7 @@ public class TileEntityLargeThermalCentrifuge extends LargeSimpleRecipeMapMultib
 				.where('L', statePredicate(getCasingState()))
 				.where('G', statePredicate(MetaBlocks.MUTLIBLOCK_CASING.getState(BlockMultiblockCasing.MultiblockCasingType.GRATE_CASING)))
 				.where('X', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
-				.where('C', heatingCoilPredicate())
+				.where('C', heatingCoilPredicate().or(heatingCoilPredicate2()))
 				.where('P', statePredicate(MetaBlocks.BOILER_CASING.getState(BlockBoilerCasing.BoilerCasingType.TITANIUM_PIPE)))
 				.where('H', abilityPartPredicate(GregicAdditionsCapabilities.MUFFLER_HATCH).or(statePredicate(MetaBlocks.MUTLIBLOCK_CASING.getState(BlockMultiblockCasing.MultiblockCasingType.GRATE_CASING))))
 				.where('#', isAirPredicate())
@@ -98,6 +103,24 @@ public class TileEntityLargeThermalCentrifuge extends LargeSimpleRecipeMapMultib
 			return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
 		};
 	}
+	public static Predicate<BlockWorldState> heatingCoilPredicate2() {
+		return blockWorldState -> {
+			IBlockState blockState = blockWorldState.getBlockState();
+			if (!(blockState.getBlock() instanceof GAHeatingCoil))
+				return false;
+			GAHeatingCoil blockWireCoil = (GAHeatingCoil) blockState.getBlock();
+			GAHeatingCoil.CoilType coilType = blockWireCoil.getState(blockState);
+			if (Arrays.asList(GAConfig.multis.heatingCoils.gregicalityheatingCoilsBlacklist).contains(coilType.getName()))
+				return false;
+
+			int blastFurnaceTemperature = coilType.getCoilTemperature();
+			int currentTemperature = blockWorldState.getMatchContext().getOrPut("blastFurnaceTemperature", blastFurnaceTemperature);
+
+			GAHeatingCoil.CoilType currentCoilType = blockWorldState.getMatchContext().getOrPut("gaCoilType", coilType);
+
+			return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
+		};
+	}
 
 	private static final IBlockState defaultCasingState = METAL_CASING_2.getState(MetalCasing2.CasingType.RED_STEEL);
 	public static final IBlockState casingState = CasingUtils.getConfigCasingBlockState(GAConfig.multis.largeThermalCentrifuge.casingMaterial, defaultCasingState);
@@ -119,15 +142,52 @@ public class TileEntityLargeThermalCentrifuge extends LargeSimpleRecipeMapMultib
 		int min = motor.getTier();
 		maxVoltage = (long) (Math.pow(4, min) * 8);
 
-		int temperature = context.getOrDefault("reactorCoilTemperature", 0);
-		if (temperature <= 2700)
-			this.speedBonus = 0;
-		else if (temperature == 3600)
-			this.speedBonus = 5;
-		else if (temperature == 5400)
-			this.speedBonus = 10;
-		else if (temperature <= 9700)
-			this.speedBonus = 20;
+		int temperature = context.getOrDefault("blastFurnaceTemperature", 0);
+
+		switch (temperature){
+
+			case 2700:
+				speedBonus = 5;
+				break;
+			case 3600:
+				speedBonus = 10;
+				break;
+			case 4500:
+				speedBonus = 15;
+				break;
+			case 5400:
+				speedBonus = 20;
+				break;
+			case 7200:
+				speedBonus = 25;
+				break;
+			case 8600:
+				speedBonus = 30;
+				break;
+			case 9600:
+				speedBonus = 35;
+				break;
+			case 10700:
+				speedBonus = 40;
+				break;
+			case 11200:
+				speedBonus = 45;
+				break;
+			case 12600:
+				speedBonus = 50;
+				break;
+			case 14200:
+				speedBonus = 55;
+				break;
+			case 28400:
+				speedBonus = 60;
+				break;
+			case 56800:
+				speedBonus = 65;
+				break;
+			default:
+				speedBonus = 0;
+		}
 	}
 
 	@Nonnull
@@ -147,6 +207,14 @@ public class TileEntityLargeThermalCentrifuge extends LargeSimpleRecipeMapMultib
 			textList.add(new TextComponentTranslation("gregtech.multiblock.universal.speed_increase", this.speedBonus).setStyle(new Style().setColor(TextFormatting.AQUA)));
 		}
 	}
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+		super.addInformation(stack, player, tooltip, advanced);
+		tooltip.add(I18n.format("gtadditions.multiblock.large_ThermalCentrifuge.tooltip.1"));
+		tooltip.add(I18n.format("gtadditions.multiblock.large_ThermalCentrifuge.tooltip.2"));
+
+
+	}
+
 
 	private static class LargeThermalCentrifugeWorkableHandler extends LargeSimpleMultiblockRecipeLogic {
 

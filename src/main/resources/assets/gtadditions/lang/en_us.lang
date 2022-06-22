@@ -2028,6 +2028,8 @@ tile.ga_heating_coil.pikyonium_coil.name=Pikyonium Coil
 tile.ga_heating_coil.black_titanium_coil.name=Black Titanium Coil
 tile.ga_heating_coil.neutronium_coil.name=Neutronium Coil
 tile.ga_heating_coil.cosmic_neutronium_coil.name=Cosmic Neutronium Coil
+tile.ga_heating_coil.infinity_coil.name=Infinity Coil
+tile.ga_heating_coil.eternity_coil.name=Eternity Coil
 
 tile.ga_divertor_casing.divertor_1.name=Advanced Fusion Divertor MK I
 tile.ga_divertor_casing.divertor_2.name=Advanced Fusion Divertor MK II
@@ -4625,10 +4627,10 @@ metaitem.shape.extruder.rotor.name=Extruder Shape (Rotor)
 metaitem.shape.extruder.rotor.tooltip=Extruder Shape for making Rotors
 
 gtadditions.multiblock.large_chemical_reactor.tooltip.1=This multiblock perfectly overclocks, meaning that for each tier, the energy usage per recipe remains the same.
-gtadditions.multiblock.large_chemical_reactor.tooltip.2=The coil also reduces the EU/t for each recipe by a certain amount, depending on the tier.
-gtadditions.multiblock.large_chemical_reactor.tooltip.3=Coils above §e2700K§7 provide a §c5%%§7 reduction in EU/t.
-gtadditions.multiblock.large_chemical_reactor.tooltip.4=Coils above §e3600K§7 provide a §c10%%§7 reduction in EU/t.
-gtadditions.multiblock.large_chemical_reactor.tooltip.5=Coils above §e5400K§7 provide a §c20%%§7 reduction in EU/t.
+gtadditions.multiblock.large_chemical_reactor.tooltip.2=The coil also reduces the EU/t for each recipe by a additional §c5%%§7, depending on the tier.
+gtadditions.multiblock.large_chemical_reactor.tooltip.3=Bonus starts at Kanthal coils.
+gtadditions.multiblock.large_ThermalCentrifuge.tooltip.1=The coils also increase the speed of each recipe by a additional §c5%%§7, depending on the tier.
+gtadditions.multiblock.large_ThermalCentrifuge.tooltip.2=Bonus starts at Kanthal coils.
 
 gtadditions.multiblock.pyrolyse_oven.tooltip.1=For every tier higher of coil used, this multiblock will process one more recipe at a time.
 gtadditions.multiblock.pyrolyse_oven.tooltip.2=The coil's energy discount also applies to this multiblock as well.

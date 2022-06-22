@@ -5,6 +5,7 @@ import gregicadditions.capabilities.GregicAdditionsCapabilities;
 import gregicadditions.capabilities.impl.GAMultiblockRecipeLogic;
 import gregicadditions.capabilities.impl.GARecipeMapMultiblockController;
 import gregicadditions.client.ClientHandler;
+import gregicadditions.item.GAHeatingCoil;
 import gregicadditions.item.GAMetaBlocks;
 import gregicadditions.item.GAMultiblockCasing;
 import gregicadditions.recipes.GARecipeMaps;
@@ -67,8 +68,8 @@ public class TileEntityLargeChemicalReactor extends GARecipeMapMultiblockControl
                 .where('S', selfPredicate())
                 .where('L', statePredicate(getCasingState()))
                 .where('X', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
-                .where('C', heatingCoilPredicate().or(statePredicate(getCasingState())).or(abilityPartPredicate(ALLOWED_ABILITIES)))
-                .where('K', heatingCoilPredicate())
+                .where('C', heatingCoilPredicate().or(heatingCoilPredicate2()).or(statePredicate(getCasingState())).or(abilityPartPredicate(ALLOWED_ABILITIES)))
+                .where('K', heatingCoilPredicate().or(heatingCoilPredicate2()))
                 .where('P', statePredicate(GAMetaBlocks.MUTLIBLOCK_CASING.getState(GAMultiblockCasing.CasingType.PTFE_PIPE)))
                 .build();
     }
@@ -92,11 +93,29 @@ public class TileEntityLargeChemicalReactor extends GARecipeMapMultiblockControl
             if (Arrays.asList(GAConfig.multis.heatingCoils.gtceHeatingCoilsBlacklist).contains(coilType.getName()))
                 return false;
             int reactorCoilTemperature = coilType.getCoilTemperature();
-            int currentTemperature = blockWorldState.getMatchContext().getOrPut("reactorCoilTemperature", reactorCoilTemperature);
+            int currentTemperature = blockWorldState.getMatchContext().getOrPut("blastFurnaceTemperature", reactorCoilTemperature);
             return currentTemperature == reactorCoilTemperature;
         };
     }
 
+    public static Predicate<BlockWorldState> heatingCoilPredicate2() {
+        return blockWorldState -> {
+            IBlockState blockState = blockWorldState.getBlockState();
+            if (!(blockState.getBlock() instanceof GAHeatingCoil))
+                return false;
+            GAHeatingCoil blockWireCoil = (GAHeatingCoil) blockState.getBlock();
+            GAHeatingCoil.CoilType coilType = blockWireCoil.getState(blockState);
+            if (Arrays.asList(GAConfig.multis.heatingCoils.gregicalityheatingCoilsBlacklist).contains(coilType.getName()))
+                return false;
+
+            int blastFurnaceTemperature = coilType.getCoilTemperature();
+            int currentTemperature = blockWorldState.getMatchContext().getOrPut("blastFurnaceTemperature", blastFurnaceTemperature);
+
+            GAHeatingCoil.CoilType currentCoilType = blockWorldState.getMatchContext().getOrPut("gaCoilType", coilType);
+
+            return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
+        };
+    }
     @Override
     protected void addDisplayText(List<ITextComponent> textList) {
         super.addDisplayText(textList);
@@ -107,15 +126,52 @@ public class TileEntityLargeChemicalReactor extends GARecipeMapMultiblockControl
     @Override
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
-        int temperature = context.getOrDefault("reactorCoilTemperature", 0);
-        if (temperature <= 2700)
-            this.energyBonus = 0;
-        else if (temperature <= 3600)
-            this.energyBonus = 5;
-        else if (temperature <= 5400)
-            this.energyBonus = 10;
-        else
-            this.energyBonus = 20;
+        int temperature = context.getOrDefault("blastFurnaceTemperature", 0);
+
+        switch (temperature){
+
+            case 2700:
+                energyBonus = 5;
+                break;
+            case 3600:
+                energyBonus = 10;
+                break;
+            case 4500:
+                energyBonus = 15;
+                break;
+            case 5400:
+                energyBonus = 20;
+                break;
+            case 7200:
+                energyBonus = 25;
+                break;
+            case 8600:
+                energyBonus = 30;
+                break;
+            case 9600:
+                energyBonus = 35;
+                break;
+            case 10700:
+                energyBonus = 40;
+                break;
+            case 11200:
+                energyBonus = 45;
+                break;
+            case 12600:
+                energyBonus = 50;
+                break;
+            case 14200:
+                energyBonus = 55;
+                break;
+            case 28400:
+                energyBonus = 60;
+                break;
+            case 56800:
+                energyBonus = 65;
+                break;
+            default:
+                energyBonus = 0;
+        }
     }
 
 
@@ -124,8 +180,7 @@ public class TileEntityLargeChemicalReactor extends GARecipeMapMultiblockControl
         tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.1"));
         tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.2"));
         tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.3"));
-        tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.4"));
-        tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.5"));
+
     }
 
     public int getEnergyBonus() {

@@ -92,26 +92,26 @@ public class GAMultiblockRecipeLogic extends MultiblockRecipeLogic {
     }
 
     @Override
-    protected void trySearchNewRecipe() {
+    protected boolean trySearchNewRecipe() {
         if (metaTileEntity instanceof GARecipeMapMultiblockController) {
             GARecipeMapMultiblockController controller = (GARecipeMapMultiblockController) metaTileEntity;
             if (controller.getNumProblems() > 5)
-                return;
+                return false;
 
             if (controller.canDistinct && controller.isDistinct) {
-                trySearchNewRecipeDistinct();
-                return;
+               return trySearchNewRecipeDistinct();
             }
         }
-        trySearchNewRecipeCombined();
+        return trySearchNewRecipeCombined();
+
     }
 
     // TODO May need to do more here
-    protected void trySearchNewRecipeCombined() {
-        super.trySearchNewRecipe();
+    protected boolean trySearchNewRecipeCombined() {
+        return super.trySearchNewRecipe();
     }
 
-    private void trySearchNewRecipeDistinct() {
+    private boolean trySearchNewRecipeDistinct() {
         long maxVoltage = getMaxVoltage();
         Recipe currentRecipe = null;
         List<IItemHandlerModifiable> importInventory = getInputBuses();
@@ -123,7 +123,7 @@ public class GAMultiblockRecipeLogic extends MultiblockRecipeLogic {
             currentRecipe = previousRecipe;
             if (setupAndConsumeRecipeInputs(currentRecipe, lastRecipeIndex)) {
                 setupRecipe(currentRecipe);
-                return;
+                return true;
             }
         }
 
@@ -142,9 +142,10 @@ public class GAMultiblockRecipeLogic extends MultiblockRecipeLogic {
             if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe, i)) {
                 lastRecipeIndex = i;
                 setupRecipe(currentRecipe);
-                break;
+              return true;
             }
         }
+        return false;
     }
 
     // Replacing this for optimization reasons

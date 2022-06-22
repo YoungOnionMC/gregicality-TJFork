@@ -44,6 +44,20 @@
           "top": "gregtech:blocks/casings/solid/heating_coil/heating.coil.top.bottom",
           "side": "gregtech:blocks/casings/solid/heating_coil/heating.coil.uxv"
         }
+      },
+      "infinity_coil": {
+        "textures": {
+          "bottom": "gregtech:blocks/casings/solid/heating_coil/heating.coil.top.bottom",
+          "top": "gregtech:blocks/casings/solid/heating_coil/heating.coil.top.bottom",
+          "side": "gregtech:blocks/casings/solid/heating_coil/heating.coil.infinity"
+        }
+      },
+      "eternity_coil": {
+        "textures": {
+          "bottom": "gregtech:blocks/casings/solid/heating_coil/heating.coil.top.bottom",
+          "top": "gregtech:blocks/casings/solid/heating_coil/heating.coil.top.bottom",
+          "side": "gregtech:blocks/casings/solid/heating_coil/heating.coil.eternity"
+        }
       }
     }
   }

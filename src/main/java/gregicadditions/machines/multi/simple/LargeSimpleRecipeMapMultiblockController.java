@@ -5,6 +5,7 @@ import gregicadditions.GAUtility;
 import gregicadditions.capabilities.impl.GAMultiblockRecipeLogic;
 import gregicadditions.capabilities.impl.GARecipeMapMultiblockController;
 import gregicadditions.item.components.*;
+import gregicadditions.machines.multi.mega.MegaMultiblockRecipeMapController;
 import gregicadditions.utils.GALog;
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
@@ -243,7 +244,9 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
         super.addDisplayText(textList);
         if (isStructureFormed() && !hasProblems())
             textList.add(new TextComponentTranslation("gregtech.multiblock.universal.framework", this.maxVoltage));
+        if (!(this instanceof MegaMultiblockRecipeMapController)) {
             textList.add(new TextComponentTranslation("gregtech.multiblock.universal.parallel", this.stack * GAUtility.getTierByVoltage(this.maxVoltage)));
+        }
     }
 
     public static class LargeSimpleMultiblockRecipeLogic extends GAMultiblockRecipeLogic {
@@ -292,7 +295,7 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
         }
 
         @Override
-        protected void trySearchNewRecipeCombined() {
+        protected boolean trySearchNewRecipeCombined() {
             long maxVoltage = getMaxVoltage();
             if (metaTileEntity instanceof LargeSimpleRecipeMapMultiblockController)
                 maxVoltage = ((LargeSimpleRecipeMapMultiblockController) metaTileEntity).maxVoltage;
@@ -317,7 +320,9 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
             }
             if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
                 setupRecipe(currentRecipe);
+                return true;
             }
+            return false;
         }
 
         @Override

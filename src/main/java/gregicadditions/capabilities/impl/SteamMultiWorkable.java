@@ -29,7 +29,7 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
     }
 
     @Override
-    protected void trySearchNewRecipe() {
+    protected boolean trySearchNewRecipe() {
         long maxVoltage = getMaxVoltage(); // Will always be LV voltage
         Recipe currentRecipe = null;
         IItemHandlerModifiable importInventory = getInputInventory();
@@ -48,7 +48,9 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
 
         if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
             setupRecipe(currentRecipe);
+            return true;
         }
+        return false;
     }
 
     @Override

@@ -111,7 +111,7 @@ dependencies {
     }
 
     // Change to "compile" to add one of these to game
-    "compile"(files("extdeps/GregTech_TJ_Fork-1.12.2-1.17.4.784.jar"))
+    "compile"(files("extdeps/GregTech_TJ_Fork-1.12.2-1.17.6.795.jar"))
     "provided"(files("extdeps/appliedenergistics2-rv6-stable-7.jar"))
     "compileOnly"(files("extdeps/refinedstorage-1.6.15.jar"))
     "compileOnly"(files("extdeps/Cucumber-1.12.2-1.1.3.jar"))

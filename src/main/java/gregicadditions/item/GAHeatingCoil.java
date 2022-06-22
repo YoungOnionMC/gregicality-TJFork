@@ -55,7 +55,10 @@ public class GAHeatingCoil extends VariantBlock<GAHeatingCoil.CoilType> {
         PIKYONIUM_COIL("pikyonium_coil", 10700, 32, 8, null),
         BLACK_TITANIUM_COIL("black_titanium_coil", 11200, 64, 16, null),
         NEUTRONIUM_COIL("neutronium_coil", 12600, 64, 16, null),
-        COSMIC_NEUTRONIUM_COIL("cosmic_neutronium_coil", 14200, 128, 32, null);
+        COSMIC_NEUTRONIUM_COIL("cosmic_neutronium_coil", 14200, 128, 32, null),
+        INFINITY_COIL("infinity_coil", 28400, 128, 48, null),
+        ETERNITY_COIL("eternity_coil", 56800, 512, 64, null);
+
 
         private final String name;
         private final int coilTemperature;
