@@ -119,13 +119,13 @@ public class GAMetaTileEntityTransformer extends GATieredMetaTileEntity {
         if (isTransformUp) {
             //storage = 1 amp high; input = tier / 4; amperage = 4; output = tier; amperage = 1
             this.energyContainer = new GAEnergyContainerHandler(this, tierVoltage * ampsOut * 2, tierVoltage / 4, ampsOut, tierVoltage, ampsIn);
-            ((EnergyContainerHandler) this.energyContainer).setSideInputCondition(s -> s != getFrontFacing());
-            ((EnergyContainerHandler) this.energyContainer).setSideOutputCondition(s -> s == getFrontFacing());
+            ((GAEnergyContainerHandler) this.energyContainer).setSideInputCondition(s -> s != getFrontFacing());
+            ((GAEnergyContainerHandler) this.energyContainer).setSideOutputCondition(s -> s == getFrontFacing());
         } else{
             //storage = 1 amp high; input = tier; amperage = 1; output = tier / 4; amperage = 4
             this.energyContainer = new GAEnergyContainerHandler(this, tierVoltage * ampsOut * 2, tierVoltage, ampsIn, tierVoltage / 4, ampsOut);
-            ((EnergyContainerHandler) this.energyContainer).setSideInputCondition(s -> s == getFrontFacing());
-            ((EnergyContainerHandler) this.energyContainer).setSideOutputCondition(s -> s != getFrontFacing());
+            ((GAEnergyContainerHandler) this.energyContainer).setSideInputCondition(s -> s == getFrontFacing());
+            ((GAEnergyContainerHandler) this.energyContainer).setSideOutputCondition(s -> s != getFrontFacing());
         }
     }
     @Override
