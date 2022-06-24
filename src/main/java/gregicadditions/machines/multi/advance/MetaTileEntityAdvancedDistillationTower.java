@@ -50,7 +50,7 @@ public class MetaTileEntityAdvancedDistillationTower extends MultiRecipeMapMulti
 
     private static final MultiblockAbility<?>[] ALLOWED_ABILITIES = {
             MultiblockAbility.IMPORT_ITEMS, MultiblockAbility.EXPORT_ITEMS,
-            MultiblockAbility.INPUT_ENERGY, GregicAdditionsCapabilities.MAINTENANCE_HATCH
+            MultiblockAbility.INPUT_ENERGY, GregicAdditionsCapabilities.MAINTENANCE_HATCH, MultiblockAbility.IMPORT_FLUIDS
     };
 
     public MetaTileEntityAdvancedDistillationTower(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap) {
@@ -151,7 +151,7 @@ public class MetaTileEntityAdvancedDistillationTower extends MultiRecipeMapMulti
             forceRecipeRecheck();
 
             if (mode == 0) { // Distillation tower = 2 parallel/oc, max 8
-                maxItemsLimit *= 2;
+                maxItemsLimit *= 4;
                 maxItemsLimit = Math.max(1, maxItemsLimit);
                 maxItemsLimit = Math.min(8, maxItemsLimit);
             } else { // Others = 8 parallel/oc, max 64
