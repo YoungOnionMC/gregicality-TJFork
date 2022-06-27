@@ -228,16 +228,6 @@ public class CircuitRecipes {
 
         // Micro Processor
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(400)
-                .inputs(SMD_RESISTOR_REFINED.getStackForm(8))
-                .inputs(SMD_TRANSISTOR_REFINED.getStackForm(8))
-                .inputs(SMD_CAPACITOR_REFINED.getStackForm(8))
-                .inputs(ADVANCED_BOARD.getStackForm())
-                .inputs(CENTRAL_PROCESSING_UNIT.getStackForm(2))
-                .input(wireFine, RedAlloy, 2)
-                .outputs(MICRO_PROCESSOR.getStackForm(4))
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(400)
                 .inputs(SMD_RESISTOR.getStackForm(4))
                 .inputs(SMD_TRANSISTOR.getStackForm(4))
                 .inputs(SMD_CAPACITOR.getStackForm(4))
@@ -258,16 +248,6 @@ public class CircuitRecipes {
         // Micro Assembly
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(350)
                 .inputs(MICRO_PROCESSOR.getStackForm(3))
-                .inputs(SMD_CAPACITOR_REFINED.getStackForm(4))
-                .inputs(SMD_RESISTOR_REFINED.getStackForm(8))
-                .inputs(RANDOM_ACCESS_MEMORY.getStackForm(2))
-                .inputs(ADVANCED_BOARD.getStackForm())
-                .input(plate, Titanium)
-                .outputs(PROCESSOR_ASSEMBLY_HV.getStackForm())
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(350)
-                .inputs(MICRO_PROCESSOR.getStackForm(3))
                 .inputs(SMD_CAPACITOR.getStackForm(2))
                 .inputs(SMD_RESISTOR.getStackForm(4))
                 .inputs(RANDOM_ACCESS_MEMORY.getStackForm(2))
@@ -279,16 +259,6 @@ public class CircuitRecipes {
         // Micro Computer
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(425)
                 .inputs(PROCESSOR_ASSEMBLY_HV.getStackForm(4))
-                .inputs(SMD_RESISTOR_REFINED.getStackForm(8))
-                .inputs(SMD_TRANSISTOR_REFINED.getStackForm(8))
-                .inputs(RANDOM_ACCESS_MEMORY.getStackForm(8))
-                .inputs(ADVANCED_BOARD.getStackForm())
-                .input(wireGtSingle, HVSuperconductor)
-                .outputs(MICRO_COMPUTER.getStackForm())
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(425)
-                .inputs(PROCESSOR_ASSEMBLY_HV.getStackForm(4))
                 .inputs(SMD_RESISTOR.getStackForm(4))
                 .inputs(SMD_TRANSISTOR.getStackForm(4))
                 .inputs(RANDOM_ACCESS_MEMORY.getStackForm(8))
@@ -298,16 +268,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Micro Mainframe
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(500).EUt(500)
-                .inputs(MICRO_COMPUTER.getStackForm(2))
-                .inputs(SMD_RESISTOR_REFINED.getStackForm(40))
-                .inputs(SMD_TRANSISTOR_REFINED.getStackForm(20))
-                .inputs(SMD_DIODE_REFINED.getStackForm(10))
-                .inputs(RANDOM_ACCESS_MEMORY.getStackForm(8))
-                .input(frameGt, Titanium, 4)
-                .outputs(MICRO_MAINFRAME.getStackForm())
-                .buildAndRegister();
-
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(500).EUt(500)
                 .inputs(MICRO_COMPUTER.getStackForm(2))
                 .inputs(SMD_RESISTOR.getStackForm(20))
@@ -322,16 +282,6 @@ public class CircuitRecipes {
     private static void nanoCircuits() {
 
         // Nano Processor
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(2000)
-                .inputs(SMD_RESISTOR.getStackForm(8))
-                .inputs(SMD_TRANSISTOR.getStackForm(8))
-                .inputs(SMD_CAPACITOR.getStackForm(8))
-                .inputs(EXTREME_BOARD.getStackForm())
-                .inputs(NANO_CENTRAL_PROCESSING_UNIT.getStackForm(12))
-                .input(wireFine, Aluminium, 2)
-                .outputs(NANO_PROCESSOR_HV.getStackForm(4))
-                .buildAndRegister();
-
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(2000)
                 .outputs(NANO_PROCESSOR_HV.getStackForm(4))
                 .inputs(SMD_RESISTOR_NANO.getStackForm(4))
@@ -352,15 +302,6 @@ public class CircuitRecipes {
 
         // Nano Processor Assembly
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(2000)
-                .outputs(NANO_PROCESSOR_ASSEMBLY_EV.getStackForm())
-                .inputs(NANO_PROCESSOR_HV.getStackForm(3))
-                .inputs(SMD_CAPACITOR.getStackForm(8))
-                .inputs(SMD_RESISTOR.getStackForm(8))
-                .inputs(NANO_CENTRAL_PROCESSING_UNIT.getStackForm(2))
-                .inputs(EXTREME_BOARD.getStackForm()).input(plate, TungstenSteel)
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(2000)
                 .inputs(NANO_PROCESSOR_HV.getStackForm(3))
                 .inputs(SMD_CAPACITOR_NANO.getStackForm(4))
                 .inputs(SMD_RESISTOR_NANO.getStackForm(4))
@@ -370,16 +311,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Nano Computer
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(2000)
-                .inputs(NANO_PROCESSOR_ASSEMBLY_EV.getStackForm(4))
-                .inputs(SMD_RESISTOR.getStackForm(8))
-                .inputs(SMD_TRANSISTOR.getStackForm(8))
-                .inputs(RANDOM_ACCESS_MEMORY.getStackForm(8))
-                .inputs(EXTREME_BOARD.getStackForm())
-                .input(wireGtSingle, EVSuperconductor)
-                .outputs(NANO_COMPUTER.getStackForm())
-                .buildAndRegister();
-
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(2000)
                 .outputs(NANO_COMPUTER.getStackForm())
                 .inputs(NANO_PROCESSOR_ASSEMBLY_EV.getStackForm(4))
@@ -391,16 +322,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Nano Mainframe
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(500).EUt(2000)
-                .inputs(NANO_COMPUTER.getStackForm(2))
-                .inputs(SMD_RESISTOR.getStackForm(48))
-                .inputs(SMD_TRANSISTOR.getStackForm(24))
-                .inputs(SMD_DIODE.getStackForm(12))
-                .inputs(RANDOM_ACCESS_MEMORY.getStackForm(12))
-                .input(frameGt, TungstenSteel, 4)
-                .outputs(NANO_MAINFRAME.getStackForm())
-                .buildAndRegister();
-
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(500).EUt(2000)
                 .inputs(NANO_COMPUTER.getStackForm(2))
                 .inputs(SMD_RESISTOR_NANO.getStackForm(24))
@@ -415,15 +336,6 @@ public class CircuitRecipes {
     private static void quantumCircuits() {
 
         // Quantum Processor
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(3000)
-                .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm())
-                .inputs(SMD_TRANSISTOR_NANO.getStackForm(8))
-                .inputs(SMD_CAPACITOR_NANO.getStackForm(8))
-                .inputs(ELITE_BOARD.getStackForm())
-                .inputs(NANO_CENTRAL_PROCESSING_UNIT.getStackForm())
-                .input(wireFine, Platinum, 2)
-                .outputs(QUANTUM_PROCESSOR_EV.getStackForm(4))
-                .buildAndRegister();
 
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(3000)
                 .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm())
@@ -447,16 +359,6 @@ public class CircuitRecipes {
         // Quantum Assembly
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(4000)
                 .inputs(QUANTUM_PROCESSOR_EV.getStackForm(3))
-                .inputs(SMD_CAPACITOR_NANO.getStackForm(8))
-                .inputs(SMD_RESISTOR_NANO.getStackForm(8))
-                .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm(2))
-                .inputs(ELITE_BOARD.getStackForm())
-                .input(plate, Osmium)
-                .outputs(QUANTUM_ASSEMBLY.getStackForm())
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(4000)
-                .inputs(QUANTUM_PROCESSOR_EV.getStackForm(3))
                 .inputs(SMD_CAPACITOR_QUANTUM.getStackForm(4))
                 .inputs(SMD_RESISTOR_QUANTUM.getStackForm(4))
                 .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm(2))
@@ -468,16 +370,6 @@ public class CircuitRecipes {
         // Quantum Computer
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(6000)
                 .inputs(QUANTUM_ASSEMBLY.getStackForm(4))
-                .inputs(SMD_DIODE_NANO.getStackForm(16))
-                .inputs(QUANTUM_EYE.getStackForm())
-                .inputs(POWER_INTEGRATED_CIRCUIT.getStackForm(4))
-                .inputs(ELITE_BOARD.getStackForm())
-                .input(wireGtSingle, IVSuperconductor, 2)
-                .outputs(QUANTUM_COMPUTER.getStackForm())
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(6000)
-                .inputs(QUANTUM_ASSEMBLY.getStackForm(4))
                 .inputs(SMD_DIODE_QUANTUM.getStackForm(8))
                 .inputs(QUANTUM_EYE.getStackForm())
                 .inputs(POWER_INTEGRATED_CIRCUIT.getStackForm(4))
@@ -487,19 +379,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Quantum Mainframe
-        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(500).EUt(8000)
-                .inputs(QUANTUM_COMPUTER.getStackForm(2))
-                .inputs(SMD_RESISTOR_NANO.getStackForm(64))
-                .inputs(SMD_TRANSISTOR_NANO.getStackForm(56))
-                .inputs(SMD_CAPACITOR_NANO.getStackForm(56))
-                .inputs(SMD_DIODE_NANO.getStackForm(32))
-                .inputs(POWER_INTEGRATED_CIRCUIT.getStackForm(8))
-                .inputs(QUANTUM_STAR.getStackForm())
-                .input(frameGt, TungstenSteel, 4)
-                .input(wireGtSingle, IVSuperconductor, 16)
-                .outputs(QUANTUM_MAINFRAME.getStackForm())
-                .buildAndRegister();
-
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(500).EUt(8000)
                 .inputs(QUANTUM_COMPUTER.getStackForm(2))
                 .inputs(SMD_RESISTOR_QUANTUM.getStackForm(32))
@@ -517,16 +396,6 @@ public class CircuitRecipes {
     private static void crystalCircuits() {
 
         // Crystal Processor
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(10000)
-                .inputs(CRYSTAL_CENTRAL_PROCESSING_UNIT.getStackForm())
-                .inputs(SMD_TRANSISTOR_QUANTUM.getStackForm(16))
-                .inputs(SMD_CAPACITOR_QUANTUM.getStackForm(8))
-                .inputs(KAPTON_CIRCUIT_BOARD.getStackForm())
-                .inputs(NANO_CENTRAL_PROCESSING_UNIT.getStackForm())
-                .input(wireFine, NiobiumTitanium, 2)
-                .outputs(CRYSTAL_PROCESSOR.getStackForm(4))
-                .buildAndRegister();
-
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(10000)
                 .inputs(CRYSTAL_CENTRAL_PROCESSING_UNIT.getStackForm())
                 .inputs(SMD_TRANSISTOR_CRYSTAL.getStackForm(8))
@@ -549,16 +418,6 @@ public class CircuitRecipes {
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(20000)
                 .inputs(CRYSTAL_PROCESSOR.getStackForm(3))
                 .inputs(CENTRAL_PROCESSING_UNIT.getStackForm(64))
-                .inputs(SMD_RESISTOR_QUANTUM.getStackForm(8))
-                .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm())
-                .inputs(KAPTON_CIRCUIT_BOARD.getStackForm())
-                .input(wireGtSingle, LuVSuperconductor, 4)
-                .outputs(ENERGY_FLOW_CIRCUIT_LUV.getStackForm())
-                .buildAndRegister();
-
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(100).EUt(20000)
-                .inputs(CRYSTAL_PROCESSOR.getStackForm(3))
-                .inputs(CENTRAL_PROCESSING_UNIT.getStackForm(64))
                 .inputs(SMD_RESISTOR_CRYSTAL.getStackForm(4))
                 .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm())
                 .inputs(KAPTON_CIRCUIT_BOARD.getStackForm())
@@ -567,18 +426,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Crystal Computer
-        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(300).EUt(30000)
-                .inputs(ENERGY_FLOW_CIRCUIT_LUV.getStackForm(4))
-                .inputs(SMD_DIODE_QUANTUM.getStackForm(16))
-                .inputs(SMD_RESISTOR_QUANTUM.getStackForm(16))
-                .inputs(QUANTUM_EYE.getStackForm())
-                .inputs(HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm())
-                .inputs(KAPTON_CIRCUIT_BOARD.getStackForm())
-                .input(plate, RhodiumPlatedPalladium, 2)
-                .input(wireGtSingle, LuVSuperconductor, 16)
-                .outputs(CRYSTAL_COMPUTER.getStackForm())
-                .buildAndRegister();
-
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(300).EUt(30000)
                 .inputs(ENERGY_FLOW_CIRCUIT_LUV.getStackForm(4))
                 .inputs(SMD_DIODE_CRYSTAL.getStackForm(8))
@@ -592,20 +439,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Crystal Mainframe
-        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(500).EUt(30000)
-                .inputs(CRYSTAL_COMPUTER.getStackForm(2))
-                .inputs(SMD_RESISTOR_QUANTUM.getStackForm(64))
-                .inputs(SMD_RESISTOR_QUANTUM.getStackForm(64))
-                .inputs(SMD_TRANSISTOR_QUANTUM.getStackForm(64))
-                .inputs(SMD_CAPACITOR_QUANTUM.getStackForm(64))
-                .inputs(SMD_DIODE_QUANTUM.getStackForm(48))
-                .inputs(HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(4))
-                .inputs(QUANTUM_STAR.getStackForm(4))
-                .input(frameGt, HSSE, 4)
-                .input(wireGtSingle, LuVSuperconductor, 32)
-                .outputs(CRYSTAL_MAINFRAME.getStackForm())
-                .buildAndRegister();
-
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(500).EUt(30000)
                 .inputs(CRYSTAL_COMPUTER.getStackForm(2))
                 .inputs(SMD_RESISTOR_CRYSTAL.getStackForm(48))
@@ -623,16 +456,6 @@ public class CircuitRecipes {
     private static void wetwareCircuits() {
 
         // Wetware Processor
-        CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(56000)
-                .inputs(CRYSTAL_SYSTEM_ON_CHIP.getStackForm())
-                .inputs(SMD_TRANSISTOR_CRYSTAL.getStackForm(16))
-                .inputs(SMD_CAPACITOR_CRYSTAL.getStackForm(8))
-                .inputs(CYBER_PROCESSING_UNIT.getStackForm())
-                .inputs(QBIT_CENTRAL_PROCESSING_UNIT.getStackForm())
-                .input(wireFine, YttriumBariumCuprate, 2)
-                .outputs(WETWARE_PROCESSOR_LUV.getStackForm(4))
-                .buildAndRegister();
-
         CIRCUIT_ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(56000)
                 .inputs(CRYSTAL_SYSTEM_ON_CHIP.getStackForm())
                 .inputs(SMD_TRANSISTOR_WETWARE.getStackForm(8))
@@ -654,20 +477,6 @@ public class CircuitRecipes {
         // Wetware Assembly
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(400).EUt(120000)
                 .inputs(WETWARE_PROCESSOR_LUV.getStackForm(3))
-                .inputs(SMD_RESISTOR_CRYSTAL.getStackForm(32))
-                .inputs(SMD_TRANSISTOR_CRYSTAL.getStackForm(32))
-                .inputs(SMD_CAPACITOR_CRYSTAL.getStackForm(32))
-                .inputs(SMD_DIODE_CRYSTAL.getStackForm(32))
-                .inputs(ARAM.getStackForm(4))
-                .inputs(QUANTUM_EYE.getStackForm(4))
-                .input(wireGtSingle, ZPMSuperconductor, 4)
-                .input(foil, SiliconeRubber, 16)
-                .fluidInputs(SterileGrowthMedium.getFluid(2000))
-                .outputs(WETWARE_PROCESSOR_ASSEMBLY_ZPM.getStackForm())
-                .buildAndRegister();
-
-        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(400).EUt(120000)
-                .inputs(WETWARE_PROCESSOR_LUV.getStackForm(3))
                 .inputs(SMD_RESISTOR_WETWARE.getStackForm(16))
                 .inputs(SMD_TRANSISTOR_WETWARE.getStackForm(16))
                 .inputs(SMD_CAPACITOR_WETWARE.getStackForm(16))
@@ -681,21 +490,6 @@ public class CircuitRecipes {
                 .buildAndRegister();
 
         // Wetware Supercomputer
-        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(600).EUt(122880)
-                .inputs(WETWARE_PROCESSOR_ASSEMBLY_ZPM.getStackForm(4))
-                .inputs(SMD_RESISTOR_CRYSTAL.getStackForm(64))
-                .inputs(SMD_TRANSISTOR_CRYSTAL.getStackForm(64))
-                .inputs(SMD_CAPACITOR_CRYSTAL.getStackForm(64))
-                .inputs(SMD_DIODE_CRYSTAL.getStackForm(64))
-                .inputs(QUANTUM_STAR.getStackForm(4))
-                .inputs(HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(8))
-                .input(plate, Rutherfordium, 2)
-                .input(wireGtSingle, ZPMSuperconductor, 16)
-                .input(foil, SiliconeRubber, 32)
-                .fluidInputs(SterileGrowthMedium.getFluid(2000))
-                .outputs(WETWARE_SUPER_COMPUTER_UV.getStackForm())
-                .buildAndRegister();
-
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(600).EUt(122880)
                 .inputs(WETWARE_PROCESSOR_ASSEMBLY_ZPM.getStackForm(4))
                 .inputs(SMD_RESISTOR_WETWARE.getStackForm(32))
