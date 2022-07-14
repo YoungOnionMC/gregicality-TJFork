@@ -1,6 +1,6 @@
 package gregicadditions.recipes.chain;
 
-import gregtech.api.unification.OreDictUnifier;
+import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 
 import static gregicadditions.GAMaterials.*;
 import static gregicadditions.item.GAMetaItems.*;
@@ -44,6 +44,7 @@ public class InsulationWireAssemblyChain {
         // C6H12O6 + 3 O -> C6H10O8 + H2O
         CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(480)
                 .inputs(Glucose.getItemStack(24))
+                .notConsumable(new IntCircuitIngredient(0))
                 .fluidInputs(Oxygen.getFluid(3000))
                 .fluidOutputs(Water.getFluid(1000))
                 .outputs(SaccharicAcid.getItemStack(24))

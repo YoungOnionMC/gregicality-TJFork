@@ -33,6 +33,7 @@ public class MetaTileEntityQubitHatch extends MetaTileEntityMultiblockPart imple
     private final boolean isExportHatch;
     private final int parallel;
     private final IQubitContainer qubitContainer;
+    private ICubeRenderer hatchTexture = null;
 
     public MetaTileEntityQubitHatch(ResourceLocation metaTileEntityId, int tier, int parallel, boolean isExportHatch) {
         super(metaTileEntityId, tier);
@@ -59,10 +60,20 @@ public class MetaTileEntityQubitHatch extends MetaTileEntityMultiblockPart imple
         }
     }
 
-    @Override
     public ICubeRenderer getBaseTexture() {
-        MultiblockControllerBase controller = this.getController();
-        return controller == null ? Textures.VOLTAGE_CASINGS[GTValues.ZPM] : controller.getBaseTexture(this);
+        MultiblockControllerBase controller = getController();
+        if (controller != null) {
+            this.hatchTexture = controller.getBaseTexture(this);
+        }
+        if (controller == null && this.hatchTexture != null) {
+            return this.hatchTexture;
+        }
+        if (controller == null) {
+            this.setPaintingColor(DEFAULT_PAINTING_COLOR);
+            return Textures.VOLTAGE_CASINGS[GTValues.ZPM];
+        }
+        this.setPaintingColor(0xFFFFFF);
+        return controller.getBaseTexture(this);
     }
 
     @Override

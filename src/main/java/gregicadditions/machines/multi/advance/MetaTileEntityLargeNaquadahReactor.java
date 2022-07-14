@@ -50,7 +50,7 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
 
 
     public MetaTileEntityLargeNaquadahReactor(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, GARecipeMaps.NAQUADAH_REACTOR_FUELS, GAValues.V[GAValues.UV] * 2L);
+        super(metaTileEntityId, GARecipeMaps.NAQUADAH_REACTOR_FUELS, GAValues.V[GAValues.UHV]);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
         tooltip.add(I18n.format("gtadditions.multiblock.large_naquadah_reactor.tooltip.2"));
         tooltip.add(I18n.format("gtadditions.multiblock.large_naquadah_reactor.tooltip.3"));
     }
-
+    
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
@@ -165,7 +165,7 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
                 FluidStack oxygenStack = Materials.Oxygen.getPlasma(50);
                 fluidTank.get().drain(oxygenStack, true);
             }
-            return maxVoltage * (isUsingOxygen ? 3 : 1);
+            return maxVoltage * (isUsingOxygen ? 16 : 4);
         }
 
         @Override

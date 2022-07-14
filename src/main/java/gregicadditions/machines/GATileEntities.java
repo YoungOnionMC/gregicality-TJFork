@@ -198,6 +198,7 @@ public class GATileEntities {
     public static MetaTileEntityCrackingUnit CRACKER;
     public static MetaTileEntityMultiFurnace MULTI_FURNACE;
     public static MetaTileEntityLargeCombustionEngine[] LARGE_COMBUSTION_ENGINE = new MetaTileEntityLargeCombustionEngine[2];
+    public static MetaTileEntityExtremeDieselEngine EXTREME_DIESEL_ENGINE;
     public static MetaTileEntityPyrolyseOven PYROLYSE_OVEN;
     public static GAMetaTileEntityBatteryBuffer[][] BATTERY_BUFFERS = new GAMetaTileEntityBatteryBuffer[6][4];
     public static GAMetaTileEntityCharger[] CHARGER = new GAMetaTileEntityCharger[6];
@@ -1185,6 +1186,7 @@ public class GATileEntities {
         FLUID_DRILLING_PLANT[0] = GregTechAPI.registerMetaTileEntity(4239, new MetaTileEntityFluidDrillingPlant(location("fluid_drilling_plant_mv"), 2));
         FLUID_DRILLING_PLANT[1] = GregTechAPI.registerMetaTileEntity(4240, new MetaTileEntityFluidDrillingPlant(location("fluid_drilling_plant_hv"), 3));
         FLUID_DRILLING_PLANT[2] = GregTechAPI.registerMetaTileEntity(4241, new MetaTileEntityFluidDrillingPlant(location("fluid_drilling_plant_ev"), 4));
+        EXTREME_DIESEL_ENGINE = GregTechAPI.registerMetaTileEntity(4242, new MetaTileEntityExtremeDieselEngine(location("extreme_diesel_engine")));
     }
 
     public static <T extends MetaTileEntity & ITieredMetaTileEntity> MTE<T> create(int id, T sampleMetaTileEntity) {

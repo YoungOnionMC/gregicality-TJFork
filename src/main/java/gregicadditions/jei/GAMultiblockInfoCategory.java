@@ -43,6 +43,7 @@ public class GAMultiblockInfoCategory implements IRecipeCategory<MultiblockInfoR
                     .put("electric_blast_furnace", new MultiblockInfoRecipeWrapper(new ElectricBlastFurnaceInfo()))
                     .put("cracker_unit", new MultiblockInfoRecipeWrapper(new CrackerUnitInfo()))
                     .put("diesel_engine", new MultiblockInfoRecipeWrapper(new LargeCombustionEngineInfo()))
+                    .put("extreme_diesel_engine", new MultiblockInfoRecipeWrapper(new ExtremeDieselEngineinfo()))
                     .put("distillation_tower", new MultiblockInfoRecipeWrapper(new DistillationTowerInfo()))
                     .put("implosion_compressor", new MultiblockInfoRecipeWrapper(new ImplosionCompressorInfo()))
                     .put("multi_smelter", new MultiblockInfoRecipeWrapper(new MultiSmelterInfo()))

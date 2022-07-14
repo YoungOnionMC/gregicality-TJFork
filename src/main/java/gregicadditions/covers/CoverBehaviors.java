@@ -18,18 +18,18 @@ import java.util.function.BiFunction;
 public class CoverBehaviors {
 
     public static void init() {
-        registerBehavior(100, new ResourceLocation(Gregicality.MODID, "conveyor.uhv"), GAMetaItems.CONVEYOR_MODULE_UHV, (tile, side) -> new CoverConveyor(tile, side, 9, 16 * 64));
+        registerBehavior(100, new ResourceLocation(Gregicality.MODID, "conveyor.uhv"), GAMetaItems.CONVEYOR_MODULE_UHV, (tile, side) -> new CoverConveyor(tile, side, 9, 14 * 64));
         registerBehavior(101, new ResourceLocation(Gregicality.MODID, "conveyor.uev"), GAMetaItems.CONVEYOR_MODULE_UEV, (tile, side) -> new CoverConveyor(tile, side, 9, 16 * 64));
-        registerBehavior(102, new ResourceLocation(Gregicality.MODID, "conveyor.uiv"), GAMetaItems.CONVEYOR_MODULE_UIV, (tile, side) -> new CoverConveyor(tile, side, 9, 16 * 64));
-        registerBehavior(103, new ResourceLocation(Gregicality.MODID, "conveyor.umv"), GAMetaItems.CONVEYOR_MODULE_UMV, (tile, side) -> new CoverConveyor(tile, side, 9, 16 * 64));
-        registerBehavior(104, new ResourceLocation(Gregicality.MODID, "conveyor.uxv"), GAMetaItems.CONVEYOR_MODULE_UXV, (tile, side) -> new CoverConveyor(tile, side, 9, 16 * 64));
-        registerBehavior(105, new ResourceLocation(Gregicality.MODID, "conveyor.max"), GAMetaItems.CONVEYOR_MODULE_MAX, (tile, side) -> new CoverConveyor(tile, side, 9, 16 * 64));
-        registerBehavior(106, new ResourceLocation(Gregicality.MODID, "robotic_arm.uhv"), GAMetaItems.ROBOT_ARM_UHV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 16 * 64));
+        registerBehavior(102, new ResourceLocation(Gregicality.MODID, "conveyor.uiv"), GAMetaItems.CONVEYOR_MODULE_UIV, (tile, side) -> new CoverConveyor(tile, side, 9, 18 * 64));
+        registerBehavior(103, new ResourceLocation(Gregicality.MODID, "conveyor.umv"), GAMetaItems.CONVEYOR_MODULE_UMV, (tile, side) -> new CoverConveyor(tile, side, 9, 20 * 64));
+        registerBehavior(104, new ResourceLocation(Gregicality.MODID, "conveyor.uxv"), GAMetaItems.CONVEYOR_MODULE_UXV, (tile, side) -> new CoverConveyor(tile, side, 9, 22 * 64));
+        registerBehavior(105, new ResourceLocation(Gregicality.MODID, "conveyor.max"), GAMetaItems.CONVEYOR_MODULE_MAX, (tile, side) -> new CoverConveyor(tile, side, 9, 24 * 64));
+        registerBehavior(106, new ResourceLocation(Gregicality.MODID, "robotic_arm.uhv"), GAMetaItems.ROBOT_ARM_UHV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 14 * 64));
         registerBehavior(107, new ResourceLocation(Gregicality.MODID, "robotic_arm.uev"), GAMetaItems.ROBOT_ARM_UEV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 16 * 64));
-        registerBehavior(108, new ResourceLocation(Gregicality.MODID, "robotic_arm.uiv"), GAMetaItems.ROBOT_ARM_UIV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 16 * 64));
-        registerBehavior(109, new ResourceLocation(Gregicality.MODID, "robotic_arm.umv"), GAMetaItems.ROBOT_ARM_UMV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 16 * 64));
-        registerBehavior(110, new ResourceLocation(Gregicality.MODID, "robotic_arm.uxv"), GAMetaItems.ROBOT_ARM_UXV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 16 * 64));
-        registerBehavior(111, new ResourceLocation(Gregicality.MODID, "robotic_arm.max"), GAMetaItems.ROBOT_ARM_MAX, (tile, side) -> new CoverRoboticArm(tile, side, 9, 16 * 64));
+        registerBehavior(108, new ResourceLocation(Gregicality.MODID, "robotic_arm.uiv"), GAMetaItems.ROBOT_ARM_UIV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 18 * 64));
+        registerBehavior(109, new ResourceLocation(Gregicality.MODID, "robotic_arm.umv"), GAMetaItems.ROBOT_ARM_UMV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 20 * 64));
+        registerBehavior(110, new ResourceLocation(Gregicality.MODID, "robotic_arm.uxv"), GAMetaItems.ROBOT_ARM_UXV, (tile, side) -> new CoverRoboticArm(tile, side, 9, 22 * 64));
+        registerBehavior(111, new ResourceLocation(Gregicality.MODID, "robotic_arm.max"), GAMetaItems.ROBOT_ARM_MAX, (tile, side) -> new CoverRoboticArm(tile, side, 9, 24 * 64));
         registerBehavior(112, new ResourceLocation(Gregicality.MODID, "pump.uhv"), GAMetaItems.ELECTRIC_PUMP_UHV, (tile, side) -> new CoverPump(tile, side, 9, 20971520 * 4));
         registerBehavior(113, new ResourceLocation(Gregicality.MODID, "pump.uev"), GAMetaItems.ELECTRIC_PUMP_UEV, (tile, side) -> new CoverPump(tile, side, 9, 20971520 * 16));
         registerBehavior(114, new ResourceLocation(Gregicality.MODID, "pump.uiv"), GAMetaItems.ELECTRIC_PUMP_UIV, (tile, side) -> new CoverPump(tile, side, 9, 20971520 * 64));

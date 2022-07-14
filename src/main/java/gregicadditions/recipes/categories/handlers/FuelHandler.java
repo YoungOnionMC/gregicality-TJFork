@@ -81,7 +81,7 @@ public class FuelHandler {
         registerDieselGeneratorFuel(BioDiesel         .getFluid( 2),   14, LV);
         registerDieselGeneratorFuel(LightFuel         .getFluid(32),  305, LV);
         registerDieselGeneratorFuel(Gasoline          .getFluid( 8),  135, LV);
-        registerDieselGeneratorFuel(HighOctaneGasoline.getFluid(10),  562, LV);
+        registerDieselGeneratorFuel(HighOctaneGasoline.getFluid( 8),  562, LV);
         registerDieselGeneratorFuel(Octane            .getFluid(20),   45, LV);
         registerDieselGeneratorFuel(Ethanol           .getFluid( 2),   12, LV);
 
@@ -120,7 +120,7 @@ public class FuelHandler {
         registerRocketFuel(RocketFuelH8N4C2O4       .getFluid( 3), 160, EV);
         registerRocketFuel(RocketFuelCN3H7O3        .getFluid( 6), 120, EV);
         registerRocketFuel(DenseHydrazineFuelMixture.getFluid( 9),  80, EV);
-        registerRocketFuel(RP1RocketFuel            .getFluid(12),  40, EV);
+        registerRocketFuel(RP1RocketFuel            .getFluid( 12),  60, EV);
         registerRocketFuel(RocketFuel               .getFluid(15),  20, EV);
 
         // Naquadah Reactor

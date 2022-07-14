@@ -5,8 +5,12 @@ import gregicadditions.GAValues;
 import gregicadditions.item.GAMetaBlocks;
 import gregicadditions.item.metal.MetalCasing1;
 import gregicadditions.machines.GATileEntities;
+import gregtech.api.GTValues;
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.OreDictUnifier;
+import gregtech.api.unification.material.MarkerMaterials;
+import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.blocks.*;
 import gregtech.common.items.MetaItems;
@@ -51,15 +55,15 @@ public class MultiblockCraftingRecipes {
                 .fluidInputs(Lubricant.getFluid(L * 16))
                 .fluidInputs(SiliconeRubber.getFluid(L * 64))
                 .fluidInputs(SolderingAlloy.getFluid(L * 10))
-                .input(circuit, Master)
-                .input(circuit, Master)
-                .input(circuit, Master)
-                .input(circuit, Master)
-                .input(wireGtSingle, IVSuperconductor, 64)
-                .input(wireGtSingle, IVSuperconductor, 64)
-                .input(gear, IncoloyMA956, 16)
+                .input(circuit, Ultimate)
+                .input(circuit, Ultimate)
+                .input(circuit, Ultimate)
+                .input(circuit, Ultimate)
+                .input(wireGtSingle, ZPMSuperconductor, 32)
+                .input(wireGtSingle, LuVSuperconductor, 32)
+                .input(gear, IncoloyMA956, 32)
                 .inputs(ROCKET_GENERATOR[LuV - 1].getStackForm(2))
-                .inputs(ELECTRIC_PISTON_LUV.getStackForm(16))
+                .inputs(ELECTRIC_PISTON_ZPM.getStackForm(16))
                 .outputs(LARGE_ROCKET_ENGINE.getStackForm())
                 .buildAndRegister();
 
@@ -186,18 +190,18 @@ public class MultiblockCraftingRecipes {
                 .fluidInputs(SolderingAlloy.getFluid(L * 20))
                 .fluidInputs(Einsteinium253.getMaterial().getFluid(L * 2))
                 .input(plate, Tritanium, 8)
-                .input(foil, EnrichedNaquadahAlloy, 24)
+                .input(foil, NaquadahAlloy, 24)
                 .input(gear, Duranium, 16)
                 .input(plateDense, Naquadria, 4)
-                .inputs(FIELD_GENERATOR_UV.getStackForm(1))
-                .inputs(ELECTRIC_PUMP_UV.getStackForm(1))
-                .inputs(ELECTRIC_PISTON_UV.getStackForm(2))
+                .inputs(FIELD_GENERATOR_UHV.getStackForm(1))
+                .inputs(ELECTRIC_PUMP_UHV.   getStackForm(1))
+                .inputs(ELECTRIC_PISTON_UHV.getStackForm(2))
                 .inputs(HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(32))
                 .input(wireGtSingle, ZPMSuperconductor, 32)
-                .input(circuit, Superconductor)
-                .input(circuit, Superconductor)
-                .input(circuit, Superconductor)
-                .input(circuit, Superconductor)
+                .input(circuit, Infinite)
+                .input(circuit, Infinite)
+                .input(circuit, Infinite)
+                .input(circuit, Infinite)
                 .outputs(LARGE_NAQUADAH_REACTOR.getStackForm())
                 .buildAndRegister();
 
@@ -259,9 +263,9 @@ public class MultiblockCraftingRecipes {
                 .input(foil, Polyetheretherketone, 64)
                 .inputs(LARGE_NAQUADAH_REACTOR.getStackForm())
                 .inputs(UHPIC.getStackForm(16))
-                .inputs(ELECTRIC_PUMP_UHV.getStackForm(2))
-                .inputs(FIELD_GENERATOR_UHV.getStackForm(2))
-                .input(circuit, Infinite, 4)
+                .inputs(ELECTRIC_PUMP_UIV.getStackForm(2))
+                .inputs(FIELD_GENERATOR_UIV.getStackForm(2))
+                .input(circuit, UIV, 4)
                 .outputs(HYPER_REACTOR_I.getStackForm())
                 .buildAndRegister();
 
@@ -273,10 +277,10 @@ public class MultiblockCraftingRecipes {
                 .input(screw, Ruridit, 64)
                 .input(stick, AbyssalAlloy, 16)
                 .input(gear, TungstenTitaniumCarbide, 8)
-                .input(circuit, UEV, 4)
+                .input(circuit, UMV, 4)
                 .input(foil, Zylon, 64)
-                .inputs(FIELD_GENERATOR_UEV.getStackForm(2))
-                .inputs(ELECTRIC_PUMP_UEV.getStackForm(2))
+                .inputs(FIELD_GENERATOR_UMV.getStackForm(2))
+                .inputs(ELECTRIC_PUMP_UMV.getStackForm(2))
                 .inputs(HYPER_REACTOR_I.getStackForm())
                 .outputs(HYPER_REACTOR_II.getStackForm())
                 .buildAndRegister();
@@ -289,12 +293,12 @@ public class MultiblockCraftingRecipes {
                 .input(screw, Zeron100, 64)
                 .input(stick, TitanSteel, 16)
                 .input(gear, Pikyonium, 8)
-                .input(circuit, UIV, 4)
+                .input(circuit, UXV, 4)
                 .inputs(DEGENERATE_RHENIUM_PLATE.getStackForm(4))
                 .input(foil, Zylon, 64)
                 .input(foil, Zylon, 64)
-                .inputs(FIELD_GENERATOR_UIV.getStackForm(2))
-                .inputs(ELECTRIC_PUMP_UIV.getStackForm(2))
+                .inputs(FIELD_GENERATOR_UXV.getStackForm(2))
+                .inputs(ELECTRIC_PUMP_UXV.getStackForm(2))
                 .inputs(HYPER_REACTOR_II.getStackForm())
                 .outputs(HYPER_REACTOR_III.getStackForm())
                 .buildAndRegister();
@@ -945,6 +949,16 @@ public class MultiblockCraftingRecipes {
                 'C', new UnificationEntry(circuit, Elite),
                 'W', new UnificationEntry(cableGtSingle, TungstenSteel),
                 'G', new UnificationEntry(gear, Titanium));
+        //Extreme Diesel engine
+        ModHandler.addShapedRecipe( "extreme_combustion_engine", EXTREME_DIESEL_ENGINE.getStackForm(),
+                "PCP", "EME", "GWG",
+                'M', MetaTileEntities.HULL[GTValues.IV].getStackForm(),
+                'P', MetaItems.ELECTRIC_PISTON_IV.getStackForm(),
+                'E', MetaItems.ELECTRIC_MOTOR_IV.getStackForm(),
+                'C', new UnificationEntry(OrePrefix.circuit, Elite),
+                'W', new UnificationEntry(OrePrefix.cableGtSingle, Materials.HSSG),
+                'G', new UnificationEntry(OrePrefix.gear, Materials.TungstenSteel));
+
 
         // Multi-Smelter
         removeRecipeByName("gregtech:multi_furnace");

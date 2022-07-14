@@ -380,7 +380,7 @@ public class MetaItemRecipes {
                 .buildAndRegister();
 
         // Laser Cooling Unit
-        ASSEMBLER_RECIPES.recipeBuilder().duration(300).EUt(1200000)
+        ASSEMBLER_RECIPES.recipeBuilder().duration(150).EUt(1200000)
                 .fluidInputs(SolderingAlloy.getFluid(L * 2))
                 .input(wireFine, Gold, 4)
                 .inputs(MetaBlocks.METAL_CASING.getItemVariant(BlockMetalCasing.MetalCasingType.ALUMINIUM_FROSTPROOF))

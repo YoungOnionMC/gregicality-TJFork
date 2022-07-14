@@ -42,7 +42,7 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
 
 
     public MetaTileEntityLargeRocketEngine(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, GARecipeMaps.ROCKET_FUEL_RECIPES, GAValues.V[GAValues.EV]);
+        super(metaTileEntityId, GARecipeMaps.ROCKET_FUEL_RECIPES, GAValues.V[GAValues.ZPM]);
     }
 
     @Override
@@ -59,12 +59,12 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
     protected void addDisplayText(List<ITextComponent> textList) {
         super.addDisplayText(textList);
         if (isStructureFormed() && !hasProblems()) {
-            FluidStack hydrogen = importFluidHandler.drain(GAMaterials.LiquidHydrogen.getFluid(Integer.MAX_VALUE), false);
+            FluidStack oxygen = importFluidHandler.drain(GAMaterials.LiquidOxygen.getFluid(Integer.MAX_VALUE), false);
             FluidStack air = importFluidHandler.drain(Materials.Air.getFluid(Integer.MAX_VALUE), false);
             FluidStack fuelStack = ((RocketEngineWorkableHandler) workableHandler).getFuelStack();
             int hydrogenNeededToBoost = ((RocketEngineWorkableHandler) workableHandler).getOxygenNeededToBoost();
             boolean isBoosted = ((RocketEngineWorkableHandler) workableHandler).isUsingOxygen();
-            int hydrogenAmount = hydrogen == null ? 0 : hydrogen.amount;
+            int oxygenAmount = oxygen == null ? 0 : oxygen.amount;
             int airAmount = air == null ? 0 : air.amount;
             int fuelAmount = fuelStack == null ? 0 : fuelStack.amount;
 
@@ -75,7 +75,7 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
 
             textList.add(new TextComponentTranslation("gregtech.multiblock.universal.air_amount", airAmount).setStyle(new Style().setColor(TextFormatting.AQUA)));
 
-            textList.add(new TextComponentTranslation("gregtech.multiblock.universal.liquid_hydrogen_amount", hydrogenAmount).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+            textList.add(new TextComponentTranslation("gregtech.multiblock.universal.liquid_hydrogen_amount", oxygenAmount).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
             textList.add(new TextComponentTranslation("gregtech.multiblock.large_rocket_engine.hydrogen_need", hydrogenNeededToBoost).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
             if (isBoosted)
                 textList.add(new TextComponentTranslation("gregtech.multiblock.large_rocket_engine.boost").setStyle(new Style().setColor(TextFormatting.GREEN)));
@@ -89,10 +89,6 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
         tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.2"));
         tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.3"));
         tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.4"));
-        tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.5"));
-        tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.6"));
-        tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.7"));
-        tooltip.add(I18n.format("gtadditions.multiblock.large_rocket_engine.tooltip.8"));
     }
 
     @Override
@@ -125,7 +121,6 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
         private boolean isUsingOxygen = false;
         private int oxygenNeededToBoost;
         private static final int AIR_INTAKE_PER_SEC = 37500;
-        private static final int TICK_PER_SEC = 20;
         private FluidStack fuelStack;
 
         public RocketEngineWorkableHandler(MetaTileEntity metaTileEntity, FuelRecipeMap recipeMap,
@@ -134,9 +129,10 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
         }
 
         public FluidStack getFuelStack() {
-            if (fuelStack != null && fuelStack.amount == 0)
-                fuelStack = null;
-            return fuelStack;
+            if (previousRecipe == null)
+                return null;
+            FluidStack fuelStack = previousRecipe.getRecipeFluid();
+            return fluidTank.get().drain(new FluidStack(fuelStack.getFluid(), Integer.MAX_VALUE), false);
         }
 
         // Override to remove the "Boosted!" from the GUI when not running
@@ -152,13 +148,11 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
 
         @Override
         protected boolean checkRecipe(FuelRecipe recipe) {
-            refreshFuelStack(recipe);
             return checkAir();
         }
 
         private boolean checkAir() {
             FluidStack airResult = fluidTank.get().drain(Materials.Air.getFluid(AIR_INTAKE_PER_SEC), false);
-
             return airResult != null && airResult.amount == AIR_INTAKE_PER_SEC;
         }
 
@@ -168,30 +162,21 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
             return isUsingOxygen;
         }
 
-        private int refreshFuelStack(FuelRecipe recipe) {
-            FluidStack rocketFuel = recipe.getRecipeFluid().copy();
-            rocketFuel.amount = Integer.MAX_VALUE;
-            this.fuelStack = fluidTank.get().drain(rocketFuel, false);
-
-            return fuelStack == null ? 0 : fuelStack.amount;
-        }
 
         @Override
         protected int calculateFuelAmount(FuelRecipe recipe) {
-            checkBoost();
-            return refreshFuelStack(recipe);
+            FluidStack rocketFuel = recipe.getRecipeFluid().copy();
+            this.fuelStack = fluidTank.get().drain(rocketFuel, false);
+            return super.calculateFuelAmount(recipe) * (checkBoost() ? 2 : 1);
         }
 
-        @Override
-        protected int calculateRecipeDuration(FuelRecipe recipe) {
-            return super.calculateRecipeDuration(recipe) + TICK_PER_SEC;
-        }
+
 
         @Override
         protected long startRecipe(FuelRecipe recipe, int fuelUsed, int recipeDuration) {
-            refreshFuelStack(recipe);
-            long totalEUPerAmount = recipe.getMinVoltage() * recipe.getDuration() / recipe.getRecipeFluid().amount;
-            long EUt = totalEUPerAmount * fuelUsed / TICK_PER_SEC;
+
+            long MaxVoltage = maxVoltage;
+
 
             // Drain tanks
             if (checkAir()) {
@@ -199,26 +184,21 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
             } else return 0;
 
             // Check boosted status and drain if needed
-            oxygenNeededToBoost = 4 * (int) Math.ceil(fuelUsed / 1000.0);
+            oxygenNeededToBoost = 4 * (int) Math.ceil(fuelUsed / 10.0);
             if (checkBoost()) {
                 fluidTank.get().drain(GAMaterials.LiquidOxygen.getFluid(oxygenNeededToBoost), true);
-                EUt *= 3;
+                MaxVoltage *= 16;
+            }
+            else {
+                MaxVoltage *= 4;
             }
 
-            // Apply efficiency
-            EUt *= 0.8;
-
-            if (EUt > GAValues.V[GAValues.LuV])
-                EUt = GAValues.V[GAValues.LuV] + ((EUt - GAValues.V[GAValues.LuV]) * 40 / 100);
-            if (EUt > GAValues.V[GAValues.ZPM])
-                EUt = GAValues.V[GAValues.ZPM] + ((EUt - GAValues.V[GAValues.ZPM]) * 20 / 100);
-            if (EUt > GAValues.V[GAValues.UV])
-                EUt = GAValues.V[GAValues.UV] + ((EUt - GAValues.V[GAValues.UV]) * 10 / 100);
+            MaxVoltage *= .6;
 
             // Refresh our internal FluidStack
             fuelStack.amount -= fuelUsed;
 
-            return EUt;
+            return MaxVoltage;
         }
 
         public int getOxygenNeededToBoost() {

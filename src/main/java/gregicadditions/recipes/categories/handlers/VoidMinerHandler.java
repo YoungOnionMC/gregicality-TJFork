@@ -27,23 +27,23 @@ public class VoidMinerHandler {
     private static void processVoidOre(OrePrefix dustPrefix, Material material) {
         if (GAConfig.multis.voidMiner.oreVariants) {
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklist).contains(material.toString())) {
-                ORES.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.ore, material)));
+                ORES.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.crushedPurified, material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUHV).contains(material.toString())) {
-                ORES_2.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_2.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.crushedPurified, material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUEV).contains(material.toString())) {
-                ORES_3.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_3.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.crushedPurified, material)));
             }
         } else {
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklist).contains(material.toString())) {
-                ORES.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.ore, material)));
+                ORES.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.crushedPurified, material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUHV).contains(material.toString())) {
-                ORES_2.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_2.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.crushedPurified, material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUEV).contains(material.toString())) {
-                ORES_3.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_3.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.crushedPurified, material)));
             }
         }
     }

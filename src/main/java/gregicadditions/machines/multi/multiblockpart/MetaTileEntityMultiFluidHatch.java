@@ -3,6 +3,7 @@ package gregicadditions.machines.multi.multiblockpart;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import gregtech.api.GTValues;
 import gregtech.api.capability.impl.FluidTankList;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
@@ -31,6 +32,7 @@ public class MetaTileEntityMultiFluidHatch extends GAMetaTileEntityMultiblockPar
     protected FluidTankList fluidTanks;
     private boolean isExportHatch;
     private static final int TANK_SIZE = 16000;
+    private ICubeRenderer hatchTexture = null;
 
     public MetaTileEntityMultiFluidHatch(ResourceLocation metaTileEntityId, int tier, boolean isExportHatch) {
         super(metaTileEntityId, tier);
@@ -75,16 +77,22 @@ public class MetaTileEntityMultiFluidHatch extends GAMetaTileEntityMultiblockPar
         }
     }
 
-    @Override
     public ICubeRenderer getBaseTexture() {
-        MultiblockControllerBase controller = this.getController();
-        if(controller != null)
-            return controller.getBaseTexture(this);
-
-        if (this.getTier() == 3)
-            return Textures.VOLTAGE_CASINGS[5];
-        else
-            return Textures.VOLTAGE_CASINGS[3];
+        MultiblockControllerBase controller = getController();
+        if (controller != null) {
+            this.hatchTexture = controller.getBaseTexture(this);
+        }
+        if (controller == null && this.hatchTexture != null) {
+            return this.hatchTexture;
+        }
+        if (controller == null) {
+            if (this.getTier() == 3)
+                return Textures.VOLTAGE_CASINGS[5];
+            else
+                return Textures.VOLTAGE_CASINGS[3];
+        }
+        this.setPaintingColor(0xFFFFFF);
+        return controller.getBaseTexture(this);
     }
 
     @Override
