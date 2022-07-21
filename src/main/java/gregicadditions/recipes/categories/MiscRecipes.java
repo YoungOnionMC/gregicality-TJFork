@@ -192,5 +192,8 @@ public class MiscRecipes {
         ModHandler.addShapelessRecipe("drum_nbt_bronze", GATileEntities.BRONZE_DRUM.getStackForm(), GATileEntities.BRONZE_DRUM.getStackForm());
         ModHandler.addShapelessRecipe("drum_nbt_steel", GATileEntities.STEEL_DRUM.getStackForm(), GATileEntities.STEEL_DRUM.getStackForm());
         ModHandler.addShapelessRecipe("drum_nbt_stainless_steel", GATileEntities.STAINLESS_STEEL_DRUM.getStackForm(), GATileEntities.STAINLESS_STEEL_DRUM.getStackForm());
+        ModHandler.addShapelessRecipe("drum_nbt_titanium", GATileEntities.TITANIUM_DRUM.getStackForm(), GATileEntities.TITANIUM_DRUM.getStackForm());
+        ModHandler.addShapelessRecipe("drum_nbt_Tungsten_steel", GATileEntities.TUNGSTENSTEEL_DRUM.getStackForm(), GATileEntities.TUNGSTENSTEEL_DRUM.getStackForm());
+
     }
 }

@@ -1758,9 +1758,9 @@ gtadditions.machine.fusion_reactor.uv.name=Fusion Reactor Computer Mark 3 (FRC)
 gtadditions.machine.miner.lv.name=Basic Chunk Miner
 gtadditions.machine.miner.mv.name=Advanced Chunk Miner
 gtadditions.machine.miner.hv.name=Advanced Chunk Miner II
-gtadditions.machine.miner.basic.name=Basic Large Miner (BCM)
-gtadditions.machine.miner.large.name=Large Mine r(BCM)
-gtadditions.machine.miner.advance.name=Advanced Large Miner (BCM)
+gtadditions.machine.miner.basic.name=Basic Large Miner (BLM)
+gtadditions.machine.miner.large.name=Large Miner (LM)
+gtadditions.machine.miner.advance.name=Advanced Large Miner (ALM)
 gtadditions.machine.miner.multi.description=Mines all ore in an area of %dx%d Chunks. Can mine ore as if it was using a hammer with fortune %s, or with silk touch.
 gtadditions.machine.miner.description=Mines all ores in the current chunk. Requires 1 amp.
 gtadditions.machine.miner.steam.description=Mines all ores in the current chunk. Requires 16 mb/t of steam.
@@ -3061,12 +3061,12 @@ gregtech.multiblock.machine.primitive_blast_furnace.industrial.fuelEfficiency=Fu
 gregtech.multiblock.universal.oxygen_plasma_amount=Oxygen Plasma: %dmb
 gregtech.multiblock.universal.helium_plasma_amount=Helium Plasma: %dmb
 gregtech.multiblock.universal.cryotheum_amount=Cryotheum: %dmb
-gregtech.multiblock.universal.liquid_hydrogen_amount=Liquid Oxygen: %dmB
+gregtech.multiblock.universal.liquid_hydrogen_amount=Liquid Hydrogen: %dmB
 gregtech.multiblock.universal.air_amount=Air: %dmB
 gregtech.multiblock.universal.energy_usage=Current Energy Usage: %d%%
 gregtech.multiblock.universal.speed_increase=Current Speed Increase: %d%%
 
-gregtech.multiblock.large_rocket_engine.hydrogen_need=Oxygen to Boost: %dmB
+gregtech.multiblock.large_rocket_engine.hydrogen_need=Liquid Hydrogen to Boost: %dmB
 gregtech.multiblock.large_rocket_engine.boost=Boosted!
 gregtech.multiblock.large_rocket_engine.no_fuel=No Fuel Loaded
 

@@ -59,11 +59,11 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
     protected void addDisplayText(List<ITextComponent> textList) {
         super.addDisplayText(textList);
         if (isStructureFormed() && !hasProblems()) {
-            FluidStack oxygen = importFluidHandler.drain(GAMaterials.LiquidOxygen.getFluid(Integer.MAX_VALUE), false);
+            FluidStack oxygen = importFluidHandler.drain(GAMaterials.LiquidHydrogen.getFluid(Integer.MAX_VALUE), false);
             FluidStack air = importFluidHandler.drain(Materials.Air.getFluid(Integer.MAX_VALUE), false);
             FluidStack fuelStack = ((RocketEngineWorkableHandler) workableHandler).getFuelStack();
             int hydrogenNeededToBoost = ((RocketEngineWorkableHandler) workableHandler).getOxygenNeededToBoost();
-            boolean isBoosted = ((RocketEngineWorkableHandler) workableHandler).isUsingOxygen();
+            boolean isBoosted = ((RocketEngineWorkableHandler) workableHandler).isUsingHydrogen();
             int oxygenAmount = oxygen == null ? 0 : oxygen.amount;
             int airAmount = air == null ? 0 : air.amount;
             int fuelAmount = fuelStack == null ? 0 : fuelStack.amount;
@@ -118,7 +118,7 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
 
     public static class RocketEngineWorkableHandler extends GAFuelRecipeLogic {
 
-        private boolean isUsingOxygen = false;
+        private boolean isUsingHydrogen = false;
         private int oxygenNeededToBoost;
         private static final int AIR_INTAKE_PER_SEC = 37500;
         private FluidStack fuelStack;
@@ -140,7 +140,7 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
         @Override
         protected void setActive(boolean active) {
             if (!active && this.isActive()) {
-                isUsingOxygen = false;
+                isUsingHydrogen = false;
                 oxygenNeededToBoost = 0;
             }
             super.setActive(active);
@@ -157,9 +157,9 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
         }
 
         private boolean checkBoost() {
-            FluidStack hydrogenStack = fluidTank.get().drain(GAMaterials.LiquidOxygen.getFluid(oxygenNeededToBoost), false);
-            this.isUsingOxygen = hydrogenStack != null && hydrogenStack.amount >= oxygenNeededToBoost;
-            return isUsingOxygen;
+            FluidStack hydrogenStack = fluidTank.get().drain(GAMaterials.LiquidHydrogen.getFluid(oxygenNeededToBoost), false);
+            this.isUsingHydrogen = hydrogenStack != null && hydrogenStack.amount >= oxygenNeededToBoost;
+            return isUsingHydrogen;
         }
 
 
@@ -186,7 +186,7 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
             // Check boosted status and drain if needed
             oxygenNeededToBoost = 4 * (int) Math.ceil(fuelUsed / 10.0);
             if (checkBoost()) {
-                fluidTank.get().drain(GAMaterials.LiquidOxygen.getFluid(oxygenNeededToBoost), true);
+                fluidTank.get().drain(GAMaterials.LiquidHydrogen.getFluid(oxygenNeededToBoost), true);
                 MaxVoltage *= 16;
             }
             else {
@@ -205,8 +205,8 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
             return oxygenNeededToBoost;
         }
 
-        public boolean isUsingOxygen() {
-            return isUsingOxygen;
+        public boolean isUsingHydrogen() {
+            return isUsingHydrogen;
         }
     }
 
