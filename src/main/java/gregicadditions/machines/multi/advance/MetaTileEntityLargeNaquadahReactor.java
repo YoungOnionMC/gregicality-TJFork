@@ -151,7 +151,7 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
             FluidStack oxygenStack = Materials.Oxygen.getPlasma(50);
             FluidStack drainOxygenStack = fluidTank.get().drain(oxygenStack, false);
             this.isUsingOxygen = drainOxygenStack != null && drainOxygenStack.amount >= 2;
-            return super.calculateFuelAmount(currentRecipe) * (isUsingOxygen ? 2 : 1);
+            return currentRecipe.getRecipeFluid().amount * (getVoltageMultiplier(maxVoltage * (isUsingOxygen ? 12 : 4), currentRecipe.getMinVoltage()) * (isUsingOxygen ? 2 : 1));
         }
 
         @Override
@@ -165,7 +165,7 @@ public class MetaTileEntityLargeNaquadahReactor extends GAFueledMultiblockContro
                 FluidStack oxygenStack = Materials.Oxygen.getPlasma(50);
                 fluidTank.get().drain(oxygenStack, true);
             }
-            return maxVoltage * (isUsingOxygen ? 16 : 4);
+            return maxVoltage * (isUsingOxygen ? 12 : 4);
         }
 
         @Override

@@ -80,8 +80,8 @@ public class FuelHandler {
         registerDieselGeneratorFuel(SulfuricLightFuel .getFluid( 8),   10, LV);
         registerDieselGeneratorFuel(BioDiesel         .getFluid( 2),   14, LV);
         registerDieselGeneratorFuel(LightFuel         .getFluid(32),  305, LV);
-        registerDieselGeneratorFuel(Gasoline          .getFluid( 8),  135, LV);
-        registerDieselGeneratorFuel(HighOctaneGasoline.getFluid( 8),  562, LV);
+        registerDieselGeneratorFuel(Gasoline          .getFluid( 8),  60, HV);
+        registerDieselGeneratorFuel(HighOctaneGasoline.getFluid( 7),  80, EV);
         registerDieselGeneratorFuel(Octane            .getFluid(20),   45, LV);
         registerDieselGeneratorFuel(Ethanol           .getFluid( 2),   12, LV);
 
@@ -126,10 +126,10 @@ public class FuelHandler {
         // Naquadah Reactor
         registerNaquadahReactorFuel(HeavyENaquadahFuel .getFluid(1), 25000, MV);
         registerNaquadahReactorFuel(MediumENaquadahFuel.getFluid(1), 17500, MV);
-        registerGasGeneratorFuel(LightENaquadahFuel    .getFluid( 1), 10000, MV);
+        registerNaquadahReactorFuel(LightENaquadahFuel    .getFluid( 1), 10000, MV);
         registerNaquadahReactorFuel(HeavyNaquadahFuel  .getFluid(1), 17500, MV);
         registerNaquadahReactorFuel(MediumNaquadahFuel .getFluid(1),  7500, MV);
-        registerGasGeneratorFuel(LightNaquadahFuel     .getFluid( 1),  4000, MV);
+        registerNaquadahReactorFuel(LightNaquadahFuel     .getFluid( 1),  4000, MV);
 
 
         // Hyper Reactor Fuels

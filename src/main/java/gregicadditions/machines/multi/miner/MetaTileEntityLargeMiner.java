@@ -176,7 +176,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
                 NonNullList<ItemStack> itemStacks = NonNullList.create();
                 IBlockState blockState = this.getWorld().getBlockState(blockPos1);
                 if (!silktouch) {
-                    GAUtility.applyHammerDrops(world.rand, blockState, itemStacks, type.fortune, null);
+                    GAUtility.applyHammerDrops(world.rand, blockState, itemStacks, type.fortune, null, this.energyContainer.getInputVoltage());
                 } else {
                     itemStacks.add(new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState)));
                 }

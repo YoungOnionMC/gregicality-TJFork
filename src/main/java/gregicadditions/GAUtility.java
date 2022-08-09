@@ -8,6 +8,7 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.RecipeMaps;
 import gregtech.api.unification.OreDictUnifier;
+import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.common.ConfigHolder;
 import net.minecraft.block.state.IBlockState;
@@ -101,14 +102,14 @@ public class GAUtility {
         }
     }
 
-    public static void applyHammerDrops(Random random, IBlockState blockState, List<ItemStack> drops, int fortuneLevel, EntityPlayer player) {
+    public static void applyHammerDrops(Random random, IBlockState blockState, List<ItemStack> drops, int fortuneLevel, EntityPlayer player, long voltage) {
         ItemStack itemStack = new ItemStack(blockState.getBlock(), 1, blockState.getBlock().getMetaFromState(blockState));
-        Recipe recipe = RecipeMaps.FORGE_HAMMER_RECIPES.findRecipe(Long.MAX_VALUE, Collections.singletonList(itemStack), Collections.emptyList(), 0);
+        Recipe recipe = RecipeMaps.MACERATOR_RECIPES.findRecipe(Long.MAX_VALUE, Collections.singletonList(itemStack), Collections.emptyList(), 0);
         if (recipe != null && !recipe.getOutputs().isEmpty()) {
             drops.clear();
-            for (ItemStack outputStack : recipe.getResultItemOutputs(Integer.MAX_VALUE, random, 0)) {
+            for (ItemStack outputStack : recipe.getResultItemOutputs(Integer.MAX_VALUE, random, GAUtility.getTierByVoltage(voltage))) {
                 outputStack = outputStack.copy();
-                if (!(player instanceof FakePlayer) && OreDictUnifier.getPrefix(outputStack) == OrePrefix.crushed) {
+                    if (!(player instanceof FakePlayer) && !outputStack.isItemEqual(OreDictUnifier.get(OrePrefix.dust,Materials.Stone))) {
                     int growAmount = Math.round(outputStack.getCount() * random.nextFloat());
                     if (fortuneLevel > 0) {
                         int i = Math.max(0, random.nextInt(fortuneLevel + 2) - 1);

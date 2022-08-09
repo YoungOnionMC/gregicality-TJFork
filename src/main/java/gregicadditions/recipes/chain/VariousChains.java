@@ -557,12 +557,12 @@ public class VariousChains {
 
         // High Octane Gasoline
         LARGE_CHEMICAL_RECIPES.recipeBuilder().duration(50).EUt(1920)
-                .fluidInputs(NitricOxide.getFluid(6000))
-                .fluidInputs(Gasoline.getFluid(20000))
-                .fluidInputs(Toluene.getFluid(1000))
-                .fluidInputs(Octane.getFluid(2000))
-                .fluidInputs(EthylTertButylEther.getFluid(3000))
-                .fluidOutputs(HighOctaneGasoline.getFluid(32000))
+                .fluidInputs(NitricOxide.getFluid(200))
+                .fluidInputs(Gasoline.getFluid(666))
+                .fluidInputs(Toluene.getFluid(33))
+                .fluidInputs(Octane.getFluid(66))
+                .fluidInputs(EthylTertButylEther.getFluid(100))
+                .fluidOutputs(HighOctaneGasoline.getFluid(1065))
                 .buildAndRegister();
 
         // Gasoline

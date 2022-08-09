@@ -3007,7 +3007,6 @@ gregtech.multiblock.advanced_distillation_tower.description4=    Distillery & Fl
 gtadditions.multiblock.large_rocket_engine.tooltip.1=The Large Rocket Engine will produce large amounts of power.
 gtadditions.multiblock.large_rocket_engine.tooltip.2=It Consumes 37500mB of Air per Second.
 gtadditions.multiblock.large_rocket_engine.tooltip.3=Use Liquid Hydrogen to boost the output energy by 4x.
-gtadditions.multiblock.large_rocket_engine.tooltip.4=Efficiency is 60%%.
 gtadditions.multiblock.alloy_blast_furnace.tooltip.1=Quicker than the Blast Furnace
 gtadditions.multiblock.large_naquadah_reactor.tooltip.1=Consumes 1000mb of Tritium every 20 fuel cycles'.
 gtadditions.multiblock.large_naquadah_reactor.tooltip.2=Increase output by 3X with 50mb Oxygen Plasma every fuel consume (also consumes 2X fuel).
@@ -3061,12 +3060,12 @@ gregtech.multiblock.machine.primitive_blast_furnace.industrial.fuelEfficiency=Fu
 gregtech.multiblock.universal.oxygen_plasma_amount=Oxygen Plasma: %dmb
 gregtech.multiblock.universal.helium_plasma_amount=Helium Plasma: %dmb
 gregtech.multiblock.universal.cryotheum_amount=Cryotheum: %dmb
-gregtech.multiblock.universal.liquid_hydrogen_amount=Liquid Hydrogen: %dmB
+gregtech.multiblock.universal.liquid_oxygen_amount=Liquid Oxygen: %dmB
 gregtech.multiblock.universal.air_amount=Air: %dmB
 gregtech.multiblock.universal.energy_usage=Current Energy Usage: %d%%
 gregtech.multiblock.universal.speed_increase=Current Speed Increase: %d%%
 
-gregtech.multiblock.large_rocket_engine.hydrogen_need=Liquid Hydrogen to Boost: %dmB
+gregtech.multiblock.large_rocket_engine.oxygen_need=Liquid Oxygen to Boost: %dmB
 gregtech.multiblock.large_rocket_engine.boost=Boosted!
 gregtech.multiblock.large_rocket_engine.no_fuel=No Fuel Loaded
 
