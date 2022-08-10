@@ -76,23 +76,27 @@ public class GAEventHandler {
         if (!event.getEntity().getEntityWorld().isRemote && event.getEntity() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             ItemStack armor = entity.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+            ItemStack jet = entity.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             final ItemStack NANO = GAMetaItems.NANO_MUSCLE_SUITE_BOOTS.getStackForm();
             final ItemStack QUARK = GAMetaItems.QUARK_TECH_SUITE_BOOTS.getStackForm();
-            if (armor != null) {
-                int fallDamage = 0;
-                if (armor.isItemEqual(NANO)) {
-                    fallDamage = MathHelper.floor(event.getDistance() - 3.0);
-                    if (fallDamage >= 8) return;
-                } else if (armor.isItemEqual(QUARK)) {
-                    fallDamage = Math.max((int) event.getDistance() - 10, 0);
-                } else {
-                    return;
-                }
-                ArmorMetaItem<?>.ArmorMetaValueItem armorMetaValue = ((ArmorMetaItem<?>) armor.getItem()).getItem(armor);
+            final ItemStack JET = GAMetaItems.IMPELLER_JETPACK.getStackForm();
+            final ItemStack ADJET = GAMetaItems.ADVANCED_IMPELLER_JETPACK.getStackForm();
+            final ItemStack FLUIDJET = GAMetaItems.SEMIFLUID_JETPACK.getStackForm();
+
+
+            if (!(jet.isItemEqual(JET) || jet.isItemEqual(ADJET) || (jet.isItemEqual(FLUIDJET)) || armor.isItemEqual(QUARK) || armor.isItemEqual(NANO))) {
+                return;
+            }
+            if (jet.isItemEqual(FLUIDJET)) {
+                event.setCanceled(true);
+            } else {
+                ItemStack armorPiece = jet.isEmpty() ? armor : jet;
+
+                ArmorMetaItem<?>.ArmorMetaValueItem armorMetaValue = ((ArmorMetaItem<?>) armorPiece.getItem()).getItem(armorPiece);
                 ArmorLogicSuite armorLogic = (ArmorLogicSuite) armorMetaValue.getArmorLogic();
-                IElectricItem item = armor.getCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null);
+                IElectricItem item = armorPiece.getCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null);
                 if (item == null) return;
-                int energyCost = armorLogic.getEnergyPerUse() * fallDamage;
+                int energyCost = (armorLogic.getEnergyPerUse() * Math.round(event.getDistance()));
                 if (item.getCharge() >= energyCost) {
                     item.discharge(energyCost, item.getTier(), true, false, false);
                     event.setCanceled(true);
@@ -130,5 +134,4 @@ public class GAEventHandler {
             }
         }
     }
-
 }
