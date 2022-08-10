@@ -1,5 +1,7 @@
 package gregicadditions.recipes.chain;
 
+import gregicadditions.GAValues;
+
 import static gregicadditions.GAEnums.GAOrePrefix.dioxide;
 import static gregicadditions.GAMaterials.*;
 import static gregicadditions.recipes.GARecipeMaps.CHEMICAL_PLANT_RECIPES;
@@ -23,7 +25,7 @@ public class CombinedChains {
         // Naquadah ==================================================================================================
 
         // Naquadric Compound [Nq] + KHSO5 + 2H -> Nq + KOH + H2SO4
-        CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(50).EUt(491520) // UV
+        CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(20).EUt(GAValues.VA[GAValues.UHV]) // UHV
                 .input(dust, NaquadricCompound)
                 .inputs(PotassiumPeroxymonosulfate.getItemStack(8))
                 .fluidInputs(Hydrogen.getFluid(2000))
@@ -33,7 +35,7 @@ public class CombinedChains {
                 .buildAndRegister();
 
         // Enriched Naquadric Compound [Nq+] + Au2Cl6 + Xe + 3O -> Nq+ + 2Au + 6Cl + XeO3
-        CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(50).EUt(491520) // UV
+        CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(20).EUt(GAValues.VA[GAValues.UHV])// UHV
                 .input(dust, EnrichedNaquadricCompound)
                 .fluidInputs(AuricChloride.getFluid(1000))
                 .fluidInputs(Xenon.getFluid(1000))
@@ -45,7 +47,7 @@ public class CombinedChains {
                 .buildAndRegister();
 
         // Naquadriatic Compound [*Nq*] + Rn + Xe + 6O -> *Nq* + RnO3 + XeO3
-        CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(50).EUt(491520) // UV
+        CHEMICAL_PLANT_RECIPES.recipeBuilder().duration(20).EUt(GAValues.VA[GAValues.UHV])// UHV
                 .input(dust, NaquadriaticCompound)
                 .fluidInputs(Radon.getFluid(1000))
                 .fluidInputs(Xenon.getFluid(1000))

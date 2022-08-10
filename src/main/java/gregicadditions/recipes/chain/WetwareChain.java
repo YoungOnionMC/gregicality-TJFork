@@ -265,7 +265,7 @@ public class WetwareChain { // TODO
                 .fluidInputs(HydrochloricAcid.getFluid(1000))
                 .input(dust, SodiumHydroxide, 3)
                 .fluidInputs(Steam.getFluid(1000))
-                .fluidOutputs(SilicaGelBase.getFluid(3000))
+                .fluidOutputs(SilicaGelBase.getFluid(1000))
                 .EUt(120)
                 .duration(120)
                 .buildAndRegister();

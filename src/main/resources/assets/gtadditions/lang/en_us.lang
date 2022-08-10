@@ -1797,7 +1797,7 @@ gtadditions.machine.multi_fluid_input_4x.name=Quadruple Input Hatch
 gtadditions.machine.multi_fluid_input_9x.name=Nonuple Input Hatch
 gtadditions.machine.multi_fluid_output_4x.name=Quadruple Output Hatch
 gtadditions.machine.multi_fluid_output_9x.name=Nonuple Output Hatch
-gtadditions.machine.multi_fluid_hatch_universal.tooltip.1=Capacity: §b16000mB§7 per tank.
+gtadditions.machine.multi_fluid_hatch_universal.tooltip.1=Capacity: §b%smB§7 per tank.
 gtadditions.machine.multi_fluid_hatch_universal.tooltip.2=Tank Count: §b%d
 
 gtadditions.machine.gas_centrifuge.name=Gas Centrifuge (GC)
@@ -3006,7 +3006,7 @@ gregtech.multiblock.advanced_distillation_tower.description3=    Distillation To
 gregtech.multiblock.advanced_distillation_tower.description4=    Distillery & Fluid Heater => Max 64 Parallel, 8 per overclock
 gtadditions.multiblock.large_rocket_engine.tooltip.1=The Large Rocket Engine will produce large amounts of power.
 gtadditions.multiblock.large_rocket_engine.tooltip.2=It Consumes 37500mB of Air per Second.
-gtadditions.multiblock.large_rocket_engine.tooltip.3=Use Liquid Hydrogen to boost the output energy by 4x.
+gtadditions.multiblock.large_rocket_engine.tooltip.3=Use Liquid Hydrogen to boost the output energy by 3x.
 gtadditions.multiblock.alloy_blast_furnace.tooltip.1=Quicker than the Blast Furnace
 gtadditions.multiblock.large_naquadah_reactor.tooltip.1=Consumes 1000mb of Tritium every 20 fuel cycles'.
 gtadditions.multiblock.large_naquadah_reactor.tooltip.2=Increase output by 3X with 50mb Oxygen Plasma every fuel consume (also consumes 2X fuel).

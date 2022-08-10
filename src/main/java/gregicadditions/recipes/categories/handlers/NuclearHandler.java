@@ -75,7 +75,6 @@ public class NuclearHandler {
                 .notConsumable(TributylPhosphate.getFluid(1000))
                 .notConsumable(dust, FerriteMixture)
                 .outputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.depletedFuelNitride, 1))
-                .outputs(isotopeMaterial.getRadioactiveMaterial().waste.getStackForm(2))
                 .buildAndRegister();
 
         // Fuel2N3 = Waste + 3N
@@ -170,13 +169,13 @@ public class NuclearHandler {
                 .outputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.fuelNitride, 1))
                 .buildAndRegister();
 */
-        ALLOY_SMELTER_RECIPES.recipeBuilder().EUt(30).duration(200)
+        EXTRUDER_RECIPES.recipeBuilder().EUt(30).duration(200)
                 .inputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.oxide, 1))
                 .notConsumable(SHAPE_MOLD_BALL.getStackForm())
                 .outputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.fuelOxide, 1))
                 .buildAndRegister();
 
-        ALLOY_SMELTER_RECIPES.recipeBuilder().EUt(30).duration(200)
+        EXTRUDER_RECIPES.recipeBuilder().EUt(30).duration(200)
                 .input(ingot, isotopeMaterial.getMaterial())
                 .notConsumable(SHAPE_MOLD_BALL.getStackForm())
                 .outputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.fuelPure, 1))

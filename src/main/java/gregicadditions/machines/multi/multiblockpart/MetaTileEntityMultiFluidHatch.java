@@ -31,12 +31,19 @@ public class MetaTileEntityMultiFluidHatch extends GAMetaTileEntityMultiblockPar
 
     protected FluidTankList fluidTanks;
     private boolean isExportHatch;
-    private static final int TANK_SIZE = 16000;
+    private final int TANK_SIZE;
     private ICubeRenderer hatchTexture = null;
 
     public MetaTileEntityMultiFluidHatch(ResourceLocation metaTileEntityId, int tier, boolean isExportHatch) {
         super(metaTileEntityId, tier);
         this.isExportHatch = isExportHatch;
+
+        if(tier == 2){
+            TANK_SIZE = 16000;
+        }
+        else {
+            TANK_SIZE = 32000;
+        }
         initializeInventory();
     }
 
@@ -98,7 +105,7 @@ public class MetaTileEntityMultiFluidHatch extends GAMetaTileEntityMultiblockPar
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add(I18n.format("gtadditions.machine.multi_fluid_hatch_universal.tooltip.1"));
+        tooltip.add(I18n.format("gtadditions.machine.multi_fluid_hatch_universal.tooltip.1", TANK_SIZE));
         tooltip.add(I18n.format("gtadditions.machine.multi_fluid_hatch_universal.tooltip.2", (int) Math.pow(this.getTier(), 2)));
         tooltip.add(I18n.format("gregtech.universal.enabled"));
     }

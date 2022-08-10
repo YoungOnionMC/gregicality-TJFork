@@ -44,7 +44,7 @@ public class MetaTileEntityLargeRocketEngine extends GAFueledMultiblockControlle
 
 
     public MetaTileEntityLargeRocketEngine(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, GARecipeMaps.ROCKET_FUEL_RECIPES, GAValues.V[GAValues.ULV]);
+        super(metaTileEntityId, GARecipeMaps.ROCKET_FUEL_RECIPES, GAValues.V[GAValues.LuV]);
     }
 
     @Override

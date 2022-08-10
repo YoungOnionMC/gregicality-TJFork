@@ -374,6 +374,13 @@ public class GAConfig {
         @Config.Name("Rocket Engine efficiency loss")
         @Config.RequiresMcRestart
         public boolean rocketEfficiency = true;
+        @Config.Comment("Efficiency level for the EV rocket engine")
+        public int EVRocketEfficiency= 45;
+        @Config.Comment("Efficiency level for the IV rocket engine")
+        public int IVRocketEfficiency= 35;
+        @Config.Comment("Efficiency level for the LuV rocket engine")
+        public int LuVRocketEfficiency= 25;
+
 
 
 
