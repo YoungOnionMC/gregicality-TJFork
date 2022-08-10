@@ -63,7 +63,7 @@ public class MultiblockCraftingRecipes {
                 .input(wireGtSingle, LuVSuperconductor, 64)
                 .input(gear, IncoloyMA956, 32)
                 .inputs(ELECTRIC_PISTON_LUV.getStackForm(16))
-                .inputs(SENSOR_LUV.getStackForm(5))
+                .inputs(EMITTER_LUV.getStackForm(2))
                 .outputs(LARGE_ROCKET_ENGINE.getStackForm())
                 .buildAndRegister();
 
