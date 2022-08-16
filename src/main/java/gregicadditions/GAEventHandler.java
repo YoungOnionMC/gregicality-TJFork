@@ -16,9 +16,9 @@ import gregtech.api.metatileentity.MetaTileEntityHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -82,7 +82,9 @@ public class GAEventHandler {
             final ItemStack JET = GAMetaItems.IMPELLER_JETPACK.getStackForm();
             final ItemStack ADJET = GAMetaItems.ADVANCED_IMPELLER_JETPACK.getStackForm();
             final ItemStack FLUIDJET = GAMetaItems.SEMIFLUID_JETPACK.getStackForm();
-
+            if( armor.getItem() instanceof ItemArmor || jet.getItem() instanceof  ItemArmor){
+                return;
+            }
 
             if (!(jet.isItemEqual(JET) || jet.isItemEqual(ADJET) || (jet.isItemEqual(FLUIDJET)) || armor.isItemEqual(QUARK) || armor.isItemEqual(NANO))) {
                 return;

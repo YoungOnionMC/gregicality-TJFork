@@ -25,25 +25,32 @@ public class VoidMinerHandler {
     }
 
     private static void processVoidOre(OrePrefix dustPrefix, Material material) {
+        int productTer = GAConfig.multis.voidMiner.oreProcStep;
+
+        OrePrefix[] currentOre = {OrePrefix.ore, OrePrefix.crushed, OrePrefix.crushedPurified, OrePrefix.dust};
+
+        if (productTer < 0 || productTer > 3) {
+            productTer = 0;
+        }
         if (GAConfig.multis.voidMiner.oreVariants) {
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklist).contains(material.toString())) {
-                ORES.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.ore, material)));
+                ORES.addAll(OreDictUnifier.getAll(new UnificationEntry(currentOre[productTer], material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUHV).contains(material.toString())) {
-                ORES_2.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_2.addAll(OreDictUnifier.getAll(new UnificationEntry(currentOre[productTer], material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUEV).contains(material.toString())) {
-                ORES_3.addAll(OreDictUnifier.getAll(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_3.addAll(OreDictUnifier.getAll(new UnificationEntry(currentOre[productTer], material)));
             }
         } else {
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklist).contains(material.toString())) {
-                ORES.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.ore, material)));
+                ORES.add(OreDictUnifier.get(new UnificationEntry(currentOre[productTer], material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUHV).contains(material.toString())) {
-                ORES_2.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_2.add(OreDictUnifier.get(new UnificationEntry(currentOre[productTer], material)));
             }
             if (!Arrays.asList(GAConfig.multis.voidMiner.oreBlacklistUEV).contains(material.toString())) {
-                ORES_3.add(OreDictUnifier.get(new UnificationEntry(OrePrefix.ore, material)));
+                ORES_3.add(OreDictUnifier.get(new UnificationEntry(currentOre[productTer], material)));
             }
         }
     }

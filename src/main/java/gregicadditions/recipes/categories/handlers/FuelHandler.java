@@ -124,12 +124,12 @@ public class FuelHandler {
         registerRocketFuel(RocketFuel               .getFluid(15),  20, EV);
 
         // Naquadah Reactor
-        registerNaquadahReactorFuel(HeavyENaquadahFuel .getFluid(1), 25000, MV);
-        registerNaquadahReactorFuel(MediumENaquadahFuel.getFluid(1), 17500, MV);
-        registerNaquadahReactorFuel(LightENaquadahFuel    .getFluid( 1), 10000, MV);
-        registerNaquadahReactorFuel(HeavyNaquadahFuel  .getFluid(1), 17500, MV);
-        registerNaquadahReactorFuel(MediumNaquadahFuel .getFluid(1),  7500, MV);
-        registerNaquadahReactorFuel(LightNaquadahFuel     .getFluid( 1),  4000, MV);
+        registerNaquadahReactorFuel(HeavyENaquadahFuel .getFluid(1), 25000, EV);
+        registerNaquadahReactorFuel(MediumENaquadahFuel.getFluid(1), 17500, EV);
+        registerNaquadahReactorFuel(LightENaquadahFuel    .getFluid( 1), 10000, EV);
+        registerNaquadahReactorFuel(HeavyNaquadahFuel  .getFluid(1), 17500, EV);
+        registerNaquadahReactorFuel(MediumNaquadahFuel .getFluid(1),  7500, EV);
+        registerNaquadahReactorFuel(LightNaquadahFuel     .getFluid( 1),  4000, EV);
 
 
         // Hyper Reactor Fuels
