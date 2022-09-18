@@ -196,7 +196,6 @@ public class SuperconductorRecipes {
         CENTRIFUGE_RECIPES.recipeBuilder().duration(11892).EUt(30)
                 .input(dust, UEVSuperconductorBase, 6)
                 .outputs(ActiniumSuperhydride.getItemStack())
-                .outputs(StrontiumSuperconductorDust.getItemStack())
                 .output(dust, Vibranium, 2)
                 .output(dust, Quantum)
                 .output(dust, TriniumTitanium)
