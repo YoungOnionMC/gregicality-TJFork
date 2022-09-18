@@ -572,6 +572,7 @@ public class CasingRecipes {
                 .inputs(MetaBlocks.METAL_CASING.getItemVariant(STEEL_SOLID))
                 .fluidInputs(Polytetrafluoroethylene.getFluid(216))
                 .outputs(GAMetaBlocks.MUTLIBLOCK_CASING.getItemVariant(CHEMICALLY_INERT))
+                .notConsumable(getIntegratedCircuit(30))
                 .buildAndRegister();
 
         // PTFE Pipe Casing
