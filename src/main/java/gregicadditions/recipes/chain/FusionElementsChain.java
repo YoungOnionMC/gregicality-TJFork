@@ -435,9 +435,9 @@ public class FusionElementsChain {
                 .buildAndRegister();
 
         FUSION_RECIPES.recipeBuilder().duration(128).EUt(49152).EUToStart(480000000)
-                .fluidInputs(Nickel.getFluid(16))
-                .fluidInputs(Polonium.getFluid(16))
-                .fluidOutputs(Copernicium.getFluid(16))
+                .fluidInputs(Nickel.getFluid(288))
+                .fluidInputs(Polonium.getFluid(288))
+                .fluidOutputs(Copernicium.getFluid(288))
                 .buildAndRegister();
 
         FUSION_RECIPES.recipeBuilder().duration(64).EUt(24576).EUToStart(140000000)
