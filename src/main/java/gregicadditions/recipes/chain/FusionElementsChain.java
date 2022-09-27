@@ -1,5 +1,7 @@
 package gregicadditions.recipes.chain;
 
+import gregtech.api.recipes.ingredients.IntCircuitIngredient;
+
 import static gregicadditions.GAMaterials.*;
 import static gregicadditions.recipes.GARecipeMaps.*;
 import static gregtech.api.recipes.RecipeMaps.*;
@@ -17,6 +19,7 @@ public class FusionElementsChain {
         CHEMICAL_RECIPES.recipeBuilder().duration(140).EUt(120)
                 .input(dust, Lithium)
                 .fluidInputs(Water.getFluid(2000))
+                .notConsumable(new IntCircuitIngredient(1))
                 .fluidOutputs(Hydrogen.getFluid(1000))
                 .fluidOutputs(LithiumHydroxideSolution.getFluid(1000))
                 .buildAndRegister();
