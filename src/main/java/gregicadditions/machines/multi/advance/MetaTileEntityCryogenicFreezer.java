@@ -34,7 +34,7 @@ import java.util.Optional;
 import static gregicadditions.client.ClientHandler.INCOLOY_MA956_CASING;
 import static gregicadditions.item.GAMetaBlocks.METAL_CASING_1;
 
-public class MetaTileEntityCryogenicFreezer extends MetaTileEntityVacuumFreezer { //todo staged removal
+public class MetaTileEntityCryogenicFreezer extends MetaTileEntityVacuumFreezer {
 
     private static final MultiblockAbility<?>[] ALLOWED_ABILITIES = {
             MultiblockAbility.IMPORT_ITEMS, MultiblockAbility.EXPORT_ITEMS,
@@ -49,7 +49,7 @@ public class MetaTileEntityCryogenicFreezer extends MetaTileEntityVacuumFreezer 
 
     public MetaTileEntityCryogenicFreezer(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
-        this.recipeMapWorkable = new CryogenicFreezerRecipeLogic(this, ENERGY_DECREASE_FACTOR, DURATION_DECREASE_FACTOR, 100, 2);
+        this.recipeMapWorkable = new CryogenicFreezerRecipeLogic(this, ENERGY_DECREASE_FACTOR, DURATION_DECREASE_FACTOR, 100, 3);
         reinitializeStructurePattern();
     }
 

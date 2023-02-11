@@ -21,7 +21,7 @@ import gregtech.api.multiblock.FactoryBlockPattern;
 import gregtech.api.multiblock.PatternMatchContext;
 import gregtech.api.recipes.CountableIngredient;
 import gregtech.api.recipes.Recipe;
-import gregtech.api.recipes.RecipeBuilder;
+import gregtech.api.recipes.builders.BlastRecipeBuilder;
 import gregtech.api.recipes.recipeproperties.BlastTemperatureProperty;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.Textures;
@@ -266,7 +266,6 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
             int minMultiplier = Integer.MAX_VALUE;
             int recipeTemp = matchingRecipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0);
             int tier = getOverclockingTier(maxVoltage);
-
             Set<ItemStack> countIngredients = new HashSet<>();
             if (matchingRecipe.getInputs().size() != 0) {
                 this.findIngredients(countIngredients, inputs);
@@ -329,7 +328,7 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
             List<FluidStack> outputF = new ArrayList<>();
             this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, multiplier);
 
-            RecipeBuilder<?> newRecipe = recipeMap.recipeBuilder();
+            BlastRecipeBuilder newRecipe = (BlastRecipeBuilder) this.recipeMap.recipeBuilder();
             copyChancedItemOutputs(newRecipe, matchingRecipe, minMultiplier);
 
             // determine if there is enough room in the output to fit all of this
@@ -345,7 +344,8 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
                     .outputs(outputI)
                     .fluidOutputs(outputF)
                     .EUt((int) Math.max(1, EUt))
-                    .duration(duration);
+                    .duration(duration)
+                    .blastFurnaceTemp(recipeTemp);
 
             return newRecipe.build().getResult();
         }
