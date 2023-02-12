@@ -361,6 +361,7 @@ public abstract class GARecipeMapMultiblockController extends RecipeMapMultibloc
     @Override
     protected void handleDisplayClick(String componentData, Widget.ClickData clickData) {
         super.handleDisplayClick(componentData, clickData);
+        if (this.getInputInventory().getSlots() != 0)
         isDistinct = !isDistinct;
     }
 
