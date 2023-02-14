@@ -70,12 +70,12 @@ public abstract class MegaMultiblockRecipeMapController extends LargeSimpleRecip
             } else {
                 GAMultiblockCasing2 framework = (GAMultiblockCasing2) blockState.getBlock();
                 GAMultiblockCasing2.CasingType tieredCasingType = framework.getState(blockState);
-                if(blockWorldState.getMatchContext().getOrPut("framework", tieredCasingType) == null)
+                if(blockWorldState.getMatchContext().getOrPut("framework2", tieredCasingType) == null)
                     return false;
                 if (!tieredCasingType.getName().contains("tiered_hull"))
                         return false;
 
-                GAMultiblockCasing2.CasingType currentCasing = blockWorldState.getMatchContext().getOrPut("framework", tieredCasingType);
+                GAMultiblockCasing2.CasingType currentCasing = blockWorldState.getMatchContext().getOrPut("framework2", tieredCasingType);
                 int tier = tieredCasingType.getTier();
                 int currentTier = blockWorldState.getMatchContext().getOrPut("casingTier", tier);
 
