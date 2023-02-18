@@ -60,8 +60,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static gregicadditions.GAMaterials.DrillingMud;
-import static gregicadditions.GAMaterials.Pyrotheum;
+import static gregicadditions.GAMaterials.*;
 import static gregicadditions.client.ClientHandler.*;
 import static gregicadditions.item.GAMetaBlocks.METAL_CASING_2;
 import static gregtech.api.unification.material.Materials.*;
@@ -121,7 +120,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
             drillingFluid = DrillingFluid.getFluid(type.drillingFluidConsumePerTick);
         }
         else {
-            drillingFluid = Pyrotheum.getFluid(type.drillingFluidConsumePerTick);
+            drillingFluid = HeavyQuarkDegenerateMatter.getFluid(type.drillingFluidConsumePerTick);
         }
         FluidStack canDrain = importFluidHandler.drain(drillingFluid, false);
         if (energyContainer.getEnergyStored() >= energyDrain && canDrain != null && canDrain.amount == type.drillingFluidConsumePerTick) {
@@ -273,7 +272,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
       else {
                 tooltip.add(I18n.format("gtadditions.machine.miner.multi.description2", type.chunk, type.chunk, type.fortuneString));
 
-                tooltip.add(I18n.format("gtadditions.machine.miner.fluid_usage", type.drillingFluidConsumePerTick, I18n.format(Pyrotheum.getFluid(0).getUnlocalizedName())));
+                tooltip.add(I18n.format("gtadditions.machine.miner.fluid_usage", type.drillingFluidConsumePerTick, I18n.format(HeavyQuarkDegenerateMatter.getFluid(0).getUnlocalizedName())));
       }
     }
 

@@ -6,6 +6,7 @@ import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.UnificationEntry;
+import gregtech.common.metatileentities.MetaTileEntities;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import static gregicadditions.GAMaterials.*;
@@ -17,6 +18,8 @@ import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.items.MetaItems.PLANT_BALL;
+import static gregtech.common.metatileentities.MetaTileEntities.*;
+import static gregicadditions.machines.GATileEntities.*;
 
 public class MiscRecipes {
 
@@ -195,5 +198,52 @@ public class MiscRecipes {
         ModHandler.addShapelessRecipe("drum_nbt_titanium", GATileEntities.TITANIUM_DRUM.getStackForm(), GATileEntities.TITANIUM_DRUM.getStackForm());
         ModHandler.addShapelessRecipe("drum_nbt_Tungsten_steel", GATileEntities.TUNGSTENSTEEL_DRUM.getStackForm(), GATileEntities.TUNGSTENSTEEL_DRUM.getStackForm());
 
+
+
+
+
+
+            for (int i = 0; i < FLUID_EXPORT_HATCH.length; i++) {
+                if (FLUID_IMPORT_HATCH[i] != null && FLUID_EXPORT_HATCH[i] != null) {
+
+                    ModHandler.addShapedRecipe("fluid_hatch_output_to_input_" + FLUID_IMPORT_HATCH[i].getTier(), FLUID_IMPORT_HATCH[i].getStackForm(),
+                            "d", "B", 'B', FLUID_EXPORT_HATCH[i].getStackForm());
+                    ModHandler.addShapedRecipe("fluid_hatch_input_to_output_" + FLUID_EXPORT_HATCH[i].getTier(), FLUID_EXPORT_HATCH[i].getStackForm(),
+                            "d", "B", 'B', FLUID_IMPORT_HATCH[i].getStackForm());
+                }
+            }
+            for (int i = 0; i < ITEM_IMPORT_BUS.length; i++) {
+                if (ITEM_IMPORT_BUS[i] != null && ITEM_EXPORT_BUS[i] != null) {
+
+                    ModHandler.addShapedRecipe("item_bus_output_to_input_" + ITEM_IMPORT_BUS[i].getTier(), ITEM_IMPORT_BUS[i].getStackForm(),
+                            "d", "B", 'B', ITEM_EXPORT_BUS[i].getStackForm());
+                    ModHandler.addShapedRecipe("item_bus_input_to_output_" + ITEM_EXPORT_BUS[i].getTier(), ITEM_EXPORT_BUS[i].getStackForm(),
+                            "d", "B", 'B', ITEM_IMPORT_BUS[i].getStackForm());
+                }
+            }
+        if (INPUT_HATCH_MULTI != null && OUTPUT_HATCH_MULTI != null) {
+
+            ModHandler.addShapedRecipe("multi_fluid_hatch_output_to_input_" + INPUT_HATCH_MULTI.get(1).getTier(), INPUT_HATCH_MULTI.get(1).getStackForm(),
+                    "d", "B", 'B', OUTPUT_HATCH_MULTI.get(1).getStackForm());
+            ModHandler.addShapedRecipe("multi_fluid_hatch_input_to_output_" + OUTPUT_HATCH_MULTI.get(1).getTier(), OUTPUT_HATCH_MULTI.get(1).getStackForm(),
+                    "d", "B", 'B', INPUT_HATCH_MULTI.get(1).getStackForm());
+            ModHandler.addShapedRecipe("multi_fluid_hatch_output_to_input_" + INPUT_HATCH_MULTI.get(0).getTier(), INPUT_HATCH_MULTI.get(0).getStackForm(),
+                    "d", "B", 'B', OUTPUT_HATCH_MULTI.get(0).getStackForm());
+            ModHandler.addShapedRecipe("multi_fluid_hatch_input_to_output_" + OUTPUT_HATCH_MULTI.get(0).getTier(), OUTPUT_HATCH_MULTI.get(0).getStackForm(),
+                    "d", "B", 'B', INPUT_HATCH_MULTI.get(0).getStackForm());
+        }
+
+
+
+
+
+        if (STEAM_OUTPUT_BUS != null && STEAM_INPUT_BUS != null) {
+                //Steam
+                ModHandler.addShapedRecipe("steam_bus_output_to_input_" + STEAM_OUTPUT_BUS.getTier(), STEAM_OUTPUT_BUS.getStackForm(),
+                        "d", "B", 'B', STEAM_INPUT_BUS.getStackForm());
+                ModHandler.addShapedRecipe("steam_bus_input_to_output_" + STEAM_INPUT_BUS.getTier(), STEAM_INPUT_BUS.getStackForm(),
+                        "d", "B", 'B', STEAM_OUTPUT_BUS.getStackForm());
+
+        }
     }
 }
