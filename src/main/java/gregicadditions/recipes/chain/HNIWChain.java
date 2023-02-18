@@ -228,6 +228,7 @@ public class HNIWChain {
         CHEMICAL_RECIPES.recipeBuilder()
                 .fluidInputs(Formaldehyde.getFluid(4000))
                 .fluidInputs(Ammonia.getFluid(6000))
+                .notConsumable(IntCircuitIngredient.getIntegratedCircuit(1))
                 .outputs(Hexamethylenetetramine.getItemStack(22))
                 .fluidOutputs(Water.getFluid(6000))
                 .EUt(480)
