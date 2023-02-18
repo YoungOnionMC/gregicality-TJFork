@@ -884,7 +884,7 @@ public class MultiblockCraftingRecipes {
                 .inputs(ELECTRIC_MOTOR_UMV.getStackForm(4))
                 .input(circuit, UMV,2)
                 .inputs(COMPONENT_GRINDER_TUNGSTEN.getStackForm(2))
-                .inputs(GA_HULLS[GAValues.UMV].getStackForm())
+                .inputs(GA_HULLS[3].getStackForm())
                 .fluidInputs(Seaborgium.getFluid(144 * 9))
                 .outputs(CREATIVE_LARGE_MINER.getStackForm())
                 .buildAndRegister();
