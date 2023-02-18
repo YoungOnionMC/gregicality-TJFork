@@ -119,6 +119,10 @@ public class ExoticComponents{
                 .input(foil, TriniumTitanium)
                 .inputs(RYDBERG_SPINORIAL_ASSEMBLY.getStackForm())
                 .inputs(X_RAY_LASER.getStackForm())
+                .inputs(SMD_CAPACITOR_EXOTIC.getStackForm(2))
+                .inputs(SMD_DIODE_EXOTIC.getStackForm(2))
+                .inputs(SMD_TRANSISTOR_EXOTIC.getStackForm(2))
+                .inputs(SMD_RESISTOR_EXOTIC.getStackForm(2))
                 .fluidInputs(QuantumDots.getFluid(10))
                 .outputs(EXOTIC_PROCESSING_CORE.getStackForm(6))
                 .buildAndRegister();
