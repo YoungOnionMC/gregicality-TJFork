@@ -29,6 +29,7 @@ public class FusionComponents {
                 .inputs(HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(64))
                 .inputs(OreDictUnifier.get(wireGtDouble, UVSuperconductor, 64))
                 .input(circuit, UEV, 4)
+                .input(screw, Trinium, 16)
                 .fluidInputs(SolderingAlloy.getFluid(2880 * 2))
                 .outputs(GATileEntities.ADVANCED_FUSION_REACTOR.getStackForm())
                 .buildAndRegister();
