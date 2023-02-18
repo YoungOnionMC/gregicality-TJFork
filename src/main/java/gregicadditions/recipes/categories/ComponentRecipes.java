@@ -758,7 +758,7 @@ public class ComponentRecipes {
                 .input(stick, HDCS, 4)
                 .input(ingot, HDCS, 2)
                 .input(cableGtSingle, Pikyonium, 2)
-                .fluidInputs(StyreneButadieneRubber.getFluid(L * 10))
+                .fluidInputs(Zylon.getFluid(L * 10))
                 .fluidInputs(Lubricant.getFluid(2000))
                 .outputs(CONVEYOR_MODULE_UEV.getStackForm())
                 .buildAndRegister();
@@ -770,7 +770,7 @@ public class ComponentRecipes {
                 .input(stick, HDCS, 4)
                 .input(ingot, HDCS, 2)
                 .input(cableGtSingle, BlackTitanium, 2)
-                .fluidInputs(StyreneButadieneRubber.getFluid(L * 10))
+                .fluidInputs(Zylon.getFluid(L * 10))
                 .fluidInputs(Lubricant.getFluid(2000))
                 .outputs(CONVEYOR_MODULE_UIV.getStackForm())
                 .buildAndRegister();
@@ -782,7 +782,7 @@ public class ComponentRecipes {
                 .input(stick, HDCS, 4)
                 .input(ingot, HDCS, 2)
                 .input(cableGtSingle, NaquadriaticTaranium, 2)
-                .fluidInputs(StyreneButadieneRubber.getFluid(L * 10))
+                .fluidInputs(Zylon.getFluid(L * 10))
                 .fluidInputs(Lubricant.getFluid(2000))
                 .outputs(CONVEYOR_MODULE_UMV.getStackForm())
                 .buildAndRegister();

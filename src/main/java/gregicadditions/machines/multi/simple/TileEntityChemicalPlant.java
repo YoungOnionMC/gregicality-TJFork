@@ -21,9 +21,12 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.OrientedOverlayRenderer;
 import gregtech.api.render.Textures;
+import gregtech.api.util.GTUtility;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -34,10 +37,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class TileEntityChemicalPlant extends MultiRecipeMapMultiblockController { //todo chemical plant coil requirements
+public class TileEntityChemicalPlant extends MultiRecipeMapMultiblockController {
 
 	private static final MultiblockAbility<?>[] ALLOWED_ABILITIES = {MultiblockAbility.IMPORT_ITEMS, MultiblockAbility.EXPORT_ITEMS, MultiblockAbility.IMPORT_FLUIDS, MultiblockAbility.EXPORT_FLUIDS, MultiblockAbility.INPUT_ENERGY, GregicAdditionsCapabilities.MAINTENANCE_HATCH};
 
+	private int energyBonus;
 
 	public TileEntityChemicalPlant(ResourceLocation metaTileEntityId) {
 		super(metaTileEntityId,
@@ -67,7 +71,7 @@ public class TileEntityChemicalPlant extends MultiRecipeMapMultiblockController 
 				.where('S', selfPredicate())
 				.where('L', statePredicate(getCasingState()))
 				.where('X', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
-				.where('C', TileEntityLargeChemicalReactor.heatingCoilPredicate())
+				.where('C', TileEntityLargeChemicalReactor.heatingCoilPredicate().or(TileEntityLargeChemicalReactor.heatingCoilPredicate2()))
 				.where('P', statePredicate(GAMetaBlocks.MUTLIBLOCK_CASING.getState(GAMultiblockCasing.CasingType.PTFE_PIPE)))
 				.where('#', (tile) -> true)
 				.where('M', motorPredicate())
@@ -89,6 +93,89 @@ public class TileEntityChemicalPlant extends MultiRecipeMapMultiblockController 
 		MotorCasing.CasingType motor = context.getOrDefault("Motor", MotorCasing.CasingType.MOTOR_LV);
 		int min = motor.getTier();
 		maxVoltage = (long) (Math.pow(4, min) * 8);
+
+		int temperature = context.getOrDefault("blastFurnaceTemperature", 0);
+
+		switch (temperature){
+
+			case 2700:
+				energyBonus = 5;
+				break;
+			case 3600:
+				energyBonus = 10;
+				break;
+			case 4500:
+				energyBonus = 15;
+				break;
+			case 5400:
+				energyBonus = 20;
+				break;
+			case 7200:
+				energyBonus = 25;
+				break;
+			case 8600:
+				energyBonus = 30;
+				break;
+			case 9600:
+				energyBonus = 35;
+				break;
+			case 10700:
+				energyBonus = 40;
+				break;
+			case 11200:
+				energyBonus = 45;
+				break;
+			case 12600:
+				energyBonus = 50;
+				break;
+			case 14200:
+				energyBonus = 55;
+				break;
+			case 28400:
+				energyBonus = 60;
+				break;
+			case 56800:
+				energyBonus = 65;
+				break;
+			default:
+				energyBonus = 0;
+		}
+	}
+
+	@Override
+	public void invalidateStructure() {
+		super.invalidateStructure();
+		this.energyBonus = 0;
+	}
+
+	public int getEnergyBonus() {
+		return this.energyBonus;
+	}
+
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound data) {
+		super.writeToNBT(data);
+		data.setInteger("energyBonus", this.energyBonus);
+		return data;
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound data) {
+		super.readFromNBT(data);
+		this.energyBonus = data.getInteger("energyBonus");
+	}
+
+	@Override
+	public void writeInitialSyncData(PacketBuffer buf) {
+		super.writeInitialSyncData(buf);
+		buf.writeInt(energyBonus);
+	}
+
+	@Override
+	public void receiveInitialSyncData(PacketBuffer buf) {
+		super.receiveInitialSyncData(buf);
+		this.energyBonus = buf.readInt();
 	}
 
 	@Nonnull
@@ -106,6 +193,8 @@ public class TileEntityChemicalPlant extends MultiRecipeMapMultiblockController 
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
 		super.addInformation(stack, player, tooltip, advanced);
 		tooltip.add(I18n.format("gtadditions.multiblock.chemical_plant.tooltip.1"));
+		tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.2"));
+		tooltip.add(I18n.format("gtadditions.multiblock.large_chemical_reactor.tooltip.3"));
 	}
 
 	protected static class AdvancedChemicalReactorWorkableHandler extends MultiRecipeMapMultiblockRecipeLogic {
@@ -157,6 +246,28 @@ public class TileEntityChemicalPlant extends MultiRecipeMapMultiblockController 
 			}
 			return minMultiplier;
 		}
+		@Override
+		protected void setupRecipe(Recipe recipe) {
+			TileEntityChemicalPlant metaTileEntity = (TileEntityChemicalPlant) getMetaTileEntity();
+			int energyBonus = metaTileEntity.getEnergyBonus();
 
+			int[] resultOverclock = calculateOverclock(recipe.getEUt(), recipe.getDuration());
+			this.progressTime = 1;
+
+			// apply energy bonus
+			resultOverclock[0] -= (int) (resultOverclock[0] * energyBonus * 0.01f);
+
+			setMaxProgress(resultOverclock[1]);
+
+			this.recipeEUt = resultOverclock[0];
+			this.fluidOutputs = GTUtility.copyFluidList(recipe.getFluidOutputs());
+			int tier = getMachineTierForRecipe(recipe);
+			this.itemOutputs = GTUtility.copyStackList(recipe.getResultItemOutputs(getOutputInventory().getSlots(), random, tier));
+			if (this.wasActiveAndNeedsUpdate) {
+				this.wasActiveAndNeedsUpdate = false;
+			} else {
+				this.setActive(true);
+			}
+		}
 	}
 }
