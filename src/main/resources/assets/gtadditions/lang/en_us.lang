@@ -3052,6 +3052,7 @@ gregtech.machine.world_accelerator.mode.entity=Entity Mode
 gregtech.multiblock.universal.framework=Current Max Tiered Voltage: %d EU/t
 gregtech.multiblock.universal.parallel=Current Max Parallel: %d
 gregtech.multiblock.universal.framework.tooltip=The framework casings define the maximum voltage tier the multiblock is able to run at.
+gregtech.multiblock.universal.framework.tooltip2=The framworks on the CAL do not prevent the multiblock from overclocking.
 
 gregtech.multiblock.universal.component_casing.tooltip=The tier of this casing determines the maximum voltage the multiblock is able to run at. Any tier casing can be used.
 

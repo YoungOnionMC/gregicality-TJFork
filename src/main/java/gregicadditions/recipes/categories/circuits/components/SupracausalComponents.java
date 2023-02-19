@@ -95,7 +95,7 @@ public class SupracausalComponents {
         // Relativistic Spinorial Memory System
         ASSEMBLER_RECIPES.recipeBuilder().duration(200).EUt(33550000)
                 .inputs(FIELD_GENERATOR_UHV.getStackForm())
-                .inputs(SENSOR_UIV.getStackForm())
+                .inputs(SENSOR_UEV.getStackForm())
                 .inputs(NEUTRON_REFLECTOR.getStackForm(2))
                 .inputs(BATTERY_MEDIUM_LIS.getStackForm())
                 .input(wireGtSingle, UMVSuperconductor, 2)

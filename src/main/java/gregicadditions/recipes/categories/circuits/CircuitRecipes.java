@@ -759,7 +759,7 @@ public class CircuitRecipes {
                 .inputs(COSMIC_PROCESSING_CORE.getStackForm())
                 .inputs(UHASOC.getStackForm())
                 .input(wireFine, Cinobite, 4)
-                .outputs(COSMIC_PROCESSOR.getStackForm(4))
+                .outputs(COSMIC_PROCESSOR.getStackForm(8))
                 .solderMultiplier(4)
                 .buildAndRegister();
 
