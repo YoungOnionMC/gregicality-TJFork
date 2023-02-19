@@ -36,7 +36,7 @@ public class PolymerChain {
                 .fluidOutputs(Diphenylisophtalate.getFluid(1000))
                 .fluidOutputs(Water.getFluid(2000))
                 .EUt(7680)
-                .duration(1000)
+                .duration(100)
                 .buildAndRegister();
 
         // C7H8 + CH3OH -> C8H10 + H2O
