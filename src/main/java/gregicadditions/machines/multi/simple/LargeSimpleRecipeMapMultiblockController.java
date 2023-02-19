@@ -244,9 +244,6 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
         super.addDisplayText(textList);
         if (isStructureFormed() && !hasProblems())
             textList.add(new TextComponentTranslation("gregtech.multiblock.universal.framework", this.maxVoltage));
-        if (!(this instanceof MegaMultiblockRecipeMapController)) {
-            textList.add(new TextComponentTranslation("gregtech.multiblock.universal.parallel", this.stack * GAUtility.getTierByVoltage(this.maxVoltage)));
-        }
     }
 
     public static class LargeSimpleMultiblockRecipeLogic extends GAMultiblockRecipeLogic {
