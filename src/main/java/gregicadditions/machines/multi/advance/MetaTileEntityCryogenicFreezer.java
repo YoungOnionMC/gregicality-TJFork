@@ -91,6 +91,7 @@ public class MetaTileEntityCryogenicFreezer extends MetaTileEntityVacuumFreezer 
         tooltip.add(I18n.format("gtadditions.multiblock.universal.tooltip.1", this.recipeMap.getLocalizedName()));
         tooltip.add(I18n.format("gtadditions.multiblock.universal.tooltip.2", 20 / 100.0));
         tooltip.add(I18n.format("gtadditions.multiblock.universal.tooltip.3", 60 / 100.0));
+        tooltip.add(I18n.format("gregtech.multiblock.vol_cryo.description"));
 
     }
 
