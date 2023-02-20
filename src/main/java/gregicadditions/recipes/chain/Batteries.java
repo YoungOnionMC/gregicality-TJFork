@@ -257,9 +257,8 @@ public class Batteries {
                 .buildAndRegister();
 
         ASSEMBLER_RECIPES.recipeBuilder()
-                .input(plateB, Neutronium, 6)
+                .input(plate, Neutronium, 10)
                 .input(cableGtSingle, Neutronium, 8)
-                .input(plate, Neutronium, 2)
                 .inputs(LanthanumNickelOxide.getItemStack(14))
                 .EUt(122880 * 16)
                 .duration(100)
@@ -269,8 +268,7 @@ public class Batteries {
         ASSEMBLER_RECIPES.recipeBuilder()
                 .input(plateB, CosmicNeutronium, 4)
                 .input(wireGtSingle, UXVSuperconductor, 8)
-                .input(plateB, Neutronium, 6)
-                .input(plate, Neutronium, 4)
+                .input(plateB, Neutronium, 10)
                 .inputs(LanthanumNickelOxide.getItemStack(28))
                 .EUt(122880 * 64)
                 .duration(100)
