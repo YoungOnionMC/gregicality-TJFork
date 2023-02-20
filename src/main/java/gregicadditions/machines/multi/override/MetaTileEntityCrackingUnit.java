@@ -1,9 +1,12 @@
 package gregicadditions.machines.multi.override;
 
 import gregicadditions.GAConfig;
+import gregicadditions.GAValues;
 import gregicadditions.capabilities.GregicAdditionsCapabilities;
+import gregicadditions.capabilities.impl.GAMultiblockRecipeLogic;
 import gregicadditions.capabilities.impl.GARecipeMapMultiblockController;
 import gregicadditions.machines.multi.simple.LargeSimpleRecipeMapMultiblockController;
+import gregicadditions.machines.multi.simple.TileEntityLargeChemicalReactor;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntityHolder;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
@@ -13,9 +16,11 @@ import gregtech.api.multiblock.BlockPattern;
 import gregtech.api.multiblock.BlockWorldState;
 import gregtech.api.multiblock.FactoryBlockPattern;
 import gregtech.api.multiblock.PatternMatchContext;
+import gregtech.api.recipes.Recipe;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.OrientedOverlayRenderer;
 import gregtech.api.render.Textures;
+import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.BlockWireCoil;
 import gregtech.common.blocks.MetaBlocks;
@@ -120,11 +125,35 @@ public class MetaTileEntityCrackingUnit extends GARecipeMapMultiblockController 
         return Textures.CRACKING_UNIT_OVERLAY;
     }
 
-    protected class CrackingUnitWorkable extends LargeSimpleRecipeMapMultiblockController.LargeSimpleMultiblockRecipeLogic {
+    protected static class CrackingUnitWorkable extends GAMultiblockRecipeLogic{
 
         public CrackingUnitWorkable(RecipeMapMultiblockController tileEntity) {
-            super(tileEntity, 100 - (heatingCoilTier*5), 100, 100, 0);
+            super(tileEntity);
         }
 
+        @Override
+        protected void setupRecipe(Recipe recipe) {
+            MetaTileEntityCrackingUnit metaTileEntity = (MetaTileEntityCrackingUnit) getMetaTileEntity();
+            int energyBonus = metaTileEntity.heatingCoilTier;
+
+            int[] resultOverclock = calculateOverclock(recipe.getEUt(), recipe.getDuration());
+            this.progressTime = 1;
+
+            // apply energy bonus
+            resultOverclock[0] -= (energyBonus * 5);
+
+            setMaxProgress(resultOverclock[1]);
+
+            this.recipeEUt = resultOverclock[0];
+            this.fluidOutputs = GTUtility.copyFluidList(recipe.getFluidOutputs());
+            int tier = getMachineTierForRecipe(recipe);
+            this.itemOutputs = GTUtility.copyStackList(recipe.getResultItemOutputs(getOutputInventory().getSlots(), random, tier));
+            if (this.wasActiveAndNeedsUpdate) {
+                this.wasActiveAndNeedsUpdate = false;
+            } else {
+                this.setActive(true);
+            }
+        }
     }
+
 }
