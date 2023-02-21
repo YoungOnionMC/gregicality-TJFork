@@ -873,7 +873,7 @@ public class MultiblockCraftingRecipes {
                 .buildAndRegister();
 
         //Void large Miner
-        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(500).EUt(GAValues.VA[UV])
+        ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(500).EUt(GAValues.VA[GAValues.UMV])
                 .input(gear, TitanSteel,16)
                 .input(gearSmall, HeavyQuarkDegenerateMatter, 64)
                 .input(gearSmall, HeavyQuarkDegenerateMatter, 64)

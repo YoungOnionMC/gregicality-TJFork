@@ -326,11 +326,16 @@ public class TaraniumChain {
                 .EUt(8000)
                 .buildAndRegister();
 
-        CENTRIFUGE_RECIPES.recipeBuilder()
-                .input(dust, Stone)
-                .chancedOutput(OreDictUnifier.get(dustSmall,Taranium),1000,0)
+        LARGE_CENTRIFUGE_RECIPES.recipeBuilder()
+                .input(dust, Stone,6)
+                .chancedOutput(OreDictUnifier.get(dust,Taranium),1000,0)
+                .chancedOutput(OreDictUnifier.get(dust,Taranium),1000,0)
+                .chancedOutput(OreDictUnifier.get(dust,Taranium),1000,0)
+                .chancedOutput(OreDictUnifier.get(dust,Taranium),1000,0)
+                .chancedOutput(OreDictUnifier.get(dust,Taranium),1000,0)
+                .chancedOutput(OreDictUnifier.get(dust,Taranium),1000,0)
                 .EUt(GAValues.VA[GAValues.UXV])
-                .duration(10)
+                .duration(50)
                 .buildAndRegister();
 
 
