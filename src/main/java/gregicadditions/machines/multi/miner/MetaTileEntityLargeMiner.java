@@ -120,7 +120,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
             drillingFluid = DrillingFluid.getFluid(type.drillingFluidConsumePerTick);
         }
         else {
-            drillingFluid = HeavyQuarkDegenerateMatter.getFluid(type.drillingFluidConsumePerTick);
+            drillingFluid = Taranium.getFluid(type.drillingFluidConsumePerTick);
         }
         FluidStack canDrain = importFluidHandler.drain(drillingFluid, false);
         if (energyContainer.getEnergyStored() >= energyDrain && canDrain != null && canDrain.amount == type.drillingFluidConsumePerTick) {
@@ -272,7 +272,7 @@ public class MetaTileEntityLargeMiner extends GAMultiblockWithDisplayBase implem
       else {
                 tooltip.add(I18n.format("gtadditions.machine.miner.multi.description2", type.chunk, type.chunk, type.fortuneString));
 
-                tooltip.add(I18n.format("gtadditions.machine.miner.fluid_usage", type.drillingFluidConsumePerTick, I18n.format(HeavyQuarkDegenerateMatter.getFluid(0).getUnlocalizedName())));
+                tooltip.add(I18n.format("gtadditions.machine.miner.fluid_usage", type.drillingFluidConsumePerTick, I18n.format(Taranium.getFluid(0).getUnlocalizedName())));
       }
     }
 
