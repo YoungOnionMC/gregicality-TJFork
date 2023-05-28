@@ -339,9 +339,9 @@ public class FusionElementsChain {
                 .buildAndRegister();
 
         ADV_FUSION_RECIPES.recipeBuilder().duration(64).EUt(32768).coilTier(1).euStart(640000000L).euReturn(100)
-                .fluidInputs(Deuterium.getFluid(250))
-                .fluidInputs(Tritium.getFluid(250))
-                .fluidOutputs(Helium.getPlasma(250))
+                .fluidInputs(Deuterium.getFluid(1000))
+                .fluidInputs(Tritium.getFluid(1000))
+                .fluidOutputs(Helium.getPlasma(1000))
                 .buildAndRegister();
     }
 

@@ -137,5 +137,11 @@ public class ZirconChain {
                 .fluidOutputs(Ammonia.getFluid(1000))
                 .fluidOutputs(HydrochloricAcid.getFluid(1000))
                 .buildAndRegister();
+
+        ELECTROLYZER_RECIPES.recipeBuilder().duration(80).EUt(120)
+                .fluidInputs(AmmoniumSulfate.getFluid(1000))
+                .fluidOutputs(Ammonia.getFluid(2000))
+                .fluidOutputs(SulfuricAcid.getFluid(1000))
+                .buildAndRegister();
     }
 }
