@@ -124,38 +124,18 @@ public class FuelHandler {
         registerRocketFuel(RocketFuel               .getFluid(15),  20, EV);
 
         // Naquadah Reactor
-        registerNaquadahReactorFuel(HeavyENaquadahFuel .getFluid(1), 25000, EV);
-        registerNaquadahReactorFuel(MediumENaquadahFuel.getFluid(1), 17500, EV);
-        registerNaquadahReactorFuel(LightENaquadahFuel    .getFluid( 1), 10000, EV);
-        registerNaquadahReactorFuel(HeavyNaquadahFuel  .getFluid(1), 17500, EV);
-        registerNaquadahReactorFuel(MediumNaquadahFuel .getFluid(1),  7500, EV);
-        registerNaquadahReactorFuel(LightNaquadahFuel     .getFluid( 1),  4000, EV);
-
-
-        // Hyper Reactor Fuels
-        registerHyperReactorFuel(HyperFuelI  .getFluid(1),  300, IV);
-        registerHyperReactorFuel(HyperFuelII .getFluid(1),  500, IV);
-        registerHyperReactorFuel(HyperFuelIII.getFluid(1),  700, IV);
-        registerHyperReactorFuel(HyperFuelIV .getFluid(1), 6000, UV);
-
-        //PROPOSED NAQ FUEL CHANGES
-        /*
-        // Naquadah Reactor
-        registerNaquadahReactorFuel(HeavyENaquadahFuel .getFluid(1), 576, LuV);
-        registerNaquadahReactorFuel(MediumENaquadahFuel.getFluid(1), 384, LuV);
-        registerNaquadahReactorFuel(LightENaquadahFuel    .getFluid( 1), 192, LuV);
-        registerNaquadahReactorFuel(HeavyNaquadahFuel  .getFluid(1), 448, LuV);
-        registerNaquadahReactorFuel(MediumNaquadahFuel .getFluid(1),  192, LuV);
-        registerNaquadahReactorFuel(LightNaquadahFuel     .getFluid( 1),  64, LuV);
-
+        registerNaquadahReactorFuel(HeavyENaquadahFuel .getFluid(1), 381, LuV);
+        registerNaquadahReactorFuel(MediumENaquadahFuel.getFluid(1), 350, LuV);
+        registerNaquadahReactorFuel(LightENaquadahFuel .getFluid( 1), 243, LuV);
+        registerNaquadahReactorFuel(HeavyNaquadahFuel  .getFluid(1), 320, LuV);
+        registerNaquadahReactorFuel(MediumNaquadahFuel .getFluid(1),  182, LuV);
+        registerNaquadahReactorFuel(LightNaquadahFuel  .getFluid( 1),  97, LuV);
 
         // Hyper Reactor Fuels
         registerHyperReactorFuel(HyperFuelI  .getFluid(1),  12, UV);
         registerHyperReactorFuel(HyperFuelII .getFluid(1),  25, UV);
         registerHyperReactorFuel(HyperFuelIII.getFluid(1),  50, UV);
-        registerHyperReactorFuel(HyperFuelIV .getFluid(1), 200, UV);
-
-         */
+        registerHyperReactorFuel(HyperFuelIV .getFluid(1), 400, UV);
 
         // Qubit Generator
         registerQubitGeneratorFuel(circuit, Elite,          100, UV, 1);
