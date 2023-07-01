@@ -141,7 +141,7 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
 
         @Override
         protected boolean drawEnergy(int recipeEUt) {
-            int drain = (int) Math.pow(4, getOverclockingTier(getMaxVoltage()));
+            int drain = (int) Math.pow(3, getOverclockingTier(getMaxVoltage()));
             long resultEnergy = this.getEnergyStored() - (long) recipeEUt;
             Optional<IFluidTank> fluidTank =
                     getInputFluidInventory().getFluidTanks().stream()

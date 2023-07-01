@@ -5,8 +5,7 @@ import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 
 import static gregicadditions.GAMaterials.*;
 import static gregicadditions.recipes.GARecipeMaps.*;
-import static gregtech.api.recipes.RecipeMaps.BLAST_RECIPES;
-import static gregtech.api.recipes.RecipeMaps.CHEMICAL_RECIPES;
+import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.dust;
 
@@ -101,6 +100,15 @@ public class HNIWChain {
                 .fluidOutputs(BariumSulfateSolution.getFluid(1000))
                 .EUt(480)
                 .duration(100)
+                .buildAndRegister();
+
+        // treat this as 1 full mol, not 1 dust
+        CENTRIFUGE_RECIPES.recipeBuilder()
+                .fluidInputs(BariumSulfateSolution.getFluid(1000))
+                .output(dust, Barite, 6)
+                .fluidOutputs(Water.getFluid(1000))
+                .EUt(480)
+                .duration(320)
                 .buildAndRegister();
 
         //C4H6O4 + CaCl2 (not consumed) + (CH3CO)2O -> C4H4O3 + 2 CH3COOH
@@ -226,8 +234,8 @@ public class HNIWChain {
 
         //6 CH2O + 4 NH3 -> C6H12N4 + 6 H2O
         CHEMICAL_RECIPES.recipeBuilder()
-                .fluidInputs(Formaldehyde.getFluid(4000))
-                .fluidInputs(Ammonia.getFluid(6000))
+                .fluidInputs(Formaldehyde.getFluid(6000))
+                .fluidInputs(Ammonia.getFluid(4000))
                 .notConsumable(IntCircuitIngredient.getIntegratedCircuit(1))
                 .outputs(Hexamethylenetetramine.getItemStack(22))
                 .fluidOutputs(Water.getFluid(6000))
