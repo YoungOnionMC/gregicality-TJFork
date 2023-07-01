@@ -160,22 +160,22 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
             }
             return false;
         }
+
+        @Override
         protected Recipe createRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs, Recipe matchingRecipe) {
-            int maxItemsLimit = this.getStack();
-            int EUt;
+            long EUt;
             int duration;
-            int currentTier = getOverclockingTier(maxVoltage);
-            int tierNeeded;
             int minMultiplier = Integer.MAX_VALUE;
             int recipeTemp = matchingRecipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0);
+            int tier = getOverclockingTier(maxVoltage);
+            int tierNeeded;
+            int maxItemsLimit = this.getStack();
+            Set<ItemStack> countIngredients = new HashSet<>();
 
             tierNeeded = Math.max(1, GAUtility.getTierByVoltage(matchingRecipe.getEUt()));
-            maxItemsLimit *= currentTier - tierNeeded;
+            maxItemsLimit *= tier - tierNeeded;
             maxItemsLimit = Math.max(1, maxItemsLimit);
 
-            forceRecipeRecheck();
-
-            Set<ItemStack> countIngredients = new HashSet<>();
             if (matchingRecipe.getInputs().size() != 0) {
                 this.findIngredients(countIngredients, inputs);
                 minMultiplier = Math.min(maxItemsLimit, this.getMinRatioItem(countIngredients, matchingRecipe, maxItemsLimit));
@@ -185,17 +185,41 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
             if (matchingRecipe.getFluidInputs().size() != 0) {
 
                 this.findFluid(countFluid, fluidInputs);
-                minMultiplier = Math.min(minMultiplier, this.getMinRatioFluid(countFluid, matchingRecipe, maxItemsLimit));
+                minMultiplier = Math.min(maxItemsLimit, this.getMinRatioItem(countIngredients, matchingRecipe, maxItemsLimit));
             }
 
             if (minMultiplier == Integer.MAX_VALUE) {
-                GALog.logger.error("Cannot calculate ratio of items for large multiblocks");
+                GALog.logger.error("Cannot calculate ratio of items for the mega blast furnace");
                 return null;
             }
 
             EUt = matchingRecipe.getEUt();
             duration = matchingRecipe.getDuration();
+            int currentTemp = ((MetaTileEntityVolcanus) this.metaTileEntity).getBlastFurnaceTemperature();
 
+            // Get amount of 900Ks over the recipe temperature
+            int bonusAmount = Math.max(0, (currentTemp - recipeTemp) / 900);
+
+            // Apply EUt discount for every 900K above the base recipe temperature
+            EUt *= Math.pow(0.95, bonusAmount);
+
+            // Apply Super Overclocks for every 1800k above the base recipe temperature
+
+            for (int i = bonusAmount; EUt <= GAValues.V[tier - 1] && duration >= 3 && i > 0; i--) {
+                if (i % 2 == 0) {
+                    EUt *= 4;
+                    duration *= 0.25;
+                }
+            }
+
+            // Apply Regular Overclocking
+            while (duration >= 3 && EUt <= GAValues.V[tier - 1]) {
+                EUt *= 4;
+                duration /= 2.8;
+                if (duration <= 0){
+                    duration = 1;
+                }
+            }
 
             List<CountableIngredient> newRecipeInputs = new ArrayList<>();
             List<FluidStack> newFluidInputs = new ArrayList<>();
@@ -224,7 +248,6 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
 
             return newRecipe.build().getResult();
         }
-
     }
 
 
