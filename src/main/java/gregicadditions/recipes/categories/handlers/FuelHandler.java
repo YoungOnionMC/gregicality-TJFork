@@ -132,10 +132,10 @@ public class FuelHandler {
         registerNaquadahReactorFuel(LightNaquadahFuel  .getFluid( 1),  97, LuV);
 
         // Hyper Reactor Fuels
-        registerHyperReactorFuel(HyperFuelI  .getFluid(1),  12, UV);
-        registerHyperReactorFuel(HyperFuelII .getFluid(1),  25, UV);
-        registerHyperReactorFuel(HyperFuelIII.getFluid(1),  50, UV);
-        registerHyperReactorFuel(HyperFuelIV .getFluid(1), 400, UV);
+        registerHyperReactorFuel(HyperFuelI  .getFluid(1),  24, UV);
+        registerHyperReactorFuel(HyperFuelII .getFluid(1),  50, UV);
+        registerHyperReactorFuel(HyperFuelIII.getFluid(1),  100, UV);
+        registerHyperReactorFuel(HyperFuelIV .getFluid(1),  650, UV);
 
         // Qubit Generator
         registerQubitGeneratorFuel(circuit, Elite,          100, UV, 1);
