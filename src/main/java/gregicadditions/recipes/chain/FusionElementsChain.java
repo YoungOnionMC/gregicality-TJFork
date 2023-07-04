@@ -343,6 +343,23 @@ public class FusionElementsChain {
                 .fluidInputs(Tritium.getFluid(1000))
                 .fluidOutputs(Helium.getPlasma(1000))
                 .buildAndRegister();
+
+        ADV_FUSION_RECIPES.recipeBuilder().duration(10).EUt(16000000).coilTier(5).euStart(20000000000L).euReturn(75)
+                .fluidInputs(SuperheavyMix.getFluid(1000))
+                .fluidInputs(Taranium.getFluid(144))
+                .fluidOutputs(NeutronPlasma.getFluid(8000))
+                .buildAndRegister();
+
+
+//        ADVFusion.recipeBuilder()
+//                .fluidInputs(<liquid:superheavy_mix> * 1000, <liquid:taranium> * 144)//,<liquid:lead_bismuth_eutatic> * 7440)
+//    .fluidOutputs(<liquid:neutron_plasma> * 1008)//, <liquid:supercritical_lead_bismuth_eutectic> * 7440)
+//    .property("eu_to_start", 20000000000)
+//                .property("coilTier", 5)
+//                .property("euReturn", 75)
+//                .duration(50)
+//                .EUt(16000000)
+//                .buildAndRegister();
     }
 
     public static void fusionRecipes() {
