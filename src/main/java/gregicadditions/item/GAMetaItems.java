@@ -444,7 +444,7 @@ public class GAMetaItems {
     public static MetaItem<?>.MetaValueItem GRATING_LITHOGRAPHY_MASK;
     public static MetaItem<?>.MetaValueItem DIFFRACTOR_GRATING_MIRROR;
     public static MetaItem<?>.MetaValueItem ULTRASHORT_PULSE_LASER;
-    public static MetaItem<?>.MetaValueItem COSMIC_COMPUTE_UNITS;
+    public static MetaItem<?>.MetaValueItem COSMIC_COMPUTE_UNIT;
     public static MetaItem<?>.MetaValueItem COSMIC_PROCESSING_CORE;
     public static MetaItem<?>.MetaValueItem GRAPHENE_IRON_PLATE;
 

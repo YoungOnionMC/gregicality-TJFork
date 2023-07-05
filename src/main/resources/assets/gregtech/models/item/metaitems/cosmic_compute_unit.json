@@ -2,6 +2,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gregtech:items/metaitems/cosmic_processing_unit_core"
+    "layer0": "gregtech:items/metaitems/cosmic_compute_unit"
   }
 }

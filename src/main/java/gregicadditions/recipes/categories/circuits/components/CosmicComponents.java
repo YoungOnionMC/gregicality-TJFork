@@ -51,7 +51,7 @@ public class CosmicComponents {
 
         // Cosmic Processing Core
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(320).EUt(11796480).qubit(2)
-                .inputs(COSMIC_COMPUTE_UNITS.getStackForm())
+                .inputs(COSMIC_COMPUTE_UNIT.getStackForm())
                 .inputs(SMD_DIODE_COSMIC.getStackForm(48))
                 .inputs(SMD_RESISTOR_COSMIC.getStackForm(48))
                 .inputs(SMD_TRANSISTOR_COSMIC.getStackForm(48))
@@ -136,7 +136,7 @@ public class CosmicComponents {
                 .input(gemFlawless, Vinteum, 2)
                 .input(gemFlawless, Tanzanite, 2)
                 .fluidInputs(CosmicComputingMix.getFluid(1000))
-                .outputs(COSMIC_COMPUTE_UNITS.getStackForm())
+                .outputs(COSMIC_COMPUTE_UNIT.getStackForm())
                 .buildAndRegister();
     }
 }
