@@ -104,8 +104,8 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(2000000)
-                .input(frameGt, TungstenSteel, 6)
-                .input(plate, TungstenSteel, 8)
+                .input(frameGt, Iridium, 6)
+                .input(plate, Iridium, 8)
                 .input(plate, TungstenTitaniumCarbide, 16)
                 .input(screw, LithiumTitanate, 32)
                 .inputs(ELECTRIC_PUMP_UEV.getStackForm())
@@ -116,8 +116,8 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(8000000)
-                .input(frameGt, TungstenSteel, 8)
-                .input(plate, TungstenSteel, 10)
+                .input(frameGt, Osmiridium, 8)
+                .input(plate, Osmiridium, 10)
                 .input(plate, TitanSteel, 16)
                 .input(screw, LithiumTitanate, 64)
                 .inputs(ELECTRIC_PUMP_UIV.getStackForm())
@@ -128,8 +128,8 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(32000000)
-                .input(frameGt, TungstenSteel, 12)
-                .input(plate, TungstenSteel, 14)
+                .input(frameGt, Naquadria, 12)
+                .input(plate, Naquadria, 14)
                 .input(plate, BlackTitanium, 16)
                 .input(screw, TriniumTitanium, 64)
                 .inputs(ELECTRIC_PUMP_UMV.getStackForm())
@@ -140,8 +140,8 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(128000000)
-                .input(frameGt, TungstenSteel, 16)
-                .input(plate, TungstenSteel, 16)
+                .input(frameGt, EnrichedNaquadahAlloy, 16)
+                .input(plate, EnrichedNaquadahAlloy, 16)
                 .input(plate, NaquadriaticTaranium, 16)
                 .input(screw, MetastableHassium, 64)
                 .inputs(ELECTRIC_PUMP_UXV.getStackForm())
@@ -166,10 +166,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(2000000)
-                .input(frameGt, StainlessSteel, 16)
-                .input(plate, StainlessSteel, 16)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(frameGt, TungstenSteel, 16)
+                .input(plate, TungstenSteel, 16)
+                .input(pipeTiny, StainlessSteel, 64)
                 .input(screw, LithiumTitanate, 32)
                 .inputs(ELECTRIC_PUMP_UEV.getStackForm())
                 .inputs(SENSOR_UEV.getStackForm())
@@ -179,12 +178,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(8000000)
-                .input(frameGt, StainlessSteel, 32)
-                .input(plate, StainlessSteel, 32)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(frameGt, Iridium, 32)
+                .input(plate, Iridium, 32)
+                .input(pipeTiny, TungstenSteel, 64)
                 .input(screw, LithiumTitanate, 64)
                 .inputs(ELECTRIC_PUMP_UIV.getStackForm())
                 .inputs(SENSOR_UIV.getStackForm())
@@ -194,14 +190,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(32000000)
-                .input(frameGt, StainlessSteel, 48)
-                .input(plate, StainlessSteel, 48)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(frameGt, Osmiridium, 48)
+                .input(plate, Osmiridium, 48)
+                .input(pipeTiny, Ultimet, 64)
                 .input(screw, TriniumTitanium, 64)
                 .inputs(ELECTRIC_PUMP_UMV.getStackForm())
                 .inputs(SENSOR_UMV.getStackForm())
@@ -211,16 +202,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(128000000)
-                .input(frameGt, StainlessSteel, 64)
-                .input(plate, StainlessSteel, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(frameGt, Naquadria, 64)
+                .input(plate, Naquadria, 64)
+                .input(pipeTiny, Lafium, 64)
                 .input(screw, MetastableHassium, 64)
                 .inputs(ELECTRIC_PUMP_UXV.getStackForm())
                 .inputs(SENSOR_UXV.getStackForm())
@@ -244,10 +228,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(2000000)
-                .input(frameGt, StainlessSteel, 16)
+                .input(frameGt, TungstenSteel, 16)
                 .input(plate, Nitinol60, 4)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(pipeTiny, StainlessSteel, 64)
                 .input(screw, LithiumTitanate, 32)
                 .inputs(ELECTRIC_PUMP_UEV.getStackForm())
                 .inputs(SENSOR_UEV.getStackForm())
@@ -257,12 +240,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(8000000)
-                .input(frameGt, StainlessSteel, 32)
+                .input(frameGt, Iridium, 32)
                 .input(plate, TungstenTitaniumCarbide, 16)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(pipeTiny, TungstenSteel, 64)
                 .input(screw, LithiumTitanate, 64)
                 .inputs(ELECTRIC_PUMP_UIV.getStackForm())
                 .inputs(SENSOR_UIV.getStackForm())
@@ -272,14 +252,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(32000000)
-                .input(frameGt, StainlessSteel, 48)
+                .input(frameGt, Osmiridium, 48)
                 .input(plate, TitanSteel, 16)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(pipeTiny, Ultimet, 64)
                 .input(screw, TriniumTitanium, 64)
                 .inputs(ELECTRIC_PUMP_UMV.getStackForm())
                 .inputs(SENSOR_UMV.getStackForm())
@@ -289,16 +264,9 @@ public class FusionComponents {
                 .buildAndRegister();
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(100).EUt(128000000)
-                .input(frameGt, StainlessSteel, 64)
+                .input(frameGt, Naquadria, 64)
                 .input(plate, BlackTitanium, 16)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
-                .input(pipeTiny, Copper, 64)
+                .input(pipeTiny, Lafium, 64)
                 .input(screw, MetastableHassium, 64)
                 .inputs(ELECTRIC_PUMP_UXV.getStackForm())
                 .inputs(SENSOR_UXV.getStackForm())

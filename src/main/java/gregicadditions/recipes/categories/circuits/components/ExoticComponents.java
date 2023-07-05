@@ -68,9 +68,9 @@ public class ExoticComponents{
                 .outputs(SMD_TRANSISTOR_EXOTIC.getStackForm(32))
                 .buildAndRegister();
 
-        LASER_ENGRAVER_RECIPES.recipeBuilder().duration(160).EUt(800000)
-                .inputs(WAFER_RUTHERFORDIUM.getStackForm())
-                .notConsumable(lens, Diamond)
+        ARC_FURNACE_RECIPES.recipeBuilder().duration(160).EUt(800000)
+                .inputs(WAFER_DUBNIUM.getStackForm())
+                .fluidInputs(FreeAlphaGas.getFluid(47))
                 .outputs(UNTREATED_EXOTIC_WAFER.getStackForm())
                 .buildAndRegister();
 
