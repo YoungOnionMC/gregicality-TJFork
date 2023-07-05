@@ -159,5 +159,11 @@ public class UHVMaterials {
                 .EUt(10000000)
                 .duration(500)
                 .buildAndRegister();
+
+        ADV_FUSION_RECIPES.recipeBuilder().duration(100).EUt(20000000 * 9).coilTier(5).euStart(5000000000L).euReturn(50)
+                .fluidInputs(SuperheavyHAlloy.getFluid(1296))
+                .fluidInputs(Taranium.getFluid(1296))
+                .fluidOutputs(Neutronium.getFluid(1296))
+                .buildAndRegister();
     }
 }
