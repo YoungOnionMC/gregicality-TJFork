@@ -633,7 +633,7 @@ public class CircuitRecipes {
                 .input(plate, HDCS, 2)
                 .input(foil, Polyetheretherketone, 32)
                 .fluidInputs(Duranium.getFluid(L * 9))
-                .fluidInputs(Polytetrafluoroethylene.getFluid(L * 2))
+                .fluidInputs(Polytetrafluoroethylene.getFluid(L * 18))
                 .fluidInputs(NaquadahEnriched.getFluid(L * 9))
                 .outputs(OPTICAL_ASSEMBLY.getStackForm())
                 .buildAndRegister();
