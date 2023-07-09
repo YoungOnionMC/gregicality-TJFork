@@ -343,6 +343,12 @@ public class FusionElementsChain {
                 .fluidInputs(Tritium.getFluid(1000))
                 .fluidOutputs(Helium.getPlasma(1000))
                 .buildAndRegister();
+
+        ADV_FUSION_RECIPES.recipeBuilder().duration(10).EUt(16000000).coilTier(5).euStart(20000000000L).euReturn(75)
+                .fluidInputs(SuperheavyMix.getFluid(1000))
+                .fluidInputs(Taranium.getFluid(144))
+                .fluidOutputs(NeutronPlasma.getFluid(8000))
+                .buildAndRegister();
     }
 
     public static void fusionRecipes() {

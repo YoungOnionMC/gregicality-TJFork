@@ -123,7 +123,7 @@ public class AdvFusionRecipeBuilder extends RecipeBuilder<AdvFusionRecipeBuilder
                 long eu = (euStart + ((long) EUt) * duration) * euReturn / 100;
                 for (FluidStack fluidStack : COOLANTS.keySet()) {
                     FluidStack fluidInput = fluidStack.copy();
-                    int amount = Math.max((int) ((eu / (2048 * 10000)) * fluidInput.amount), 0);
+                    int amount = Math.max((int) ((eu / (2048 * 10000)) * fluidInput.amount), 1);
                     fluidInput.amount = amount;
                     FluidStack fluidOutput = new FluidStack(COOLANTS.get(fluidStack), amount);
                     recipeMap.addRecipe(this.copy()

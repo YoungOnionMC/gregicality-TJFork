@@ -149,7 +149,7 @@ metaitem.uhasoc.name=UHASoC
 metaitem.hasoc.name=HASoC
 metaitem.optical_soc.name=Optical SoC
 metaitem.optical_processing_core.name=Optical Processing Core
-metaitem.cosmic_processing_unit_core.name=Cosmic Processing Unit Core
+metaitem.cosmic_compute_unit.name=Cosmic Compute Unit
 metaitem.cosmic_processing_core.name=Cosmic Processing Core
 
 metaitem.potassium_cyanide.name=Potassium Cyanide

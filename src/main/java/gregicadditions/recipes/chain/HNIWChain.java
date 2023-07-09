@@ -86,7 +86,7 @@ public class HNIWChain {
                 .inputs(PotassiumHydroxylaminedisulfonate.getItemStack(26))
                 .fluidInputs(Water.getFluid(4000))
                 .outputs(HydroxylammoniumSulfate.getItemStack(17))
-                .outputs(PotassiumSulfate.getItemStack(12))
+                .outputs(PotassiumSulfate.getItemStack(14))
                 .fluidOutputs(SulfuricAcid.getFluid(1000))
                 .EUt(1920)
                 .duration(200)

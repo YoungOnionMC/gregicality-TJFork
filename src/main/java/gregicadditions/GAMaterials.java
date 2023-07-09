@@ -1681,6 +1681,9 @@ public class GAMaterials implements IMaterialHandler {
         Samarium.addFlag(EXT2_METAL);
         Samarium.magneticMaterial = SamariumMagnetic;
 
+        Iridium.addFlag(GENERATE_FRAME);
+        Osmiridium.addFlag(GENERATE_FRAME);
+
         // Prefix Ignores
         OrePrefix.block.setIgnored(Pyrotheum);
         OrePrefix.block.setIgnored(Cryotheum);
