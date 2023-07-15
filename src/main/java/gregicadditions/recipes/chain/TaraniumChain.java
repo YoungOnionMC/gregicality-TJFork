@@ -304,7 +304,7 @@ public class TaraniumChain {
         LARGE_CENTRIFUGE_RECIPES.recipeBuilder()
                 .fluidInputs(TaraniumDepletedHeliumPlasma.getFluid(10000))
                 .notConsumable(SEPARATION_ELECTROMAGNET.getStackForm())
-                .fluidOutputs(Helium3.getPlasma(50000))
+                .fluidOutputs(Helium3.getPlasma(5000))
                 .outputs(CleanInertResidues.getItemStack(2))
                 .duration(160)
                 .EUt(2000)
