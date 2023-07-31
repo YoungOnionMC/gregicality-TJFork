@@ -890,7 +890,7 @@ public class CircuitRecipes {
                 .input(plate, TriniumTitanium, 32)
                 .input(plate, MetastableFlerovium, 16)
                 .input(plate, Neutronium, 4)
-                .inputs(COSMIC_MESH.getStackForm())
+                .input(plate, CosmicNeutronium, 3)
                 .input(wireGtSingle, UMVSuperconductor, 64)
                 .inputs(PHOTOCOATED_HASSIUM_WAFER.getStackForm(16))
                 .fluidInputs(Taranium.getFluid(L * 2))
