@@ -3008,7 +3008,7 @@ gregtech.multiblock.advanced_distillation_tower.description2=2 Modes:
 gregtech.multiblock.advanced_distillation_tower.description3=    Distillation Tower => Max 16 Parallel, 4 per overclock
 gregtech.multiblock.advanced_distillation_tower.description4=    Distillery & Fluid Heater => Max 64 Parallel, 8 per overclock
 gtadditions.multiblock.large_rocket_engine.tooltip.1=The Large Rocket Engine will produce large amounts of power.
-gtadditions.multiblock.large_rocket_engine.tooltip.2=It Consumes 37500mB of Air per Second.
+gtadditions.multiblock.large_rocket_engine.tooltip.2=It Consumes 37500mB of Air per Cycle.
 gtadditions.multiblock.large_rocket_engine.tooltip.3=Use Liquid Oxygen to boost the output energy by 3x.
 gtadditions.multiblock.alloy_blast_furnace.tooltip.1=Quicker than the Blast Furnace
 gtadditions.multiblock.large_naquadah_reactor.tooltip.1=Consumes 1000mb of Tritium every 20 fuel cycles'.
