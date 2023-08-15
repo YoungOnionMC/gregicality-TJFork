@@ -86,6 +86,7 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
                 .aisle("XXX", "C#C", "C#C", "XMX")
                 .aisle("XSX", "CCC", "CCC", "XXX")
                 .setAmountAtLeast('L', 8)
+                .where('L', statePredicate(getCasingState()))
                 .where('S', selfPredicate())
                 .where('X', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)).or(energyHatchPredicate()))
                 .where('M', abilityPartPredicate(GregicAdditionsCapabilities.MUFFLER_HATCH))
