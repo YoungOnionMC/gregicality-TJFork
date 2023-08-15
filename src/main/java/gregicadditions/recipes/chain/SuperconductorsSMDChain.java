@@ -98,6 +98,7 @@ public class SuperconductorsSMDChain {
         // Na2O4Ru + 2H -> RuO2 + 2NaOH
         BLAST_RECIPES.recipeBuilder().duration(270).EUt(120).blastFurnaceTemp(1250)
                 .input(dust, SodiumRuthenate, 7)
+                .notConsumable(new IntCircuitIngredient(2))
                 .fluidInputs(Hydrogen.getFluid(2000))
                 .output(dust, RutheniumDioxide, 3)
                 .output(dust, SodiumHydroxide, 6)

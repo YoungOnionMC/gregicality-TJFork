@@ -175,7 +175,7 @@ public class SuperconductorRecipes {
             ASSEMBLER_RECIPES.recipeBuilder().duration(500).EUt(503316480)
                     .input(wireGtSingle, UXVSuperconductorBase, 64)
                     .input(pipeTiny, Neutronium, 13)
-                    .inputs(ELECTRIC_PUMP_UXV.getStackForm())
+                    .inputs(ELECTRIC_PUMP_MAX.getStackForm())
                     .notConsumable(IntCircuitIngredient.getIntegratedCircuit(2))
                     .fluidInputs(FreeElectronGas.getFluid(22000))
                     .output(wireGtSingle, Superconductor, 64)
