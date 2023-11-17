@@ -2,6 +2,9 @@ package gregicadditions.recipes.categories.handlers;
 
 import forestry.core.fluids.Fluids;
 import gregicadditions.GAConfig;
+import gregtech.api.GTValues;
+import gregtech.api.recipes.RecipeMaps;
+import gregtech.api.recipes.recipes.FuelRecipe;
 import gregtech.api.unification.material.Materials;
 import net.minecraftforge.fml.common.Loader;
 
@@ -82,7 +85,7 @@ public class FuelHandler {
         registerDieselGeneratorFuel(LightFuel         .getFluid(32),  305, LV);
         registerDieselGeneratorFuel(Gasoline          .getFluid( 8),  60, HV);
         registerDieselGeneratorFuel(HighOctaneGasoline.getFluid( 7),  80, EV);
-        registerDieselGeneratorFuel(Octane            .getFluid(20),   45, LV);
+        //registerDieselGeneratorFuel(Octane            .getFluid(20),   45, LV);
         registerDieselGeneratorFuel(Ethanol           .getFluid( 2),   12, LV);
 
 
@@ -148,5 +151,7 @@ public class FuelHandler {
         registerQubitGeneratorFuel(circuit, UMV,            19_200, UV, 16);
         registerQubitGeneratorFuel(circuit, UXV,            25_600, UV, 32);
         registerQubitGeneratorFuel(circuit, MAX,            51_200, UV, 64);
+        //removals
+        RecipeMaps.GAS_TURBINE_FUELS.removeRecipe(new FuelRecipe((Toluene.getFluid(4)), 41, GTValues.LV));
     }
 }

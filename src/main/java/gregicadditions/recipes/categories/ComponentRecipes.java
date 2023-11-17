@@ -2,6 +2,7 @@ package gregicadditions.recipes.categories;
 
 import gregicadditions.GAConfig;
 import gregtech.api.recipes.ModHandler;
+import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.type.IngotMaterial;
 import gregtech.api.unification.ore.OrePrefix;
@@ -345,67 +346,46 @@ public class ComponentRecipes {
         if (GAConfig.Misc.assemblyLineMakeCheaperComponents) {
 
             ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(6000).EUt(8000)
-                    .input(circuit, Basic, 2)
-                    .input(circuit, Basic, 2)
-                    .input(circuit, Basic, 2)
-                    .input(circuit, Basic, 2)
-                    .input(dust, EnderPearl)
-                    .input(dust, EnderPearl)
-                    .input(dust, EnderPearl)
-                    .input(dust, EnderPearl)
-                    .fluidInputs(SolderingAlloy.getFluid(L * 2))
+                    .input(circuit, Basic, 8)
+                    .input(ingot, SolderingAlloy, 4)
+                    .notConsumable(new IntCircuitIngredient(1))
+                    .notConsumable(new IntCircuitIngredient(2))
                     .outputs(FIELD_GENERATOR_LV.getStackForm(16))
                     .buildAndRegister();
 
             ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(6000).EUt(16000)
-                    .input(circuit, Good, 2)
-                    .input(circuit, Good, 2)
-                    .input(circuit, Good, 2)
-                    .input(circuit, Good, 2)
-                    .input(dust, EnderEye)
-                    .input(dust, EnderEye)
-                    .input(dust, EnderEye)
-                    .input(dust, EnderEye)
-                    .fluidInputs(MVSuperconductorBase.getFluid(L * 4))
+                    .input(circuit, Good, 8)
+                    .input(dust, EnderEye, 4)
+                    .input(ingot, MVSuperconductorBase, 4)
+                    .notConsumable(new IntCircuitIngredient(1))
+                    .notConsumable(new IntCircuitIngredient(2))
                     .outputs(FIELD_GENERATOR_MV.getStackForm(16))
                     .buildAndRegister();
 
             ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(6000).EUt(32000)
-                    .input(circuit, Advanced, 2)
-                    .input(circuit, Advanced, 2)
-                    .input(circuit, Advanced, 2)
-                    .input(circuit, Advanced, 2)
-                    .inputs(QUANTUM_EYE.getStackForm())
-                    .inputs(QUANTUM_EYE.getStackForm())
-                    .inputs(QUANTUM_EYE.getStackForm())
-                    .inputs(QUANTUM_EYE.getStackForm())
-                    .fluidInputs(HVSuperconductorBase.getFluid(L * 8))
+                    .input(circuit, Advanced, 8)
+                    .inputs(QUANTUM_EYE.getStackForm(4))
+                    .input(ingot, HVSuperconductorBase, 4)
+                    .notConsumable(new IntCircuitIngredient(1))
+                    .notConsumable(new IntCircuitIngredient(2))
                     .outputs(FIELD_GENERATOR_HV.getStackForm(16))
                     .buildAndRegister();
 
             ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(6000).EUt(64000)
-                    .input(circuit, Extreme, 2)
-                    .input(circuit, Extreme, 2)
-                    .input(circuit, Extreme, 2)
-                    .input(circuit, Extreme, 2)
-                    .input(dust, NetherStar)
-                    .input(dust, NetherStar)
-                    .input(dust, NetherStar)
-                    .input(dust, NetherStar)
-                    .fluidInputs(EVSuperconductorBase.getFluid(L * 16))
+                    .input(circuit, Extreme, 8)
+                    .input(dust, NetherStar, 4)
+                    .input(ingot, EVSuperconductorBase, 4)
+                    .notConsumable(new IntCircuitIngredient(1))
+                    .notConsumable(new IntCircuitIngredient(2))
                     .outputs(FIELD_GENERATOR_EV.getStackForm(16))
                     .buildAndRegister();
 
             ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(6000).EUt(128000)
-                    .input(circuit, Elite, 2)
-                    .input(circuit, Elite, 2)
-                    .input(circuit, Elite, 2)
-                    .input(circuit, Elite, 2)
-                    .inputs(QUANTUM_STAR.getStackForm())
-                    .inputs(QUANTUM_STAR.getStackForm())
-                    .inputs(QUANTUM_STAR.getStackForm())
-                    .inputs(QUANTUM_STAR.getStackForm())
-                    .fluidInputs(IVSuperconductorBase.getFluid(L * 32))
+                    .input(circuit, Elite, 8)
+                    .inputs(QUANTUM_STAR.getStackForm(4))
+                    .input(ingot, IVSuperconductorBase, 4)
+                    .notConsumable(new IntCircuitIngredient(1))
+                    .notConsumable(new IntCircuitIngredient(2))
                     .outputs(FIELD_GENERATOR_IV.getStackForm(16))
                     .buildAndRegister();
         }
@@ -1080,8 +1060,8 @@ public class ComponentRecipes {
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(600).EUt(655360)
                 .outputs(ELECTRIC_MOTOR_UHV.getStackForm())
-                .input(stickLong, NeodymiumMagnetic, 64)
-                .input(stickLong, NeodymiumMagnetic, 64)
+                .input(stickLong, SamariumMagnetic, 64)
+                .input(stickLong, SamariumMagnetic, 64)
                 .input(stickLong, HDCS, 2)
                 .input(ring, HDCS, 4)
                 .input(roundOrScrew, HDCS, 16)
