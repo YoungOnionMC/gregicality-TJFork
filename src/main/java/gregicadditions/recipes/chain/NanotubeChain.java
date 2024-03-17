@@ -1,6 +1,7 @@
 package gregicadditions.recipes.chain;
 
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
+import gregtech.api.unification.OreDictUnifier;
 
 import static gregicadditions.GAMaterials.*;
 import static gregicadditions.item.GAMetaItems.NANOTOME;
@@ -81,7 +82,7 @@ public class NanotubeChain {
         // CH2O + 2C2H4O + NH3 -> C5H5N + 3H2O + 2H
         LARGE_CHEMICAL_RECIPES.recipeBuilder().duration(240).EUt(1920)
                 .notConsumable(ThalliumChloride.getItemStack())
-                .notConsumable(IntCircuitIngredient.getIntegratedCircuit(1))
+                .notConsumable(new IntCircuitIngredient(1))
                 .fluidInputs(Formaldehyde.getFluid(1000))
                 .fluidInputs(Acetaldehyde.getFluid(2000))
                 .fluidInputs(Ammonia.getFluid(1000))
@@ -256,7 +257,7 @@ public class NanotubeChain {
 
         ELECTROMAGNETIC_SEPARATOR_RECIPES.recipeBuilder().duration(260).EUt(122880)
                 .inputs(GrapheneNanotubeMix.getItemStack())
-                .output(dustSmall, CarbonNanotubes, 3)
+                .chancedOutput(OreDictUnifier.get(dust, CarbonNanotubes, 1), 7500, 0)
                 .outputs(GrapheneAlignedCNT.getItemStack())
                 .buildAndRegister();
 

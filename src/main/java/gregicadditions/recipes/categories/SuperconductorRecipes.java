@@ -68,7 +68,7 @@ public class SuperconductorRecipes {
                     .input(wireGtSingle, MVSuperconductorBase, 3)
                     .input(pipeTiny, StainlessSteel, 2)
                     .inputs(ELECTRIC_PUMP_MV.getStackForm(2))
-                    .notConsumable(IntCircuitIngredient.getIntegratedCircuit(1))
+                    .notConsumable(new IntCircuitIngredient(1))
                     .fluidInputs(Nitrogen.getFluid(2000))
                     .output(wireGtSingle, MVSuperconductor, 3)
                     .buildAndRegister();
@@ -77,7 +77,7 @@ public class SuperconductorRecipes {
                     .input(wireGtSingle, HVSuperconductorBase, 3)
                     .input(pipeTiny, Titanium, 2)
                     .inputs(ELECTRIC_PUMP_HV.getStackForm())
-                    .notConsumable(IntCircuitIngredient.getIntegratedCircuit(1))
+                    .notConsumable(new IntCircuitIngredient(1))
                     .fluidInputs(Nitrogen.getFluid(2000))
                     .output(wireGtSingle, HVSuperconductor, 3)
                     .buildAndRegister();

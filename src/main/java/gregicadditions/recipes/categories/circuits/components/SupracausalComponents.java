@@ -118,7 +118,7 @@ public class SupracausalComponents {
 
         // Nuclear Clock
         ASSEMBLY_LINE_RECIPES.recipeBuilder().duration(160).EUt(33550000)
-                .inputs(SENSOR_UIV.getStackForm(2))
+                .inputs(SENSOR_UEV.getStackForm(2))
                 .inputs(SCINTILLATOR.getStackForm())
                 .inputs(ULTRASHORT_PULSE_LASER.getStackForm(2))
                 .inputs(BOSE_EINSTEIN_COOLING_CONTAINER.getStackForm())
