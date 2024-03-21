@@ -1248,6 +1248,21 @@ public class RecipeHandler {
                     .fluidOutputs(fluidOutput)
                     .buildAndRegister();
         });
+        BREWING_RECIPES.getRecipeList().forEach(recipe -> {
+            FluidStack fluidInput = recipe.getFluidInputs().get(0).copy();
+            fluidInput.amount = (fluidInput.amount * 10 * 125 / 100);
+            CountableIngredient itemInput = new CountableIngredient(recipe.getInputs().get(0).getIngredient(), recipe.getInputs().get(0).getCount() * 10);
+            FluidStack fluidOutput = FermentationBase.getFluid(recipe.getFluidOutputs().get(0).amount * 10);
+
+            LARGE_MIXER_RECIPES.recipeBuilder()
+                    .EUt(recipe.getEUt() * 10)
+                    .duration(recipe.getDuration() * 10)
+                    .fluidInputs(fluidInput)
+                    .inputsIngredients(Collections.singleton(itemInput))
+                    .notConsumable(new IntCircuitIngredient(1))
+                    .fluidOutputs(fluidOutput)
+                    .buildAndRegister();
+        });
     }
 
     /**
