@@ -4647,4 +4647,4 @@ gtadditions.machine.volcanus.name=Volcanus
 gregtech.multiblock.cryogenic_freezer.description=The Cryogenic Freezer is built the same as the Vacuum Freezer, but with different casings. It consumes cryothium 2^ max voltage tier mB of cryotheum per tick.
 gtadditions.machine.cryogenic_freezer.name=Cryogenic Freezer
 recipemap.cryogenic_freezer=Cryogenic Freezer
-gregtech.multiblock.vol_cryo.description=This multiblock parallels once per overlock
+gregtech.multiblock.vol_cryo.description=This multiblock parallels three times per overlock
