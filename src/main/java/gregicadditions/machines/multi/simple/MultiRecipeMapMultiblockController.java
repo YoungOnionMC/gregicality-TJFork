@@ -15,6 +15,7 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.render.OrientedOverlayRenderer;
+import gregtech.api.util.GTFluidUtils;
 import gregtech.api.util.InventoryUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -93,6 +94,7 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
 
     /**
      * Used to get all possible RecipeMaps a MultiBlock can run
+     *
      * @return array of RecipeMaps
      */
     public RecipeMap<?>[] getRecipeMaps() {
@@ -101,6 +103,7 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
 
     /**
      * Used to get the current index of the selected RecipeMap
+     *
      * @return index of the current recipe
      */
     public int getRecipeMapIndex() {
@@ -109,6 +112,7 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
 
     /**
      * Used to add new RecipeMaps to a given MultiBlock
+     *
      * @param recipeMaps to add to the MultiBlock
      */
     public void addRecipeMaps(RecipeMap<?>... recipeMaps) {
@@ -177,9 +181,9 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
     @SideOnly(Side.CLIENT)
     public String recipeMapsToString() {
         String recipeMapsString = "";
-        for(int i = 0; i < recipeMaps.length; i++) {
+        for (int i = 0; i < recipeMaps.length; i++) {
             recipeMapsString += recipeMaps[i].getLocalizedName();
-            if(recipeMaps.length - 1 != i)
+            if (recipeMaps.length - 1 != i)
                 recipeMapsString += ", "; // For delimiting
         }
         return recipeMapsString;
@@ -214,14 +218,13 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
         protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
             MultiRecipeMapMultiblockController metaTileEntity = (MultiRecipeMapMultiblockController) getMetaTileEntity();
             int recipeMapIndex = metaTileEntity.getRecipeMapIndex();
-
             // use the current recipemap for recipe finding
             Recipe recipe = this.recipeMaps[recipeMapIndex].findRecipe(maxVoltage, inputs, fluidInputs, this.getMinTankCapacity(this.getOutputTank()));
+            return recipe;
 
-            if (recipe != null) {
-                return createRecipe(maxVoltage, inputs, fluidInputs, recipe);
-            }
-            return null;
+//            if (recipe != null) {
+//                return createRecipe(maxVoltage, inputs, fluidInputs, recipe);
+//            }
         }
 
         @Override
@@ -236,7 +239,9 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
             tierNeeded = Math.max(1, GAUtility.getTierByVoltage(matchingRecipe.getEUt()));
             maxItemsLimit *= currentTier - tierNeeded;
             maxItemsLimit = Math.max(1, maxItemsLimit);
-
+            if (maxItemsLimit == 1) {
+                return matchingRecipe;
+            }
 
             Set<ItemStack> countIngredients = new HashSet<>();
             if (matchingRecipe.getInputs().size() != 0) {
@@ -259,35 +264,44 @@ public abstract class MultiRecipeMapMultiblockController extends LargeSimpleReci
             EUt = matchingRecipe.getEUt();
             duration = matchingRecipe.getDuration();
 
-            List<CountableIngredient> newRecipeInputs = new ArrayList<>();
-            List<FluidStack> newFluidInputs = new ArrayList<>();
-            List<ItemStack> outputI = new ArrayList<>();
-            List<FluidStack> outputF = new ArrayList<>();
-            this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, minMultiplier);
+            int tierDiff = currentTier - tierNeeded;
+            for (int i = 0; i < tierDiff; i++) {
+                int attemptItemsLimit = this.getStack();
+                attemptItemsLimit *= tierDiff - i;
+                attemptItemsLimit = Math.max(1, attemptItemsLimit);
+                attemptItemsLimit = Math.min(minMultiplier, attemptItemsLimit);
+                List<CountableIngredient> newRecipeInputs = new ArrayList<>();
+                List<FluidStack> newFluidInputs = new ArrayList<>();
+                List<ItemStack> outputI = new ArrayList<>();
+                List<FluidStack> outputF = new ArrayList<>();
+                this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, attemptItemsLimit);
 
-            // Get the currently selected RecipeMap
-            MultiRecipeMapMultiblockController metaTileEntity = (MultiRecipeMapMultiblockController) getMetaTileEntity();
-            int recipeMapIndex = metaTileEntity.getRecipeMapIndex();
+                // Get the currently selected RecipeMap
+                MultiRecipeMapMultiblockController metaTileEntity = (MultiRecipeMapMultiblockController) getMetaTileEntity();
+                int recipeMapIndex = metaTileEntity.getRecipeMapIndex();
 
-            RecipeBuilder<?> newRecipe = this.recipeMaps[recipeMapIndex].recipeBuilder();
-            copyChancedItemOutputs(newRecipe, matchingRecipe, minMultiplier);
+                RecipeBuilder<?> newRecipe = this.recipeMaps[recipeMapIndex].recipeBuilder();
+                copyChancedItemOutputs(newRecipe, matchingRecipe, attemptItemsLimit);
 
-            // determine if there is enough room in the output to fit all of this
-            // if there isn't, we can't process this recipe.
-            List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
-            totalOutputs.addAll(outputI);
-            boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
-            if (!canFitOutputs)
-                return matchingRecipe;
+                // determine if there is enough room in the output to fit all of this
+                // if there isn't, we can't process this recipe.
+                List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
+                totalOutputs.addAll(outputI);
+                boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
+                canFitOutputs = canFitOutputs && GTFluidUtils.simulateFluidStackMerge(outputF, this.getOutputTank());
+                if (!canFitOutputs)
+                    continue;
 
-            newRecipe.inputsIngredients(newRecipeInputs)
-                    .fluidInputs(newFluidInputs)
-                    .outputs(outputI)
-                    .fluidOutputs(outputF)
-                    .EUt(Math.max(1, EUt * this.getEUtPercentage() / 100))
-                    .duration((int) Math.max(3, duration * (this.getDurationPercentage() / 100.0)));
+                newRecipe.inputsIngredients(newRecipeInputs)
+                        .fluidInputs(newFluidInputs)
+                        .outputs(outputI)
+                        .fluidOutputs(outputF)
+                        .EUt(Math.max(1, EUt * this.getEUtPercentage() / 100))
+                        .duration((int) Math.max(3, duration * (this.getDurationPercentage() / 100.0)));
 
-            return newRecipe.build().getResult();
+                return newRecipe.build().getResult();
+            }
+            return matchingRecipe;
         }
     }
 }

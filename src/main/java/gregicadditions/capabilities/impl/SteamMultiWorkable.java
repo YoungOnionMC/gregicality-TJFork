@@ -33,24 +33,32 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
         long maxVoltage = getMaxVoltage(); // Will always be LV voltage
         Recipe currentRecipe = null;
         IItemHandlerModifiable importInventory = getInputInventory();
-        boolean dirty = checkRecipeInputsDirty(importInventory, null);
-
-        if(dirty || forceRecipeRecheck) {
+//        Recipe foundRecipe = this.previousRecipe.get(importInventory, null);
+//        if (foundRecipe != null) {
+//            currentRecipe = foundRecipe;
+//        } else {
+        boolean dirty = this.checkRecipeInputsDirty(importInventory, null);
+        if (dirty || this.forceRecipeRecheck) {
             this.forceRecipeRecheck = false;
-
-            currentRecipe = findRecipe(maxVoltage, importInventory, null);
-            if (currentRecipe != null) {
-                this.previousRecipe = currentRecipe;
-            }
-        } else if (previousRecipe != null && previousRecipe.matches(false, importInventory, new FluidTankList(false))) {
-            currentRecipe = previousRecipe;
+            currentRecipe = this.findRecipe(maxVoltage, importInventory, new FluidTankList(false));
+//            if (currentRecipe != null) {
+//                this.previousRecipe.put(currentRecipe);
+//                this.previousRecipe.cacheUnutilized();
+//            }
         }
+//        }
 
-        if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
-            setupRecipe(currentRecipe);
-            return true;
+        if (currentRecipe == null) {
+            return false;
         }
-        return false;
+        if (!this.setupAndConsumeRecipeInputs(currentRecipe)) {
+            return false;
+        }
+//        if (foundRecipe != null) {
+//            this.previousRecipe.cacheUtilized();
+//        }
+        this.setupRecipe(currentRecipe);
+        return true;
     }
 
     @Override

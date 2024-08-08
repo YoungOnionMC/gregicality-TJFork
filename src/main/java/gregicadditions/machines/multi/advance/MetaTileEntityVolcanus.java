@@ -4,19 +4,13 @@ import gregicadditions.GAMaterials;
 import gregicadditions.GAUtility;
 import gregicadditions.GAValues;
 import gregicadditions.capabilities.GregicAdditionsCapabilities;
-import gregicadditions.capabilities.impl.GAMultiblockRecipeLogic;
-import gregicadditions.capabilities.impl.GARecipeMapMultiblockController;
 import gregicadditions.item.metal.MetalCasing1;
-import gregicadditions.machines.multi.mega.MetaTileEntityMegaBlastFurnace;
-import gregicadditions.machines.multi.multiblockpart.MetaTileEntityMultiFluidHatch;
 import gregicadditions.machines.multi.override.MetaTileEntityElectricBlastFurnace;
 import gregicadditions.machines.multi.simple.LargeSimpleRecipeMapMultiblockController;
 import gregicadditions.utils.GALog;
-import gregtech.api.capability.IEnergyContainer;
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntityHolder;
-import gregtech.api.metatileentity.multiblock.IMultiblockAbilityPart;
 import gregtech.api.metatileentity.multiblock.IMultiblockPart;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
 import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
@@ -26,13 +20,12 @@ import gregtech.api.multiblock.FactoryBlockPattern;
 import gregtech.api.multiblock.PatternMatchContext;
 import gregtech.api.recipes.CountableIngredient;
 import gregtech.api.recipes.Recipe;
-import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.builders.BlastRecipeBuilder;
 import gregtech.api.recipes.recipeproperties.BlastTemperatureProperty;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.OrientedOverlayRenderer;
 import gregtech.api.render.Textures;
-import gregtech.api.util.GTUtility;
+import gregtech.api.util.GTFluidUtils;
 import gregtech.api.util.InventoryUtils;
 import gregtech.common.metatileentities.MetaTileEntities;
 import net.minecraft.block.state.IBlockState;
@@ -52,7 +45,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static gregicadditions.client.ClientHandler.*;
+import static gregicadditions.client.ClientHandler.HASTELLOY_N_CASING;
 import static gregicadditions.item.GAMetaBlocks.METAL_CASING_1;
 
 public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
@@ -136,14 +129,12 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
 
     public class VolcanusRecipeLogic extends LargeSimpleRecipeMapMultiblockController.LargeSimpleMultiblockRecipeLogic {
 
-
-
         @Override
         protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
             Recipe recipe = super.findRecipe(maxVoltage, inputs, fluidInputs);
             int currentTemp = ((MetaTileEntityVolcanus) metaTileEntity).getBlastFurnaceTemperature();
             if (recipe != null && recipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0) <= currentTemp)
-                return createRecipe(maxVoltage, inputs, fluidInputs, recipe);
+                return recipe;
             return null;
         }
 
@@ -249,6 +240,7 @@ public class MetaTileEntityVolcanus extends MetaTileEntityElectricBlastFurnace {
             List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
             totalOutputs.addAll(outputI);
             boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
+            canFitOutputs = canFitOutputs && GTFluidUtils.simulateFluidStackMerge(outputF, this.getOutputTank());
             if (!canFitOutputs)
                 return matchingRecipe;
 

@@ -16,17 +16,19 @@ import gregtech.api.metatileentity.multiblock.RecipeMapMultiblockController;
 import gregtech.api.multiblock.BlockPattern;
 import gregtech.api.multiblock.FactoryBlockPattern;
 import gregtech.api.multiblock.PatternMatchContext;
-import gregtech.api.recipes.*;
+import gregtech.api.recipes.CountableIngredient;
+import gregtech.api.recipes.Recipe;
+import gregtech.api.recipes.RecipeBuilder;
+import gregtech.api.recipes.RecipeMap;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.OrientedOverlayRenderer;
 import gregtech.api.render.Textures;
 import gregtech.api.unification.material.Materials;
+import gregtech.api.util.GTFluidUtils;
 import gregtech.api.util.InventoryUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -43,7 +45,6 @@ import static gregicadditions.client.ClientHandler.IRON_CASING;
 import static gregicadditions.item.GAMetaBlocks.METAL_CASING_2;
 import static gregtech.api.recipes.RecipeMaps.COMPRESSOR_RECIPES;
 import static gregtech.api.recipes.RecipeMaps.FORGE_HAMMER_RECIPES;
-import static net.minecraft.block.BlockDirectional.FACING;
 
 public class TileEntityLargeForgeHammer extends MultiRecipeMapMultiblockController {
 
@@ -133,7 +134,9 @@ public class TileEntityLargeForgeHammer extends MultiRecipeMapMultiblockControll
             tierNeeded = Math.max(1, GAUtility.getTierByVoltage(matchingRecipe.getEUt()));
             maxItemsLimit *= currentTier - tierNeeded;
             maxItemsLimit = Math.max(1, maxItemsLimit);
-
+            if (maxItemsLimit == 1) {
+                return matchingRecipe;
+            }
 
             Set<ItemStack> countIngredients = new HashSet<>();
             if (matchingRecipe.getInputs().size() != 0) {
@@ -156,32 +159,41 @@ public class TileEntityLargeForgeHammer extends MultiRecipeMapMultiblockControll
             EUt = matchingRecipe.getEUt();
             duration = matchingRecipe.getDuration();
 
-            List<CountableIngredient> newRecipeInputs = new ArrayList<>();
-            List<FluidStack> newFluidInputs = new ArrayList<>();
-            List<ItemStack> outputI = new ArrayList<>();
-            List<FluidStack> outputF = new ArrayList<>();
-            this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, minMultiplier);
-            newFluidInputs.add(Materials.Lubricant.getFluid(minMultiplier)); // Here's the important part!
+            int tierDiff = currentTier - tierNeeded;
+            for (int i = 0; i < tierDiff; i++) {
+                int attemptItemsLimit = GAConfig.multis.largeForgeHammer.stack;
+                attemptItemsLimit *= tierDiff - i;
+                attemptItemsLimit = Math.max(1, attemptItemsLimit);
+                attemptItemsLimit = Math.min(minMultiplier, attemptItemsLimit);
+                List<CountableIngredient> newRecipeInputs = new ArrayList<>();
+                List<FluidStack> newFluidInputs = new ArrayList<>();
+                List<ItemStack> outputI = new ArrayList<>();
+                List<FluidStack> outputF = new ArrayList<>();
+                this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, attemptItemsLimit);
+                newFluidInputs.add(Materials.Lubricant.getFluid(attemptItemsLimit)); // Here's the important part!
 
-            RecipeBuilder<?> newRecipe = recipeMap.recipeBuilder();
-            copyChancedItemOutputs(newRecipe, matchingRecipe, minMultiplier);
+                RecipeBuilder<?> newRecipe = recipeMap.recipeBuilder();
+                copyChancedItemOutputs(newRecipe, matchingRecipe, attemptItemsLimit);
 
-            // determine if there is enough room in the output to fit all of this
-            // if there isn't, we can't process this recipe.
-            List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
-            totalOutputs.addAll(outputI);
-            boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
-            if (!canFitOutputs)
-                return matchingRecipe;
+                // determine if there is enough room in the output to fit all of this
+                // if there isn't, we can't process this recipe.
+                List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
+                totalOutputs.addAll(outputI);
+                boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
+                canFitOutputs = canFitOutputs && GTFluidUtils.simulateFluidStackMerge(outputF, this.getOutputTank());
+                if (!canFitOutputs)
+                    continue;
 
-            newRecipe.inputsIngredients(newRecipeInputs)
-                    .fluidInputs(newFluidInputs)
-                    .outputs(outputI)
-                    .fluidOutputs(outputF)
-                    .EUt(Math.max(1, EUt * this.getEUtPercentage() / 100))
-                    .duration((int) Math.max(3, duration * (this.getDurationPercentage() / 100.0)));
+                newRecipe.inputsIngredients(newRecipeInputs)
+                        .fluidInputs(newFluidInputs)
+                        .outputs(outputI)
+                        .fluidOutputs(outputF)
+                        .EUt(Math.max(1, EUt * this.getEUtPercentage() / 100))
+                        .duration((int) Math.max(3, duration * (this.getDurationPercentage() / 100.0)));
 
-            return newRecipe.build().getResult();
+                return newRecipe.build().getResult();
+            }
+            return matchingRecipe;
         }
     }
 }
