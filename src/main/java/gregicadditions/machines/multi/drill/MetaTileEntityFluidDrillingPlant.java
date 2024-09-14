@@ -186,7 +186,7 @@ public class MetaTileEntityFluidDrillingPlant extends MultiblockWithDisplayBase 
 
                 // If there is no fluid left, check if there is any residual fluid in the vein to produce
                 if (fluidVeinAmount <= 0) {
-                    fluidAmountToProduce = residual * this.rigTier;
+                    fluidAmountToProduce = residual * this.rigTier * 2;
                 }
 
                 // Get the FluidStack to produce
