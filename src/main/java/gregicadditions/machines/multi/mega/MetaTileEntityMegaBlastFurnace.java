@@ -7,7 +7,6 @@ import gregicadditions.capabilities.GregicAdditionsCapabilities;
 import gregicadditions.item.GAHeatingCoil;
 import gregicadditions.item.GAMetaBlocks;
 import gregicadditions.item.GATransparentCasing;
-import gregicadditions.machines.multi.override.MetaTileEntityElectricBlastFurnace;
 import gregicadditions.utils.GALog;
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -25,6 +24,7 @@ import gregtech.api.recipes.builders.BlastRecipeBuilder;
 import gregtech.api.recipes.recipeproperties.BlastTemperatureProperty;
 import gregtech.api.render.ICubeRenderer;
 import gregtech.api.render.Textures;
+import gregtech.api.util.GTFluidUtils;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.InventoryUtils;
 import gregtech.common.blocks.*;
@@ -48,7 +48,6 @@ import java.util.stream.Collectors;
 
 import static gregtech.api.multiblock.BlockPattern.RelativeDirection.*;
 import static gregtech.api.recipes.RecipeMaps.BLAST_RECIPES;
-import static gregtech.api.recipes.RecipeMaps.getPrimitiveBlastFurnaceRecipes;
 import static gregtech.api.unification.material.Materials.BlackSteel;
 import static gregtech.api.unification.material.Materials.BlueSteel;
 
@@ -153,6 +152,7 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
             return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
         };
     }
+
     public static Predicate<BlockWorldState> heatingCoilPredicate2() {
         return blockWorldState -> {
             IBlockState blockState = blockWorldState.getBlockState();
@@ -171,6 +171,7 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
             return currentTemperature == blastFurnaceTemperature && coilType.equals(currentCoilType);
         };
     }
+
     @Override
     public boolean checkRecipe(Recipe recipe, boolean consumeIfSuccess) {
         int recipeRequiredTemp = recipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0); //todo why is this 0
@@ -252,11 +253,11 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
         }
 
         @Override
-        protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
-            Recipe recipe = super.findRecipe(maxVoltage, inputs, fluidInputs);
+        protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs, boolean useOptimizedRecipeLookUp) {
+            Recipe recipe = super.findRecipe(maxVoltage, inputs, fluidInputs, useOptimizedRecipeLookUp);
             int currentTemp = ((MetaTileEntityMegaBlastFurnace) metaTileEntity).getBlastFurnaceTemperature();
             if (recipe != null && recipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0) <= currentTemp)
-                return createRecipe(maxVoltage, inputs, fluidInputs, recipe);
+                return recipe;
             return null;
         }
 
@@ -320,10 +321,9 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
                 EUt *= 4;
                 duration /= 2.8;
             }
-            if (duration <= 0){
+            if (duration <= 0) {
                 duration = 1;
             }
-
 
 
             List<CountableIngredient> newRecipeInputs = new ArrayList<>();
@@ -340,6 +340,7 @@ public class MetaTileEntityMegaBlastFurnace extends MegaMultiblockRecipeMapContr
             List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
             totalOutputs.addAll(outputI);
             boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
+            canFitOutputs = canFitOutputs && GTFluidUtils.simulateFluidStackMerge(outputF, this.getOutputTank());
             if (!canFitOutputs)
                 return matchingRecipe;
 

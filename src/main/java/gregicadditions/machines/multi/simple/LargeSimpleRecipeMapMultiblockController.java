@@ -5,7 +5,6 @@ import gregicadditions.GAUtility;
 import gregicadditions.capabilities.impl.GAMultiblockRecipeLogic;
 import gregicadditions.capabilities.impl.GARecipeMapMultiblockController;
 import gregicadditions.item.components.*;
-import gregicadditions.machines.multi.mega.MegaMultiblockRecipeMapController;
 import gregicadditions.utils.GALog;
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.metatileentity.multiblock.MultiblockAbility;
@@ -16,6 +15,7 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeBuilder;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.material.type.Material;
+import gregtech.api.util.GTFluidUtils;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.InventoryUtils;
 import net.minecraft.block.state.IBlockState;
@@ -49,8 +49,7 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
     DecimalFormat formatter = new DecimalFormat("#0.00");
 
     /**
-     * @deprecated
-     * use {@link LargeSimpleRecipeMapMultiblockController#LargeSimpleRecipeMapMultiblockController(ResourceLocation, RecipeMap, int, int, int, int, boolean, boolean, boolean)
+     * @deprecated use {@link LargeSimpleRecipeMapMultiblockController#LargeSimpleRecipeMapMultiblockController(ResourceLocation, RecipeMap, int, int, int, int, boolean, boolean, boolean)
      */
     public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack) {
         super(metaTileEntityId, recipeMap, false, true, true);
@@ -78,7 +77,7 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
      * @param hasMuffler
      * @param hasMaintenance
      */
-    public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean hasMuffler , boolean hasMaintenance, boolean canDistinct ) {
+    public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean hasMuffler, boolean hasMaintenance, boolean canDistinct) {
         super(metaTileEntityId, recipeMap, hasMuffler, hasMaintenance, canDistinct);
         this.recipeMapWorkable = new LargeSimpleMultiblockRecipeLogic(this, EUtPercentage, durationPercentage, chancePercentage, stack);
 
@@ -89,8 +88,7 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
     }
 
     /**
-     * @deprecated
-     * use {@link LargeSimpleRecipeMapMultiblockController#LargeSimpleRecipeMapMultiblockController(ResourceLocation, RecipeMap, int, int, int, int, boolean, boolean, boolean)
+     * @deprecated use {@link LargeSimpleRecipeMapMultiblockController#LargeSimpleRecipeMapMultiblockController(ResourceLocation, RecipeMap, int, int, int, int, boolean, boolean, boolean)
      */
     public LargeSimpleRecipeMapMultiblockController(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, boolean hasMuffler) {
         this(metaTileEntityId, recipeMap, EUtPercentage, durationPercentage, chancePercentage, stack, hasMuffler, true, false);
@@ -255,7 +253,11 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
         public RecipeMap<?> recipeMap;
 
         public LargeSimpleMultiblockRecipeLogic(RecipeMapMultiblockController tileEntity, int EUtPercentage, int durationPercentage, int chancePercentage, int stack) {
-            super(tileEntity);
+            this(tileEntity, EUtPercentage, durationPercentage, chancePercentage, stack, 16);
+        }
+
+        public LargeSimpleMultiblockRecipeLogic(RecipeMapMultiblockController tileEntity, int EUtPercentage, int durationPercentage, int chancePercentage, int stack, int recipeCacheSize) {
+            super(tileEntity, recipeCacheSize);
             this.EUtPercentage = EUtPercentage;
             this.durationPercentage = durationPercentage;
             this.chancePercentage = chancePercentage;
@@ -291,6 +293,40 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
             lastRecipeIndex = 0;
         }
 
+//        @Override
+//        protected boolean trySearchNewRecipeCombined() {
+//            long maxVoltage = getMaxVoltage();
+//            if (metaTileEntity instanceof LargeSimpleRecipeMapMultiblockController)
+//                maxVoltage = ((LargeSimpleRecipeMapMultiblockController) metaTileEntity).maxVoltage;
+//            Recipe currentRecipe = null;
+//            IItemHandlerModifiable importInventory = getInputInventory();
+//            IMultipleTankHandler importFluids = getInputTank();
+//            boolean dirty = checkRecipeInputsDirty(importInventory, importFluids);
+//            //inverse of logic in normal AbstractRecipeLogic
+//            //for MultiSmelter, we can reuse previous recipe if inputs didn't change
+//            //otherwise, we need to recompute it for new ingredients
+//            //but technically, it means we can cache multi smelter recipe, but changing inputs have more priority
+//            if (dirty || forceRecipeRecheck) {
+//                this.forceRecipeRecheck = false;
+//                //else, try searching new recipe for given inputs
+//                currentRecipe = findRecipe(maxVoltage, importInventory, importFluids);
+//                if (currentRecipe != null) {
+//                    this.previousRecipe.put(currentRecipe);
+//                }
+//            } else {
+//                Recipe foundRecipe = this.previousRecipe.get(importInventory, importFluids);
+//                //if previous recipe still matches inputs, try to use it
+//                if (foundRecipe != null) {
+//                    currentRecipe = foundRecipe;
+//                }
+//            }
+//            if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
+//                setupRecipe(currentRecipe);
+//                return true;
+//            }
+//            return false;
+//        }
+
         @Override
         protected boolean trySearchNewRecipeCombined() {
             long maxVoltage = getMaxVoltage();
@@ -299,23 +335,97 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
             Recipe currentRecipe = null;
             IItemHandlerModifiable importInventory = getInputInventory();
             IMultipleTankHandler importFluids = getInputTank();
-            boolean dirty = checkRecipeInputsDirty(importInventory, importFluids);
-            //inverse of logic in normal AbstractRecipeLogic
-            //for MultiSmelter, we can reuse previous recipe if inputs didn't change
-            //otherwise, we need to recompute it for new ingredients
-            //but technically, it means we can cache multi smelter recipe, but changing inputs have more priority
-            if (dirty || forceRecipeRecheck) {
-                this.forceRecipeRecheck = false;
-                //else, try searching new recipe for given inputs
-                currentRecipe = findRecipe(maxVoltage, importInventory, importFluids);
-                if (currentRecipe != null) {
-                    this.previousRecipe = currentRecipe;
+            Recipe foundRecipe = this.previousRecipe.get(importInventory, importFluids);
+            if (foundRecipe != null) {
+                currentRecipe = foundRecipe;
+            } else {
+                boolean dirty = checkRecipeInputsDirty(importInventory, importFluids);
+                if (dirty || this.forceRecipeRecheck) {
+                    this.forceRecipeRecheck = false;
+                    currentRecipe = findRecipe(maxVoltage, importInventory, importFluids, this.useOptimizedRecipeLookUp);
+                    if (currentRecipe != null) {
+                        this.previousRecipe.put(currentRecipe);
+                        this.previousRecipe.cacheUnutilized();
+                    }
                 }
-            } else if (previousRecipe != null && previousRecipe.matches(false, importInventory, importFluids)) {
-                //if previous recipe still matches inputs, try to use it
-                currentRecipe = previousRecipe;
             }
-            if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
+
+            if (currentRecipe == null) {
+                return false;
+            }
+            currentRecipe = createRecipe(maxVoltage, importInventory, importFluids, currentRecipe);
+            if (!setupAndConsumeRecipeInputs(currentRecipe)) {
+                return false;
+            }
+            if (foundRecipe != null) {
+                this.previousRecipe.cacheUtilized();
+            }
+            setupRecipe(currentRecipe);
+            return true;
+        }
+
+        @Override
+        protected boolean trySearchNewRecipeDistinct() {
+            long maxVoltage = getMaxVoltage();
+            Recipe currentRecipe = null;
+            List<IItemHandlerModifiable> importInventory = getInputBuses();
+            IMultipleTankHandler importFluids = getInputTank();
+
+            // Our caching implementation
+            // This guarantees that if we get a recipe cache hit, our efficiency is no different from other machines
+            Recipe foundRecipe = this.previousRecipe.get(importInventory.get(lastRecipeIndex), importFluids);
+            HashSet<Integer> foundRecipeIndex = new HashSet<>();
+            if (foundRecipe != null) {
+                currentRecipe = foundRecipe;
+                currentRecipe = createRecipe(maxVoltage, importInventory.get(lastRecipeIndex), importFluids, currentRecipe);
+                if (setupAndConsumeRecipeInputs(currentRecipe, lastRecipeIndex)) {
+                    this.previousRecipe.cacheUtilized();
+                    setupRecipe(currentRecipe);
+                    return true;
+                }
+                foundRecipeIndex.add(lastRecipeIndex);
+            }
+
+            for (int i = 0; i < importInventory.size(); i++) {
+                if (i == lastRecipeIndex) {
+                    continue;
+                }
+                foundRecipe = this.previousRecipe.get(importInventory.get(i), importFluids);
+                if (foundRecipe != null) {
+                    currentRecipe = foundRecipe;
+                    currentRecipe = createRecipe(maxVoltage, importInventory.get(i), importFluids, currentRecipe);
+                    if (setupAndConsumeRecipeInputs(currentRecipe, i)) {
+                        this.previousRecipe.cacheUtilized();
+                        setupRecipe(currentRecipe);
+                        return true;
+                    }
+                    foundRecipeIndex.add(i);
+                }
+            }
+
+            // On a cache miss, our efficiency is much worse, as it will check
+            // each bus individually instead of the combined inventory all at once.
+            for (int i = 0; i < importInventory.size(); i++) {
+                if (foundRecipeIndex.contains(i)) {
+                    continue;
+                }
+                IItemHandlerModifiable bus = importInventory.get(i);
+                boolean dirty = checkRecipeInputsDirty(bus, importFluids, i);
+                if (!dirty && !forceRecipeRecheck) {
+                    continue;
+                }
+                this.forceRecipeRecheck = false;
+                currentRecipe = findRecipe(maxVoltage, bus, importFluids, this.useOptimizedRecipeLookUp);
+                if (currentRecipe == null) {
+                    continue;
+                }
+                this.previousRecipe.put(currentRecipe);
+                this.previousRecipe.cacheUnutilized();
+                currentRecipe = createRecipe(maxVoltage, bus, importFluids, currentRecipe);
+                if (!setupAndConsumeRecipeInputs(currentRecipe, i)) {
+                    continue;
+                }
+                lastRecipeIndex = i;
                 setupRecipe(currentRecipe);
                 return true;
             }
@@ -323,11 +433,11 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
         }
 
         @Override
-        protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
-            Recipe recipe = super.findRecipe(maxVoltage, inputs, fluidInputs);
-            if (recipe != null)
-                return createRecipe(maxVoltage, inputs, fluidInputs, recipe);
-            return null;
+        protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs, boolean useOptimizedRecipeLookUp) {
+            return super.findRecipe(maxVoltage, inputs, fluidInputs, useOptimizedRecipeLookUp);
+//            if (recipe != null)
+//                return createRecipe(maxVoltage, inputs, fluidInputs, recipe);
+//            return null;
         }
 
         protected Recipe createRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs, Recipe matchingRecipe) {
@@ -341,8 +451,9 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
             tierNeeded = Math.max(1, GAUtility.getTierByVoltage(matchingRecipe.getEUt()));
             maxItemsLimit *= currentTier - tierNeeded;
             maxItemsLimit = Math.max(1, maxItemsLimit);
-
-            forceRecipeRecheck();
+            if (maxItemsLimit == 1) {
+                return matchingRecipe;
+            }
 
             Set<ItemStack> countIngredients = new HashSet<>();
             if (matchingRecipe.getInputs().size() != 0) {
@@ -365,32 +476,42 @@ abstract public class LargeSimpleRecipeMapMultiblockController extends GARecipeM
             EUt = matchingRecipe.getEUt();
             duration = matchingRecipe.getDuration();
 
-            List<CountableIngredient> newRecipeInputs = new ArrayList<>();
-            List<FluidStack> newFluidInputs = new ArrayList<>();
-            List<ItemStack> outputI = new ArrayList<>();
-            List<FluidStack> outputF = new ArrayList<>();
-            this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, minMultiplier);
+            int tierDiff = currentTier - tierNeeded;
+            for (int i = 0; i < tierDiff; i++) {
+                int attemptItemsLimit = this.stack;
+                attemptItemsLimit *= tierDiff - i;
+                attemptItemsLimit = Math.max(1, attemptItemsLimit);
+                attemptItemsLimit = Math.min(minMultiplier, attemptItemsLimit);
+                List<CountableIngredient> newRecipeInputs = new ArrayList<>();
+                List<FluidStack> newFluidInputs = new ArrayList<>();
+                List<ItemStack> outputI = new ArrayList<>();
+                List<FluidStack> outputF = new ArrayList<>();
+                this.multiplyInputsAndOutputs(newRecipeInputs, newFluidInputs, outputI, outputF, matchingRecipe, attemptItemsLimit);
 
 
-            RecipeBuilder<?> newRecipe = recipeMap.recipeBuilder();
-            copyChancedItemOutputs(newRecipe, matchingRecipe, minMultiplier);
+                RecipeBuilder<?> newRecipe = recipeMap.recipeBuilder();
+                copyChancedItemOutputs(newRecipe, matchingRecipe, attemptItemsLimit);
 
-            // determine if there is enough room in the output to fit all of this
-            // if there isn't, we can't process this recipe.
-            List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
-            totalOutputs.addAll(outputI);
-            boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
-            if (!canFitOutputs)
-                return matchingRecipe;
+                // determine if there is enough room in the output to fit all of this
+                // if there isn't, we can't process this recipe.
+                List<ItemStack> totalOutputs = newRecipe.getChancedOutputs().stream().map(Recipe.ChanceEntry::getItemStack).collect(Collectors.toList());
+                totalOutputs.addAll(outputI);
+                boolean canFitOutputs = InventoryUtils.simulateItemStackMerge(totalOutputs, this.getOutputInventory());
+                canFitOutputs = canFitOutputs && GTFluidUtils.simulateFluidStackMerge(outputF, this.getOutputTank());
+                if (!canFitOutputs) {
+                    continue;
+                }
 
-            newRecipe.inputsIngredients(newRecipeInputs)
-                    .fluidInputs(newFluidInputs)
-                    .outputs(outputI)
-                    .fluidOutputs(outputF)
-                    .EUt(Math.max(1, EUt * this.EUtPercentage / 100))
-                    .duration((int) Math.max(3, duration * (this.durationPercentage / 100.0)));
+                newRecipe.inputsIngredients(newRecipeInputs)
+                        .fluidInputs(newFluidInputs)
+                        .outputs(outputI)
+                        .fluidOutputs(outputF)
+                        .EUt(Math.max(1, EUt * this.EUtPercentage / 100))
+                        .duration((int) Math.max(3, duration * (this.durationPercentage / 100.0)));
 
-            return newRecipe.build().getResult();
+                return newRecipe.build().getResult();
+            }
+            return matchingRecipe;
         }
 
         protected void copyChancedItemOutputs(RecipeBuilder<?> newRecipe, Recipe oldRecipe, int multiplier) {

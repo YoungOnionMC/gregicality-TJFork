@@ -270,7 +270,7 @@ public class NuclearHandler {
 
                  */
 
-                NUCLEAR_REACTOR_RECIPES.recipeBuilder().duration(8000).EUt(((isotopeMaterial.baseHeat + operand) * operand * 2) * 105 / 100) //8000 => 105% eff
+                NUCLEAR_REACTOR_RECIPES.recipeBuilder().duration(1600).EUt(((isotopeMaterial.baseHeat + operand) * operand * 2) * 105 / 100) //8000 => 105% eff
                         .baseHeatProduction((isotopeMaterial.baseHeat + operand) * operand * 2)
                         .notConsumable(new IntCircuitIngredient(operand + 10))
                         .inputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.fuelOxide, operand))
@@ -310,7 +310,7 @@ public class NuclearHandler {
 
                                  */
 
-                                        NUCLEAR_REACTOR_RECIPES.recipeBuilder().duration(16000).EUt(((isotopeMaterial.baseHeat + operand) * operand / 2) * 105 / 100)
+                                        NUCLEAR_REACTOR_RECIPES.recipeBuilder().duration(1600).EUt(((isotopeMaterial.baseHeat + operand) * operand / 2) * 105 / 100)
                                                 .baseHeatProduction((isotopeMaterial.baseHeat + operand) * operand)
                                                 .notConsumable(new IntCircuitIngredient(operand))
                                                 .inputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.fuelOxide, operand))
@@ -354,7 +354,7 @@ public class NuclearHandler {
 
  */
 
-                                        NuclearReactorBuilder builder2 = NUCLEAR_BREEDER_RECIPES.recipeBuilder().duration(4000).EUt((isotopeMaterial.baseHeat + operand) * operand * 105 / 100)
+                                        NuclearReactorBuilder builder2 = NUCLEAR_BREEDER_RECIPES.recipeBuilder().duration(1600).EUt((isotopeMaterial.baseHeat + operand) * operand * 105 / 100)
                                                 .baseHeatProduction((isotopeMaterial.baseHeat + operand) * operand / 5)
                                                 .notConsumable(new IntCircuitIngredient(operand))
                                                 .inputs(isotopeMaterial.getItemStack(GAEnums.GAOrePrefix.fuelOxide, operand))
@@ -397,7 +397,7 @@ public class NuclearHandler {
                             ));
         } else if (isotopeMaterial != null && !isotopeMaterial.fertile && isotopeMaterial.isotopeDecay.size() > 0) {
             isotopeMaterial.isotopeDecay.keySet().forEach(isotopeMaterialDecay -> {
-                DECAY_CHAMBERS_RECIPES.recipeBuilder().duration(600).EUt(30)
+                DECAY_CHAMBERS_RECIPES.recipeBuilder().duration(1600).EUt(30)
                         .input(GAEnums.GAOrePrefix.fuelOxide, isotopeMaterial.getMaterial())
                         .chancedOutput(OreDictUnifier.get(GAEnums.GAOrePrefix.fuelOxide, isotopeMaterialDecay.getMaterial()), 9000, 100)
                         .buildAndRegister();

@@ -105,7 +105,7 @@ public class RecipeHandler {
         springSmall.addProcessingHandler(IngotMaterial.class, RecipeHandler::processSpringSmall);
         gearSmall.addProcessingHandler(IngotMaterial.class, RecipeHandler::processGearSmall);
         gear.addProcessingHandler(IngotMaterial.class, RecipeHandler::processGear);
-        ingotHot.addProcessingHandler(IngotMaterial.class, RecipeHandler::processIngotHot);
+        //ingotHot.addProcessingHandler(IngotMaterial.class, RecipeHandler::processIngotHot);
 
         pipeTiny.addProcessingHandler(IngotMaterial.class, RecipeHandler::processTinyPipe);
         pipeSmall.addProcessingHandler(IngotMaterial.class, RecipeHandler::processSmallPipe);

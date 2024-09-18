@@ -33,28 +33,36 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
         long maxVoltage = getMaxVoltage(); // Will always be LV voltage
         Recipe currentRecipe = null;
         IItemHandlerModifiable importInventory = getInputInventory();
-        boolean dirty = checkRecipeInputsDirty(importInventory, null);
-
-        if(dirty || forceRecipeRecheck) {
+//        Recipe foundRecipe = this.previousRecipe.get(importInventory, null);
+//        if (foundRecipe != null) {
+//            currentRecipe = foundRecipe;
+//        } else {
+        boolean dirty = this.checkRecipeInputsDirty(importInventory, null);
+        if (dirty || this.forceRecipeRecheck) {
             this.forceRecipeRecheck = false;
-
-            currentRecipe = findRecipe(maxVoltage, importInventory, null);
-            if (currentRecipe != null) {
-                this.previousRecipe = currentRecipe;
-            }
-        } else if (previousRecipe != null && previousRecipe.matches(false, importInventory, new FluidTankList(false))) {
-            currentRecipe = previousRecipe;
+            currentRecipe = this.findRecipe(maxVoltage, importInventory, new FluidTankList(false), this.useOptimizedRecipeLookUp);
+//            if (currentRecipe != null) {
+//                this.previousRecipe.put(currentRecipe);
+//                this.previousRecipe.cacheUnutilized();
+//            }
         }
+//        }
 
-        if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
-            setupRecipe(currentRecipe);
-            return true;
+        if (currentRecipe == null) {
+            return false;
         }
-        return false;
+        if (!this.setupAndConsumeRecipeInputs(currentRecipe)) {
+            return false;
+        }
+//        if (foundRecipe != null) {
+//            this.previousRecipe.cacheUtilized();
+//        }
+        this.setupRecipe(currentRecipe);
+        return true;
     }
 
     @Override
-    protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs) {
+    protected Recipe findRecipe(long maxVoltage, IItemHandlerModifiable inputs, IMultipleTankHandler fluidInputs, boolean useOptimizedRecipeLookUp) {
         int currentItemsEngaged = 0;
         final ArrayList<CountableIngredient> recipeInputs = new ArrayList<>();
         final ArrayList<ItemStack> recipeOutputs = new ArrayList<>();
@@ -65,7 +73,7 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
         /* Iterate over input items looking for more items to process until we
          * have touched every item, or are at maximum item capacity
          */
-        for (int index = 0; index < inputs.getSlots() && currentItemsEngaged < MAX_PROCESSES; index ++) {
+        for (int index = 0; index < inputs.getSlots() && currentItemsEngaged < MAX_PROCESSES; index++) {
             final ItemStack currentInputItem = inputs.getStackInSlot(index);
 
             // Skip slot if empty
@@ -75,7 +83,7 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
             // Check recipe for item in slot
             Recipe matchingRecipe = recipeMap.findRecipe(maxVoltage,
                     Collections.singletonList(currentInputItem),
-                    Collections.emptyList(), 0);
+                    Collections.emptyList(), 0, useOptimizedRecipeLookUp);
             CountableIngredient inputIngredient;
             if (matchingRecipe != null) {
                 if (matchingRecipe.getOutputs().isEmpty())
@@ -129,19 +137,19 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
         return recipeMap.recipeBuilder()
                 .inputsIngredients(recipeInputs)
                 .outputs(recipeOutputs)
-                .EUt(Math.min(32, (int)Math.ceil(recipeEUt * 1.33)))
-                .duration(Math.max(recipeDuration, (int)(recipeDuration * (100.0F / (100.0F + speedBonusPercent)) * 1.5)))
+                .EUt(Math.min(32, (int) Math.ceil(recipeEUt * 1.33)))
+                .duration(Math.max(recipeDuration, (int) (recipeDuration * (100.0F / (100.0F + speedBonusPercent)) * 1.5)))
                 .build().getResult();
     }
 
     private void computeOutputItemStacks(Collection<ItemStack> recipeOutputs, ItemStack outputStack, int recipeAmount) {
-        if(!outputStack.isEmpty()) {
+        if (!outputStack.isEmpty()) {
             int finalAmount = outputStack.getCount() * recipeAmount;
             int maxCount = outputStack.getMaxStackSize();
             int numStacks = finalAmount / maxCount;
             int remainder = finalAmount % maxCount;
 
-            for(int fullStacks = numStacks; fullStacks > 0; fullStacks--) {
+            for (int fullStacks = numStacks; fullStacks > 0; fullStacks--) {
                 ItemStack full = outputStack.copy();
                 full.setCount(maxCount);
                 recipeOutputs.add(full);
@@ -160,7 +168,7 @@ public class SteamMultiWorkable extends SteamMultiblockRecipeLogic {
         RecipeBuilder<?> builder = recipeMap.recipeBuilder()
                 .inputs(new CountableIngredient(matchingRecipe.getInputs().get(0).getIngredient(), stack.getCount()))
                 .EUt(Math.min(32, (int) Math.ceil(matchingRecipe.getEUt() * 1.33)))
-                .duration((int)(matchingRecipe.getDuration() * 1.5));
+                .duration((int) (matchingRecipe.getDuration() * 1.5));
 
         Recipe.ChanceEntry entry = matchingRecipe.getChancedOutputs().get(0);
         int maxProcesses = Math.min(MAX_PROCESSES, stack.getCount());
